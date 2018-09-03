@@ -120,10 +120,12 @@ def applyConfig():
     try:
         config = json.loads(request.data, strict=False)
         logger.info(config)
-        applyConfiguration(config)
         if config["type"]=="AP":
+            logger.info("Configuring AP")
             if not compareConfig(config["parameters"],parseHostapdConfig()):
+                logger.info("Not same config")
                 applyConfiguration(config)
+                logger.info("Config applied, trying to reboot")
                 os.system('sudo shutdown -r now')
                 return jsonify({"status":True,"inSync":False})
             else:
