@@ -13,36 +13,6 @@ def getMac():
     except:
         return ""
 
-def getIP():
-    try:
-        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        try:
-            s.connect(('192.0.0.8', 1027))
-        except socket.error:
-            return None
-        return str(s.getsockname()[0])
-    except:
-        pass
-
-def parseHostapdConfig():
-    try:
-        hostapdConfig={}
-        with open("/etc/hostapd/hostapd.conf") as config:
-            for line in config:
-                if not line.startswith("#"):
-                    words = line.split("=")
-                    if len(words)>2:
-                        value = "=".join(words[1:])
-                    else:
-                        value = words[1]
-                    value = str.replace(value,"\n","")
-                    hostapdConfig[words[0]] = value
-        return hostapdConfig
-    except:
-        pass
-
-
-
 while True:
     try:
         resp = os.popen('./ngrok http 80 > /root/test.log &').read()
@@ -56,13 +26,13 @@ while True:
             except:
                 pass
 
+        os.system("python OpenAP/OpenAP/code/main.py")
+        time.sleep(2)
 
-        url = "https://api-openap.projects.jcloud.fr/devices/register"
+        url = "https://api.openap.io/devices/register"
 
         payload = {
-            "ip":getIP(),
-            "http_tunnel":tunnel,
-            "hostapd_config":parseHostapdConfig()
+            "http_tunnel":tunnel
         }
         headers = {
             'Content-Type': "application/json",
@@ -72,7 +42,8 @@ while True:
         response = requests.request("POST", url, json=payload, headers=headers)
 
         print(response.text)
-        os.system("python code/main.py")
+
+        exit()
         break
     except:
         time.sleep(5)
