@@ -124,10 +124,7 @@ def applyConfig():
         if config["type"]=="AP":
             if not compareConfig(config["parameters"],parseHostapdConfig()):
                 applyConfiguration(config)
-                @after_this_request
-                def reboot(test):
-                    os.system('sudo shutdown -r now')
-                    return test
+                os.system('sudo shutdown -r now')
                 return jsonify({"status":True,"inSync":False})
             else:
                 return jsonify({"status": True,"inSync":True})
