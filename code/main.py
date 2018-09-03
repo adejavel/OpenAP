@@ -44,9 +44,9 @@ def getConfig(request):
                 applyConfiguration(config)
                 @after_this_request
                 def reboot(test):
-                    time.sleep(3)
+                    time.sleep(1)
                     os.system('sudo shutdown -r now')
-                    return test
+                    return {"status": True, "inSync": False, "config": {"ip_address": ip, "hostapd_config": hostapdConfig, "mac_address": mac}}
                 return {"status":True,"inSync":False,"config":{"ip_address":ip,"hostapd_config":hostapdConfig,"mac_address":mac}}
             else:
                 return {"status": True, "inSync": True,"config": {"ip_address": ip, "hostapd_config": hostapdConfig, "mac_address": mac}}
@@ -130,9 +130,9 @@ def applyConfig():
 
                 @after_this_request
                 def reboot(test):
-                    time.sleep(3)
+                    time.sleep(1)
                     os.system('sudo shutdown -r now')
-                    return test
+                    return jsonify({"status":True,"inSync":False})
                 return jsonify({"status":True,"inSync":False})
             else:
                 return jsonify({"status": True,"inSync":True})
