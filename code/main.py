@@ -44,6 +44,7 @@ def getConfig(request):
                 applyConfiguration(config)
                 @after_this_request
                 def reboot(test):
+                    time.sleep(3)
                     os.system('sudo shutdown -r now')
                     return test
                 return {"status":True,"inSync":False,"config":{"ip_address":ip,"hostapd_config":hostapdConfig,"mac_address":mac}}
@@ -126,7 +127,12 @@ def applyConfig():
                 logger.info("Not same config")
                 applyConfiguration(config)
                 logger.info("Config applied, trying to reboot")
-                os.system('sudo shutdown -r now')
+
+                @after_this_request
+                def reboot(test):
+                    time.sleep(3)
+                    os.system('sudo shutdown -r now')
+                    return test
                 return jsonify({"status":True,"inSync":False})
             else:
                 return jsonify({"status": True,"inSync":True})
