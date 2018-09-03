@@ -60,7 +60,6 @@ while True:
 
         print(response.text)
 
-        exit()
         break
     except:
         time.sleep(5)
