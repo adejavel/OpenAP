@@ -24,6 +24,18 @@ def getMac():
     except:
         return ""
 
+def getIP():
+    logger.info("Getting IP address")
+    try:
+        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        try:
+            s.connect(('192.0.0.8', 1027))
+        except socket.error:
+            return None
+        return str(s.getsockname()[0])
+    except:
+        logger.exception("Error while getting IP address")
+
 while True:
     try:
         logger.info("Trying to activate ngrok...")
@@ -46,9 +58,10 @@ while True:
         time.sleep(2)
         logger.info("Registering to server")
         url = "https://api.openap.io/devices/register"
-
+        ip= getIP()
         payload = {
-            "http_tunnel":tunnel
+            "http_tunnel":tunnel,
+            "ip_address":ip
         }
         headers = {
             'Content-Type': "application/json",
