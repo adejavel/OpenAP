@@ -27,6 +27,7 @@ HOSTAPD_DEFAULT_CONFIG=["auth_algs","bridge","country_code","ignore_broadcast_ss
 @app.route('/getConfig',methods=["POST"])
 def get_config():
     resp = getConfig(request)
+    logger.info(resp)
     return jsonify(resp)
 
 
@@ -40,6 +41,7 @@ def getConfig(request):
         mac = getMac()
         hostapdConfig = parseHostapdConfig()
         if config["type"]=="AP":
+            logger.info("Comparing config")
             if not compareConfig(config["parameters"],parseHostapdConfig()):
                 logger.info("Not in SYNC")
                 applyConfiguration(config)
@@ -50,6 +52,8 @@ def getConfig(request):
                     return {"status": True, "inSync": False, "config": {"ip_address": ip, "hostapd_config": hostapdConfig, "mac_address": mac}}
                 return {"status":True,"inSync":False,"config":{"ip_address":ip,"hostapd_config":hostapdConfig,"mac_address":mac}}
             else:
+                logger.info("In sync!")
+                logger.info(hostapdConfig)
                 return {"status": True, "inSync": True,"config": {"ip_address": ip, "hostapd_config": hostapdConfig, "mac_address": mac}}
         else:
             return {"status":False}
