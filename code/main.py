@@ -26,7 +26,8 @@ HOSTAPD_DEFAULT_CONFIG=["auth_algs","bridge","country_code","ignore_broadcast_ss
 
 @app.route('/getConfig',methods=["POST"])
 def get_config():
-    return jsonify(getConfig(request))
+    resp = getConfig(request)
+    return jsonify(resp)
 
 
 
