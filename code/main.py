@@ -22,17 +22,12 @@ logger.addHandler(file_handler)
 
 
 HOSTAPD_DEFAULT_CONFIG={
-    "auth_algs",
-    "bridge",
-    "country_code",
-    "ignore_broadcast_ssid",
-    "interface",
-    "macaddr_acl",
-    "rsn_pairwise",
-    "wmm_enabled",
-    "wpa",
-    "wpa_key_mgmt",
-    "wpa_pairwise"
+    "bridge":"br0",
+    "country_code":"FR",
+    "ignore_broadcast_ssid":"0",
+    "interface":"wlan0",
+    "macaddr_acl":"0",
+    "wmm_enabled":"1",
 }
 
 
@@ -169,8 +164,20 @@ def testConnection():
 
 def applyConfiguration(config):
     if config["type"] == "AP":
+        shutil.move("/etc/hostapd/hostapd.conf", "/etc/hostapd/hostapd.old.conf")
+        os.system("touch /etc/hostapd/hostapd.conf")
+        for param in HOSTAPD_DEFAULT_CONFIG:
+            setParameterHostapdConfig(param, HOSTAPD_DEFAULT_CONFIG[param])
         for param in config["parameters"]:
             param2 = translateFromServerToPi(param)
+            if param2 == "wpa_passphrase":
+                setParameterHostapdConfig("wpa", "2")
+                setParameterHostapdConfig("wpa_key_mgmt", "WPA-PSK")
+                setParameterHostapdConfig("wpa_pairwise", "TKIP")
+                setParameterHostapdConfig("rsn_pairwise", "CCMP")
+            if param2=="hw_mode" and config["parameters"][param]=="a":
+                setParameterHostapdConfig("ieee80211n", "1")
+                setParameterHostapdConfig("ht_capab","[HT40-][SHORT-GI-40]")
             setParameterHostapdConfig(param2, config["parameters"][param])
         return True
     return False
