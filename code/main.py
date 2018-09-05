@@ -21,7 +21,19 @@ logger.addHandler(file_handler)
 
 
 
-HOSTAPD_DEFAULT_CONFIG=["auth_algs","bridge","country_code","ignore_broadcast_ssid","interface","macaddr_acl","rsn_pairwise","wmm_enabled","wpa","wpa_key_mgmt","wpa_pairwise"]
+HOSTAPD_DEFAULT_CONFIG={
+    "auth_algs",
+    "bridge",
+    "country_code",
+    "ignore_broadcast_ssid",
+    "interface",
+    "macaddr_acl",
+    "rsn_pairwise",
+    "wmm_enabled",
+    "wpa",
+    "wpa_key_mgmt",
+    "wpa_pairwise"
+}
 
 
 @app.route('/getConfig',methods=["POST"])
