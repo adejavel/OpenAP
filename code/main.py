@@ -51,6 +51,10 @@ def getConfig(request):
             logger.info("Comparing config")
             if not compareConfig(config["parameters"],parseHostapdConfig()):
                 logger.info("Not in SYNC")
+                try:
+                    os.system("killall hostapd")
+                except:
+                    pass
                 applyConfiguration(config)
                 @after_this_request
                 def reboot(test):
@@ -136,6 +140,10 @@ def applyConfig():
         if config["type"]=="AP":
             logger.info("Configuring AP")
             if not compareConfig(config["parameters"],parseHostapdConfig()):
+                try:
+                    os.system("killall hostapd")
+                except:
+                    pass
                 logger.info("Not same config")
                 applyConfiguration(config)
                 logger.info("Config applied, trying to reboot")
