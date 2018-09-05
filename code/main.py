@@ -50,7 +50,7 @@ def getConfig(request):
         if config["type"]=="AP":
             logger.info("Comparing config")
             configH = parseHostapdConfig()
-            if not compareConfig(config["parameters"],configH):
+            if not compareConfig(configH,config["parameters"]):
                 logger.info("Not in SYNC")
                 try:
                     os.system("killall hostapd")
@@ -75,18 +75,21 @@ def getConfig(request):
 
 
 def compareConfig(deviceConfig,appliedConfig):
+    toIgnore=["wpa","wpa_key_mgmt","wpa_pairwise","rsn_pairwise","ieee80211n","ht_capab"]
     for key in deviceConfig:
-        if key in appliedConfig:
-            if deviceConfig[key]!=appliedConfig[key]:
+        if key not in toIgnore:
+            if key in appliedConfig:
+                if deviceConfig[key]!=appliedConfig[key]:
+                    return False
+            else:
                 return False
-        else:
-            return False
     for key in appliedConfig:
-        if key in deviceConfig:
-            if deviceConfig[key]!=appliedConfig[key]:
+        if key not in toIgnore:
+            if key in deviceConfig:
+                if deviceConfig[key]!=appliedConfig[key]:
+                    return False
+            else:
                 return False
-        else:
-            return False
     return True
 
 
