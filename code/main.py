@@ -49,7 +49,8 @@ def getConfig(request):
         hostapdConfig = parseHostapdConfig()
         if config["type"]=="AP":
             logger.info("Comparing config")
-            if not compareConfig(config["parameters"],parseHostapdConfig()):
+            configH = parseHostapdConfig()
+            if not compareConfig(config["parameters"],configH):
                 logger.info("Not in SYNC")
                 try:
                     os.system("killall hostapd")

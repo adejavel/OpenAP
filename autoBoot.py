@@ -68,7 +68,7 @@ while True:
             'Mac-Adress': getMac(),
             }
 
-        #response = requests.request("POST", url, json=payload, headers=headers)
+        response = requests.request("POST", url, json=payload, headers=headers)
         logger.info("Done!")
 
         print(response.text)
