@@ -20,7 +20,7 @@ logger.addHandler(file_handler)
 
 
 
-
+DEFAULT_PARAMETERS=["wpa","wpa_key_mgmt","wpa_pairwise","rsn_pairwise","ieee80211n","ht_capab"]
 HOSTAPD_DEFAULT_CONFIG={
     "bridge":"br0",
     "country_code":"FR",
@@ -101,7 +101,7 @@ def parseHostapdConfig():
             for line in config:
                 if not line.startswith("#"):
                     words = line.split("=")
-                    if not words[0] in HOSTAPD_DEFAULT_CONFIG:
+                    if not words[0] in HOSTAPD_DEFAULT_CONFIG and not words[0] in DEFAULT_PARAMETERS:
                         if len(words)>2:
                             value = "=".join(words[1:])
                         else:
