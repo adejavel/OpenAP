@@ -173,6 +173,16 @@ def applyConfig():
 def testConnection():
     return jsonify({"status":True})
 
+@app.route('/reboot',methods=["GET"])
+def reboot():
+    @after_this_request
+    def reboot(test):
+        time.sleep(1)
+        os.system('sudo shutdown -r now')
+        return jsonify({"status": True})
+
+    return jsonify({"status": True})
+
 
 def applyConfiguration(config):
     if config["type"] == "AP":
