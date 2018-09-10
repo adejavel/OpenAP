@@ -143,7 +143,8 @@ def applyConfig():
         logger.info(config)
         if config["type"]=="AP":
             logger.info("Configuring AP")
-            if not compareConfig(config["parameters"],parseHostapdConfig()):
+            Hconf = parseHostapdConfig()
+            if not compareConfig(config["parameters"],Hconf):
                 try:
                     os.system("killall hostapd")
                 except:
