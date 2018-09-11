@@ -187,54 +187,54 @@ for wifimode in ["b","g"]:
                         time.sleep(0.1)
                     except:
                         pass
-                    #try:
-
                     try:
-                        os.remove("/etc/hostapd/hostapd_check_conf.conf")
-                    except:
-                        pass
-                    open("/etc/hostapd/hostapd_check_conf.conf", 'a').close()
-                    for param in HOSTAPD_DEFAULT_CONFIG:
-                        setParameterHostapdConfig(param, HOSTAPD_DEFAULT_CONFIG[param])
-                    setParameterHostapdConfig("ssid", "test")
-                    setParameterHostapdConfig("country_code", country)
-                    setParameterHostapdConfig("hw_mode", wifimode)
-                    setParameterHostapdConfig("channel", str(channel))
-                    if wifimode in ["a"]:
-                        setParameterHostapdConfig("ieee80211n", "1")
 
-                    #out = os.system("hostapd /etc/hostapd/hostapd_check_conf.conf &")
-                    #ps = os.popen("ps -A").read()
-                    # output = subprocess.call("hostapd /etc/hostapd/hostapd_check_conf.conf",shell=True)
+                        try:
+                            os.remove("/etc/hostapd/hostapd_check_conf.conf")
+                        except:
+                            pass
+                        open("/etc/hostapd/hostapd_check_conf.conf", 'a').close()
+                        for param in HOSTAPD_DEFAULT_CONFIG:
+                            setParameterHostapdConfig(param, HOSTAPD_DEFAULT_CONFIG[param])
+                        setParameterHostapdConfig("ssid", "test")
+                        setParameterHostapdConfig("country_code", country)
+                        setParameterHostapdConfig("hw_mode", wifimode)
+                        setParameterHostapdConfig("channel", str(channel))
+                        if wifimode in ["a"]:
+                            setParameterHostapdConfig("ieee80211n", "1")
 
-                    output = subprocess.Popen('/usr/sbin/hostapd /etc/hostapd/hostapd_check_conf.conf', shell=True,
-                                              stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-                    #output.wait(0.2)
-                    time.sleep(1)
+                        #out = os.system("hostapd /etc/hostapd/hostapd_check_conf.conf &")
+                        #ps = os.popen("ps -A").read()
+                        # output = subprocess.call("hostapd /etc/hostapd/hostapd_check_conf.conf",shell=True)
 
-                    logger.info("######################################")
-                    logger.info(output.returncode)
-                    ps = os.popen("ps -A").read()
-                    logger.info(ps)
-                    for line in output.stdout.readlines():
-                        logger.info(line)
-                    logger.info({
-                        "wifimode": wifimode,
-                        "channel": channel,
-                        "width": width,
-                        "country": country
-                    })
-                    output.kill()
-                    logger.info("######################################")
-                    #logger.info(output)
-                    #
-                    #output = subprocess.check_output("hostapd -B /etc/hostapd/hostapd_check_conf.conf", shell=True)
-                    #output = subprocess.Popen("/usr/sbin/hostapd /etc/hostapd/hostapd_check_conf.conf")
-                    cmd = ['hostapd', '/etc/hostapd/hostapd_check_conf.conf']
-                    #output = subprocess.run("hostapd /etc/hostapd/hostapd_check_conf.conf", timeout=0.2)
-                    # print(output)
+                        output = subprocess.Popen('/usr/sbin/hostapd /etc/hostapd/hostapd_check_conf.conf', shell=True,
+                                                  stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+                        #output.wait(0.2)
+                        time.sleep(1)
 
-                    print("It didn't worked!")
+                        logger.info("######################################")
+                        logger.info(output.returncode)
+                        ps = os.popen("ps -A").read()
+                        logger.info(ps)
+                        for line in output.stdout.readlines():
+                            logger.info(line)
+                        logger.info({
+                            "wifimode": wifimode,
+                            "channel": channel,
+                            "width": width,
+                            "country": country
+                        })
+                        output.kill()
+                        logger.info("######################################")
+                        #logger.info(output)
+                        #
+                        #output = subprocess.check_output("hostapd -B /etc/hostapd/hostapd_check_conf.conf", shell=True)
+                        #output = subprocess.Popen("/usr/sbin/hostapd /etc/hostapd/hostapd_check_conf.conf")
+                        cmd = ['hostapd', '/etc/hostapd/hostapd_check_conf.conf']
+                        #output = subprocess.run("hostapd /etc/hostapd/hostapd_check_conf.conf", timeout=0.2)
+                        # print(output)
+
+                        print("It didn't worked!")
 
 
                     # except subprocess.TimeoutExpired:
@@ -262,6 +262,8 @@ for wifimode in ["b","g"]:
                     #         os.system("killall hostapd")
                     #     except:
                     #         pass
+                    except:
+                        logger.exception("Error bordel")
                     checked.append({
                         "wifimode": wifimode,
                         "channel": channel,
