@@ -116,7 +116,7 @@ for wifimode in ["b","g"]:
                             setParameterHostapdConfig("ht_capab", ht_c)
 
                             out = os.system("hostapd /etc/hostapd/hostapd_check_conf.conf")
-                            p = multiprocessing.Process(target=run)
+                            p = multiprocessing.Process(target=os.system("hostapd /etc/hostapd/hostapd_check_conf.conf"))
                             p.start()
 
                             p.join(0.5)
@@ -200,7 +200,7 @@ for wifimode in ["b","g"]:
                             setParameterHostapdConfig("ieee80211n", "1")
 
                         out = os.system("hostapd /etc/hostapd/hostapd_check_conf.conf")
-                        p = multiprocessing.Process(target=run)
+                        p = multiprocessing.Process(target=os.system("hostapd /etc/hostapd/hostapd_check_conf.conf"))
                         p.start()
 
                         p.join(0.5)
