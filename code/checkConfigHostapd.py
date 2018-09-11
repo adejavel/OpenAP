@@ -193,6 +193,7 @@ for wifimode in ["b","g"]:
                     try:
                         try:
                             os.system("killall hostapd")
+                            time.sleep(0.1)
                         except:
                             pass
                         try:
