@@ -8,7 +8,7 @@ import shutil
 import time
 import json
 import subprocess
-
+from threading import Thread
 app = Flask(__name__)
 
 logger = logging.getLogger()
@@ -40,7 +40,15 @@ def get_config():
 
 @app.route('/checkConfigHostapd',methods=["GET"])
 def checkConfigHostapd():
-    subprocess.call("python3 OpenAP/OpenAP/code/checkConfigHostapd.py", shell=True)
+    def do_work():
+        # do something that takes a long time
+        subprocess.call("python3 OpenAP/OpenAP/code/checkConfigHostapd.py", shell=True)
+
+    thread = Thread(target=do_work)
+    thread.start()
+
+
+    #subprocess.call("python3 OpenAP/OpenAP/code/checkConfigHostapd.py", shell=True)
     #os.system("python3 OpenAP/OpenAP/code/checkConfigHostapd.py &")
     return {"status": True}
 
