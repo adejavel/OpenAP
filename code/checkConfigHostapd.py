@@ -213,7 +213,7 @@ headers = {
     }
 
 response = requests.request("POST", url, json=payload, headers=headers)
-print response.text
+print(response.text)
 # print("Executed in {}sec".format(time.time()-begin))
 # for check in checked:
 #     print(checked)
