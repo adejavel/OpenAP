@@ -209,7 +209,7 @@ def checkConfigHostapd():
     # with open('hostapd_available_config.json', 'w') as fp:
     #     json.dump({"configs": workingConfigs, "time": tm}, fp)
 
-    logger.info("Ended in {}".format(time.time() - begin))
+    #logger.info("Ended in {}".format(time.time() - begin))
     return {"status": True,"workingConfig":workingConfigs}
 
 
