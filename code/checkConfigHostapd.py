@@ -14,6 +14,7 @@ import subprocess
 import json
 import time
 import requests
+from uuid import getnode as get_mac
 
 HOSTAPD_DEFAULT_CONFIG={
     "bridge":"br0",
@@ -33,6 +34,7 @@ def getMac():
         mac=':'.join(("%012X" % mac)[i:i + 2] for i in range(0, 12, 2))
         return str(mac)
     except:
+        traceback.print_exc()
         return ""
 
 def setParameterHostapdConfig(param,value):
