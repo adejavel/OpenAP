@@ -40,7 +40,7 @@ def get_config():
 
 @app.route('/checkConfigHostapd',methods=["GET"])
 def checkConfigHostapd():
-    os.system("python3 OpenAP/OpenAP/code/checkConfigHostapd.py &")
+    os.system("python3 OpenAP/OpenAP/code/checkConfigHostapd.py")
     return jsonify({"status": True})
 
 
