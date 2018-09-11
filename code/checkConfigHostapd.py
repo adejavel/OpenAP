@@ -224,6 +224,12 @@ for wifimode in ["b","g"]:
                         logger.info(ps)
                         for line in output.stdout.readlines():
                             logger.info(line)
+                        logger.info({
+                            "wifimode": wifimode,
+                            "channel": channel,
+                            "width": width,
+                            "country": country
+                        })
                         logger.info("######################################")
                         #logger.info(output)
                         #
@@ -274,12 +280,7 @@ for wifimode in ["b","g"]:
                         "width": width,
                         "country":country
                     })
-                    logger.info({
-                        "wifimode": wifimode,
-                        "channel": channel,
-                        "width": width,
-                        "country": country
-                    })
+
 with open('hostapd_available_config.json', 'w') as fp:
     json.dump({"configs":workingConfigs,"time":time.time()}, fp)
 
