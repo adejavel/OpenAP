@@ -97,6 +97,10 @@ for wifimode in ["b","g"]:
                         print("Trying config: mode: {} // channel: {} // width: {} // ht_capab: {} // country: {}".format(wifimode,channel,width,ht_c,country))
                         try:
                             try:
+                                os.system("killall hostapd")
+                            except:
+                                pass
+                            try:
                                 os.remove("/etc/hostapd/hostapd_check_conf.conf")
                             except:
                                 pass
@@ -163,10 +167,7 @@ for wifimode in ["b","g"]:
                             traceback.print_exc()
                             print("It didn't work!")
 
-                            try:
-                                os.system("killall hostapd")
-                            except:
-                                pass
+
                         checked.append({
                                     "wifimode":wifimode,
                                     "channel":channel,
@@ -185,6 +186,10 @@ for wifimode in ["b","g"]:
                     print(
                     "Trying config: mode: {} // channel: {} // width: {} // country: {}".format(wifimode, channel, width,country))
                     try:
+                        try:
+                            os.system("killall hostapd")
+                        except:
+                            pass
                         try:
                             os.remove("/etc/hostapd/hostapd_check_conf.conf")
                         except:
