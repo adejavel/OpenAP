@@ -23,7 +23,6 @@ HOSTAPD_DEFAULT_CONFIG={
     "interface":"wlan0",
     "macaddr_acl":"0",
     "wmm_enabled":"1",
-    "driver":"nl80211"
 }
 
 begin = time.time()
