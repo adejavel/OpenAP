@@ -65,22 +65,79 @@ workingConfigs=[]
 checked=[]
 
 for wifimode in ["b","g","a"]:
-    channels=[]
-    widths=[]
-    if wifimode in ["b","g"]:
-        channels=[1,2,3,4,5,6,7,8,9,10,11,12,13,14]
-        widths = ["20"]
-    elif wifimode in ["a"]:
-        channels=[32,34,36,38,40,42,44,46,48,50,52,54,56,58,60,62,64,68,96,100,102,104,108,110,112,114,116,118,120,122,124,126,128,132,134,136,138,140,142,144,149,151,153,155,157,159,161,165]
-        widths = ["20","40"]
-    else:
+    for country in ["FR","US","CA","RU","CN"]:
         channels=[]
         widths=[]
-    for channel in channels:
-        for width in widths:
-            if width == "40":
-                for ht_c in ["[HT40-][SHORT-GI-40]","[HT40+][SHORT-GI-40]"]:
-                    print("Trying config: mode: {} // channel: {} // width: {} // ht_capab: {}".format(wifimode,channel,width,ht_c))
+        if wifimode in ["b","g"]:
+            channels=[1,2,3,4,5,6,7,8,9,10,11,12,13,14]
+            widths = ["20"]
+        elif wifimode in ["a"]:
+            channels=[32,34,36,38,40,42,44,46,48,50,52,54,56,58,60,62,64,68,96,100,102,104,108,110,112,114,116,118,120,122,124,126,128,132,134,136,138,140,142,144,149,151,153,155,157,159,161,165]
+            widths = ["20","40"]
+        else:
+            channels=[]
+            widths=[]
+        for channel in channels:
+            for width in widths:
+                if width == "40":
+                    for ht_c in ["[HT40-][SHORT-GI-40]","[HT40+][SHORT-GI-40]"]:
+                        print("Trying config: mode: {} // channel: {} // width: {} // ht_capab: {}".format(wifimode,channel,width,ht_c))
+                        try:
+                            try:
+                                os.remove("/etc/hostapd/hostapd_check_conf.conf")
+                            except:
+                                pass
+                            open("/etc/hostapd/hostapd_check_conf.conf", 'a').close()
+                            for param in HOSTAPD_DEFAULT_CONFIG:
+                                setParameterHostapdConfig(param,HOSTAPD_DEFAULT_CONFIG[param])
+                            setParameterHostapdConfig("ssid","test")
+                            setParameterHostapdConfig("country_code", country)
+                            setParameterHostapdConfig("hw_mode", wifimode)
+                            setParameterHostapdConfig("channel", str(channel))
+                            if wifimode in ["a"]:
+                                setParameterHostapdConfig("ieee80211n", "1")
+                            setParameterHostapdConfig("ht_capab", ht_c)
+
+                            #os.system("hostapd /etc/hostapd/hostapd_check_conf.conf")
+                            #output = subprocess.check_output("hostapd /etc/hostapd/hostapd_check_conf.conf", shell=True)
+                            #output = subprocess.Popen("hostapd /etc/hostapd/hostapd_check_conf.conf")
+                            cmd = ['hostapd', '/etc/hostapd/hostapd_check_conf.conf']
+                            output = subprocess.run(cmd,timeout=0.5)
+                            #print(output)
+                            print("It didn't worked!")
+
+
+                        except subprocess.TimeoutExpired:
+                            traceback.print_exc()
+                            print("It worked")
+                            workingConfigs.append(
+                                {
+                                    "wifimode":wifimode,
+                                    "channel":channel,
+                                    "width":width,
+                                    "ht_capab":ht_c,
+                                    "country":country
+                                }
+                            )
+                            pass
+                        except:
+                            traceback.print_exc()
+                            print("It didn't work!")
+
+                            try:
+                                os.system("killall hostapd")
+                            except:
+                                pass
+                        checked.append({
+                                    "wifimode":wifimode,
+                                    "channel":channel,
+                                    "width":width,
+                                    "ht_capab":ht_c,
+                                    "country":country
+                                })
+                else:
+                    print(
+                    "Trying config: mode: {} // channel: {} // width: {}".format(wifimode, channel, width))
                     try:
                         try:
                             os.remove("/etc/hostapd/hostapd_check_conf.conf")
@@ -88,20 +145,20 @@ for wifimode in ["b","g","a"]:
                             pass
                         open("/etc/hostapd/hostapd_check_conf.conf", 'a').close()
                         for param in HOSTAPD_DEFAULT_CONFIG:
-                            setParameterHostapdConfig(param,HOSTAPD_DEFAULT_CONFIG[param])
-                        setParameterHostapdConfig("ssid","test")
+                            setParameterHostapdConfig(param, HOSTAPD_DEFAULT_CONFIG[param])
+                        setParameterHostapdConfig("ssid", "test")
+                        setParameterHostapdConfig("country_code", country)
                         setParameterHostapdConfig("hw_mode", wifimode)
                         setParameterHostapdConfig("channel", str(channel))
                         if wifimode in ["a"]:
                             setParameterHostapdConfig("ieee80211n", "1")
-                        setParameterHostapdConfig("ht_capab", ht_c)
 
-                        #os.system("hostapd /etc/hostapd/hostapd_check_conf.conf")
-                        #output = subprocess.check_output("hostapd /etc/hostapd/hostapd_check_conf.conf", shell=True)
-                        #output = subprocess.Popen("hostapd /etc/hostapd/hostapd_check_conf.conf")
+                        # os.system("hostapd /etc/hostapd/hostapd_check_conf.conf")
+                        # output = subprocess.check_output("hostapd /etc/hostapd/hostapd_check_conf.conf", shell=True)
+                        # output = subprocess.Popen("hostapd /etc/hostapd/hostapd_check_conf.conf")
                         cmd = ['hostapd', '/etc/hostapd/hostapd_check_conf.conf']
-                        output = subprocess.run(cmd,timeout=0.5)
-                        #print(output)
+                        output = subprocess.run(cmd, timeout=0.5)
+                        # print(output)
                         print("It didn't worked!")
 
 
@@ -110,10 +167,10 @@ for wifimode in ["b","g","a"]:
                         print("It worked")
                         workingConfigs.append(
                             {
-                                "wifimode":wifimode,
-                                "channel":channel,
-                                "width":width,
-                                "ht_capab":ht_c
+                                "wifimode": wifimode,
+                                "channel": channel,
+                                "width": width,
+                                "country":country
                             }
                         )
                         pass
@@ -126,61 +183,11 @@ for wifimode in ["b","g","a"]:
                         except:
                             pass
                     checked.append({
-                                "wifimode":wifimode,
-                                "channel":channel,
-                                "width":width,
-                                "ht_capab":ht_c
-                            })
-            else:
-                print(
-                "Trying config: mode: {} // channel: {} // width: {}".format(wifimode, channel, width))
-                try:
-                    try:
-                        os.remove("/etc/hostapd/hostapd_check_conf.conf")
-                    except:
-                        pass
-                    open("/etc/hostapd/hostapd_check_conf.conf", 'a').close()
-                    for param in HOSTAPD_DEFAULT_CONFIG:
-                        setParameterHostapdConfig(param, HOSTAPD_DEFAULT_CONFIG[param])
-                    setParameterHostapdConfig("ssid", "test")
-                    setParameterHostapdConfig("hw_mode", wifimode)
-                    setParameterHostapdConfig("channel", str(channel))
-                    if wifimode in ["a"]:
-                        setParameterHostapdConfig("ieee80211n", "1")
-
-                    # os.system("hostapd /etc/hostapd/hostapd_check_conf.conf")
-                    # output = subprocess.check_output("hostapd /etc/hostapd/hostapd_check_conf.conf", shell=True)
-                    # output = subprocess.Popen("hostapd /etc/hostapd/hostapd_check_conf.conf")
-                    cmd = ['hostapd', '/etc/hostapd/hostapd_check_conf.conf']
-                    output = subprocess.run(cmd, timeout=0.5)
-                    # print(output)
-                    print("It didn't worked!")
-
-
-                except subprocess.TimeoutExpired:
-                    traceback.print_exc()
-                    print("It worked")
-                    workingConfigs.append(
-                        {
-                            "wifimode": wifimode,
-                            "channel": channel,
-                            "width": width
-                        }
-                    )
-                    pass
-                except:
-                    traceback.print_exc()
-                    print("It didn't work!")
-
-                    try:
-                        os.system("killall hostapd")
-                    except:
-                        pass
-                checked.append({
-                    "wifimode": wifimode,
-                    "channel": channel,
-                    "width": width,
-                })
+                        "wifimode": wifimode,
+                        "channel": channel,
+                        "width": width,
+                        "country":country
+                    })
 with open('hostapd_available_config.json', 'w') as fp:
     json.dump({"configs":workingConfigs,"time":time.time()}, fp)
 
