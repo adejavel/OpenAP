@@ -206,8 +206,21 @@ with open('hostapd_available_config.json', 'w') as fp:
 
 logger.info("Ended in {}".format(time.time()-begin))
 url = "https://api.openap.io/devices/postCheckedHostapdConfig"
+
+finalConfigs=[]
+for working in workingConfigs:
+    for conf in finalConfigs:
+        if conf["wifimode"]!=working["wifimode"] or conf["channel"]!=working["channel"] or conf["width"]!=working["width"]:
+            finalConfigs.append(
+                {
+                    "wifimode":working["wifimode"],
+                    "channel":working["channel"],
+                    "width":working["width"]
+                }
+            )
+
 payload = {
-    "checked_hostapd_config":workingConfigs,
+    "checked_hostapd_config":finalConfigs,
 }
 headers = {
     'Content-Type': "application/json",
