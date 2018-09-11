@@ -40,7 +40,7 @@ def get_config():
 
 @app.route('/checkConfigHostapd',methods=["GET"])
 def checkConfigHostapd():
-    subprocess.call("python3 OpenAP/OpenAP/code/checkConfigHostapd.py &", shell=True)
+    subprocess.call("python3 OpenAP/OpenAP/code/checkConfigHostapd.py", shell=True)
     #os.system("python3 OpenAP/OpenAP/code/checkConfigHostapd.py &")
     return {"status": True}
 
