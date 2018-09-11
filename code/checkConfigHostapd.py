@@ -224,6 +224,8 @@ for wifimode in ["b","g"]:
                         })
                         output.kill()
                         time.sleep(0.5)
+                        for line in output.stdout.readlines():
+                            logger.info(line)
                         logger.info("######################################")
                         #logger.info(output)
                         #
