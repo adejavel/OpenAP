@@ -213,6 +213,7 @@ for wifimode in ["b","g"]:
                         time.sleep(0.1)
 
                         logger.info("######################################")
+                        logger.info("Begin")
                         logger.info(output.returncode)
                         ps = os.popen("ps -A").read()
                         #logger.info(ps)
@@ -227,7 +228,7 @@ for wifimode in ["b","g"]:
                         output.kill()
                         time.sleep(0.5)
                         logger.info(output.returncode)
-
+                        logger.info("end")
                         logger.info("######################################")
                         #logger.info(output)
                         #
