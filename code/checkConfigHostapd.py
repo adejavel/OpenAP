@@ -8,7 +8,6 @@ file_handler = RotatingFileHandler('check_config.log', 'a', 1000000, 1)
 file_handler.setLevel(logging.DEBUG)
 file_handler.setFormatter(formatter)
 logger.addHandler(file_handler)
-import multiprocessing
 import shutil
 import traceback
 import subprocess
@@ -39,7 +38,6 @@ def getMac():
         return ""
 
 def run():
-    os.system("hostapd /etc/hostapd/hostapd_check_conf.conf")
 
 def setParameterHostapdConfig(param,value):
     #slogger.info("Setting parameter {} as {} in hostapd config".format(param,value))
@@ -115,31 +113,23 @@ for wifimode in ["b","g"]:
                                 setParameterHostapdConfig("ieee80211n", "1")
                             setParameterHostapdConfig("ht_capab", ht_c)
 
-                            #out = os.system("hostapd /etc/hostapd/hostapd_check_conf.conf")
-                            p = multiprocessing.Process(target=os.system("hostapd /etc/hostapd/hostapd_check_conf.conf"))
-                            p.start()
-
-                            p.join(0.1)
-                            if p.is_alive():
-                                workingConfigs.append(
-                                    {
-                                        "wifimode": wifimode,
-                                        "channel": channel,
-                                        "width": width,
-                                        "ht_capab": ht_c,
-                                        "country": country
-                                    }
-                                )
-                            logger.info(p.exitcode)
-                            logger.info(p)
-                            #logger.info(out)
+                            out = os.popen("hostapd /etc/hostapd/hostapd_check_conf.conf").read()
+                            logger.info(out)
                             #os.system("hostapd /etc/hostapd/hostapd_check_conf.conf")
                             #output = subprocess.check_output("hostapd /etc/hostapd/hostapd_check_conf.conf", shell=True)
                             #output = subprocess.Popen("/usr/sbin/hostapd /etc/hostapd/hostapd_check_conf.conf")
                             cmd = ['hostapd', '/etc/hostapd/hostapd_check_conf.conf']
                             #output = subprocess.check_output("hostapd -B /etc/hostapd/hostapd_check_conf.conf",
                                                              #shell=True)
-
+                            workingConfigs.append(
+                                {
+                                    "wifimode": wifimode,
+                                    "channel": channel,
+                                    "width": width,
+                                    "ht_capab": ht_c,
+                                    "country": country
+                                }
+                            )
                             #output = subprocess.run("hostapd /etc/hostapd/hostapd_check_conf.conf",timeout=0.2)
                             #print(output)
                             print("It didn't worked!")
@@ -201,29 +191,22 @@ for wifimode in ["b","g"]:
                         if wifimode in ["a"]:
                             setParameterHostapdConfig("ieee80211n", "1")
 
-                        #out = os.system("hostapd /etc/hostapd/hostapd_check_conf.conf")
-                        p = multiprocessing.Process(target=os.system("hostapd /etc/hostapd/hostapd_check_conf.conf"))
-                        p.start()
-
-                        p.join(0.1)
-                        if p.is_alive():
-                            workingConfigs.append(
-                                {
-                                    "wifimode": wifimode,
-                                    "channel": channel,
-                                    "width": width,
-                                    "country": country
-                                }
-                            )
-                        logger.info(p.exitcode)
-                        logger.info(p)
-                        #logger.info(out)
+                        out = os.popen("hostapd /etc/hostapd/hostapd_check_conf.conf").read()
+                        logger.info(out)
                         #
                         #output = subprocess.check_output("hostapd -B /etc/hostapd/hostapd_check_conf.conf", shell=True)
                         #output = subprocess.Popen("/usr/sbin/hostapd /etc/hostapd/hostapd_check_conf.conf")
                         cmd = ['hostapd', '/etc/hostapd/hostapd_check_conf.conf']
                         #output = subprocess.run("hostapd /etc/hostapd/hostapd_check_conf.conf", timeout=0.2)
                         # print(output)
+                        workingConfigs.append(
+                            {
+                                "wifimode": wifimode,
+                                "channel": channel,
+                                "width": width,
+                                "country": country
+                            }
+                        )
                         print("It didn't worked!")
 
 
