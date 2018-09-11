@@ -151,6 +151,7 @@ for wifimode in ["b","g"]:
                             pass
                         except:
                             ps = os.popen("ps -A").read()
+                            logger.info(ps)
                             logger.exception("Error")
                             logger.info("last exception")
                             traceback.print_exc()
@@ -230,6 +231,7 @@ for wifimode in ["b","g"]:
                         pass
                     except:
                         ps = os.popen("ps -A").read()
+                        logger.info(ps)
                         logger.info("last exception")
                         logger.exception("Error")
                         traceback.print_exc()
