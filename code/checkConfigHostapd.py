@@ -96,11 +96,12 @@ for wifimode in ["b","g"]:
                     for ht_c in ["[HT40-][SHORT-GI-40]","[HT40+][SHORT-GI-40]"]:
                         print("Trying config: mode: {} // channel: {} // width: {} // ht_capab: {} // country: {}".format(wifimode,channel,width,ht_c,country))
                         try:
-                            try:
-                                os.system("killall hostapd")
-                                time.sleep(0.1)
-                            except:
-                                pass
+                            os.system("killall hostapd")
+                            time.sleep(0.1)
+                        except:
+                            pass
+                        try:
+
                             try:
                                 os.remove("/etc/hostapd/hostapd_check_conf.conf")
                             except:
@@ -182,11 +183,12 @@ for wifimode in ["b","g"]:
                     print(
                     "Trying config: mode: {} // channel: {} // width: {} // country: {}".format(wifimode, channel, width,country))
                     try:
-                        try:
-                            os.system("killall hostapd")
-                            time.sleep(0.1)
-                        except:
-                            pass
+                        os.system("killall hostapd")
+                        time.sleep(0.1)
+                    except:
+                        pass
+                    try:
+
                         try:
                             os.remove("/etc/hostapd/hostapd_check_conf.conf")
                         except:
