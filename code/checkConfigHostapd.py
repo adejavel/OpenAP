@@ -99,7 +99,7 @@ for wifimode in ["b","g","a"]:
                         #os.system("hostapd /etc/hostapd/hostapd_check_conf.conf")
                         #output = subprocess.check_output("hostapd /etc/hostapd/hostapd_check_conf.conf", shell=True)
                         #output = subprocess.Popen("hostapd /etc/hostapd/hostapd_check_conf.conf")
-                        cmd = ['hostapd', '/etc/hostapd/hostapd_check_conf.conf','/dev/null']
+                        cmd = ['hostapd', '/etc/hostapd/hostapd_check_conf.conf']
                         output = subprocess.run(cmd,timeout=0.5)
                         #print(output)
                         print("It didn't worked!")
@@ -181,7 +181,6 @@ for wifimode in ["b","g","a"]:
                     "channel": channel,
                     "width": width,
                 })
-
 with open('hostapd_available_config.json', 'w') as fp:
     json.dump({"configs":workingConfigs,"time":time.time()}, fp)
 
