@@ -63,6 +63,7 @@ except:
 
 workingConfigs=[]
 checked=[]
+outputs=[]
 
 for wifimode in ["b","g","a"]:
     channels=[]
@@ -83,6 +84,10 @@ for wifimode in ["b","g","a"]:
                     print("Trying config: mode: {} // channel: {} // width: {} // ht_capab: {}".format(wifimode,channel,width,ht_c))
                     try:
                         try:
+                            os.system("killall hostapd")
+                        except:
+                            pass
+                        try:
                             os.remove("/etc/hostapd/hostapd_check_conf.conf")
                         except:
                             pass
@@ -99,32 +104,33 @@ for wifimode in ["b","g","a"]:
                         #os.system("hostapd /etc/hostapd/hostapd_check_conf.conf")
                         #output = subprocess.check_output("hostapd /etc/hostapd/hostapd_check_conf.conf", shell=True)
                         #output = subprocess.Popen("hostapd /etc/hostapd/hostapd_check_conf.conf")
-                        cmd = ['hostapd', '/etc/hostapd/hostapd_check_conf.conf','/dev/null']
-                        output = subprocess.run(cmd,timeout=0.5)
-                        #print(output)
-                        print("It didn't worked!")
-
-
-                    except subprocess.TimeoutExpired:
-                        traceback.print_exc()
-                        print("It worked")
+                        #cmd = ['hostapd','-B', '/etc/hostapd/hostapd_check_conf.conf']
+                        #output = os.system("hostapd -B /etc/hostapd/hostapd_check_conf.conf")
+                        output = subprocess.check_output("hostapd -B /etc/hostapd/hostapd_check_conf.conf", shell=True)
+                        print("")
+                        print(output)
+                        outputs.append(output)
+                        print("")
+                        #print("It worked!")
                         workingConfigs.append(
                             {
-                                "wifimode":wifimode,
-                                "channel":channel,
-                                "width":width,
-                                "ht_capab":ht_c
+                                "wifimode": wifimode,
+                                "channel": channel,
+                                "width": width,
+                                "ht_capab": ht_c
                             }
                         )
-                        pass
-                    except:
-                        traceback.print_exc()
-                        print("It didn't work!")
 
-                        try:
-                            os.system("killall hostapd")
-                        except:
-                            pass
+
+
+
+                    except :
+                        traceback.print_exc()
+                        print("It worked")
+
+
+
+
                     checked.append({
                                 "wifimode":wifimode,
                                 "channel":channel,
@@ -134,6 +140,10 @@ for wifimode in ["b","g","a"]:
             else:
                 print(
                 "Trying config: mode: {} // channel: {} // width: {}".format(wifimode, channel, width))
+                try:
+                    os.system("killall hostapd")
+                except:
+                    pass
                 try:
                     try:
                         os.remove("/etc/hostapd/hostapd_check_conf.conf")
@@ -151,31 +161,31 @@ for wifimode in ["b","g","a"]:
                     # os.system("hostapd /etc/hostapd/hostapd_check_conf.conf")
                     # output = subprocess.check_output("hostapd /etc/hostapd/hostapd_check_conf.conf", shell=True)
                     # output = subprocess.Popen("hostapd /etc/hostapd/hostapd_check_conf.conf")
-                    cmd = ['hostapd', '/etc/hostapd/hostapd_check_conf.conf','/dev/null']
-                    output = subprocess.run(cmd, timeout=0.5)
+                    # os.system("hostapd /etc/hostapd/hostapd_check_conf.conf")
+                    # output = subprocess.check_output("hostapd /etc/hostapd/hostapd_check_conf.conf", shell=True)
+                    # output = subprocess.Popen("hostapd /etc/hostapd/hostapd_check_conf.conf")
+                    # cmd = ['hostapd','-B', '/etc/hostapd/hostapd_check_conf.conf']
+                    #output = os.system("hostapd -B /etc/hostapd/hostapd_check_conf.conf")
+                    output = subprocess.check_output("hostapd -B /etc/hostapd/hostapd_check_conf.conf", shell=True)
                     # print(output)
-                    print("It didn't worked!")
-
-
-                except subprocess.TimeoutExpired:
-                    traceback.print_exc()
-                    print("It worked")
+                    print("")
+                    print(output)
+                    outputs.append(output)
+                    print("")
+                    # print("It worked!")
                     workingConfigs.append(
                         {
                             "wifimode": wifimode,
                             "channel": channel,
-                            "width": width
+                            "width": width,
                         }
                     )
-                    pass
+
                 except:
                     traceback.print_exc()
                     print("It didn't work!")
 
-                    try:
-                        os.system("killall hostapd")
-                    except:
-                        pass
+
                 checked.append({
                     "wifimode": wifimode,
                     "channel": channel,
@@ -190,3 +200,4 @@ logger.info("Ended in {}".format(time.time()-begin))
 # for check in checked:
 #     print(checked)
 # print(len(checked))
+#print outputs
