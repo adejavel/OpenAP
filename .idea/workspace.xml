@@ -68,8 +68,8 @@
       <file leaf-file-name="checkConfigHostapd.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/code/checkConfigHostapd.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="353">
-              <caret line="139" column="128" lean-forward="false" selection-start-line="139" selection-start-column="128" selection-end-line="139" selection-end-column="128" />
+            <state relative-caret-position="382">
+              <caret line="104" column="67" lean-forward="false" selection-start-line="104" selection-start-column="67" selection-end-line="104" selection-end-column="67" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
               </folding>
@@ -783,8 +783,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/code/checkConfigHostapd.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="353">
-          <caret line="139" column="128" lean-forward="false" selection-start-line="139" selection-start-column="128" selection-end-line="139" selection-end-column="128" />
+        <state relative-caret-position="382">
+          <caret line="104" column="67" lean-forward="false" selection-start-line="104" selection-start-column="67" selection-end-line="104" selection-end-column="67" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
           </folding>
