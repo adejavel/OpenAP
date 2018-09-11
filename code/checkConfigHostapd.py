@@ -82,7 +82,7 @@ for wifimode in ["b","g"]:
         channels=[]
         widths=[]
         if wifimode in ["b","g"]:
-            channels=[1,2,3,4,5,6,7,8,9,10,11,12,13,14]
+            channels=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,123]
             widths = ["20"]
         elif wifimode in ["a"]:
             channels=[32,34,36,38,40,42,44,46,48,50,52,54,56,58,60,62,64,68,96,100,102,104,108,110,112,114,116,118,120,122,124,126,128,132,134,136,138,140,142,144,149,151,153,155,157,159,161,165]
@@ -222,10 +222,11 @@ for wifimode in ["b","g"]:
                             "width": width,
                             "country": country
                         })
-                        for line in output.stdout.readlines():
-                            logger.info(line)
+                        # for line in output.stdout.readlines():
+                        #     logger.info(line)
                         output.kill()
                         time.sleep(0.5)
+                        logger.info(output.returncode)
 
                         logger.info("######################################")
                         #logger.info(output)
