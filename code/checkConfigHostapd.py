@@ -38,7 +38,7 @@ def getMac():
         return ""
 
 def setParameterHostapdConfig(param,value):
-    logger.info("Setting parameter {} as {} in hostapd config".format(param,value))
+    #slogger.info("Setting parameter {} as {} in hostapd config".format(param,value))
     try:
 
         with open("newconfig_check_config.conf", 'w') as new_file:
@@ -121,6 +121,7 @@ for wifimode in ["b","g","a"]:
 
 
                         except subprocess.TimeoutExpired:
+                            logger.exception("Error")
                             traceback.print_exc()
                             print("It worked")
                             workingConfigs.append(
@@ -134,6 +135,7 @@ for wifimode in ["b","g","a"]:
                             )
                             pass
                         except:
+                            logger.exception("Error")
                             traceback.print_exc()
                             print("It didn't work!")
 
@@ -142,6 +144,13 @@ for wifimode in ["b","g","a"]:
                             except:
                                 pass
                         checked.append({
+                                    "wifimode":wifimode,
+                                    "channel":channel,
+                                    "width":width,
+                                    "ht_capab":ht_c,
+                                    "country":country
+                                })
+                        logger.info({
                                     "wifimode":wifimode,
                                     "channel":channel,
                                     "width":width,
@@ -176,6 +185,7 @@ for wifimode in ["b","g","a"]:
 
 
                     except subprocess.TimeoutExpired:
+                        logger.exception("Error")
                         traceback.print_exc()
                         print("It worked")
                         workingConfigs.append(
@@ -188,6 +198,7 @@ for wifimode in ["b","g","a"]:
                         )
                         pass
                     except:
+                        logger.exception("Error")
                         traceback.print_exc()
                         print("It didn't work!")
 
@@ -200,6 +211,12 @@ for wifimode in ["b","g","a"]:
                         "channel": channel,
                         "width": width,
                         "country":country
+                    })
+                    logger.info({
+                        "wifimode": wifimode,
+                        "channel": channel,
+                        "width": width,
+                        "country": country
                     })
 with open('hostapd_available_config.json', 'w') as fp:
     json.dump({"configs":workingConfigs,"time":time.time()}, fp)
