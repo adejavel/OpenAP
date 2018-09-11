@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="5ca978ab-e601-49e4-92ff-7954533de01d" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/code/checkConfigHostapd.py" afterPath="$PROJECT_DIR$/code/checkConfigHostapd.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/code/main.py" afterPath="$PROJECT_DIR$/code/main.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -39,11 +40,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="main.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/code/main.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="163">
-              <caret line="42" column="63" lean-forward="true" selection-start-line="42" selection-start-column="63" selection-end-line="42" selection-end-column="63" />
+              <caret line="42" column="65" lean-forward="false" selection-start-line="42" selection-start-column="65" selection-end-line="42" selection-end-column="65" />
               <folding>
                 <element signature="e#0#58#0" expanded="true" />
               </folding>
@@ -51,11 +52,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="checkConfigHostapd.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="checkConfigHostapd.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/code/checkConfigHostapd.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1290">
-              <caret line="204" column="53" lean-forward="false" selection-start-line="204" selection-start-column="53" selection-end-line="204" selection-end-column="53" />
+            <state relative-caret-position="228">
+              <caret line="200" column="47" lean-forward="false" selection-start-line="200" selection-start-column="47" selection-end-line="200" selection-end-column="47" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
               </folding>
@@ -132,8 +133,8 @@
         <option value="$PROJECT_DIR$/../Client_OpenAP/boot.py" />
         <option value="$PROJECT_DIR$/autoBoot.py" />
         <option value="$PROJECT_DIR$/code/checkConfig.py" />
-        <option value="$PROJECT_DIR$/code/main.py" />
         <option value="$PROJECT_DIR$/code/checkConfigHostapd.py" />
+        <option value="$PROJECT_DIR$/code/main.py" />
       </list>
     </option>
   </component>
@@ -703,22 +704,22 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/code/main.py">
+    <entry file="file://$PROJECT_DIR$/code/checkConfigHostapd.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="163">
-          <caret line="42" column="63" lean-forward="true" selection-start-line="42" selection-start-column="63" selection-end-line="42" selection-end-column="63" />
+        <state relative-caret-position="228">
+          <caret line="200" column="47" lean-forward="false" selection-start-line="200" selection-start-column="47" selection-end-line="200" selection-end-column="47" />
           <folding>
-            <element signature="e#0#58#0" expanded="true" />
+            <element signature="e#0#9#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/code/checkConfigHostapd.py">
+    <entry file="file://$PROJECT_DIR$/code/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1290">
-          <caret line="204" column="53" lean-forward="false" selection-start-line="204" selection-start-column="53" selection-end-line="204" selection-end-column="53" />
+        <state relative-caret-position="163">
+          <caret line="42" column="65" lean-forward="false" selection-start-line="42" selection-start-column="65" selection-end-line="42" selection-end-column="65" />
           <folding>
-            <element signature="e#0#9#0" expanded="true" />
+            <element signature="e#0#58#0" expanded="true" />
           </folding>
         </state>
       </provider>
