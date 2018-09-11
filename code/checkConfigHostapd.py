@@ -209,15 +209,18 @@ url = "https://api.openap.io/devices/postCheckedHostapdConfig"
 
 finalConfigs=[]
 for working in workingConfigs:
+    found=False
     for conf in finalConfigs:
-        if conf["wifimode"]!=working["wifimode"] or conf["channel"]!=working["channel"] or conf["width"]!=working["width"]:
-            finalConfigs.append(
-                {
-                    "wifimode":working["wifimode"],
-                    "channel":working["channel"],
-                    "width":working["width"]
-                }
-            )
+        if conf["wifimode"]==working["wifimode"] and conf["channel"]==working["channel"] and conf["width"]==working["width"]:
+            found=True
+    if not found:
+        finalConfigs.append(
+            {
+                "wifimode":working["wifimode"],
+                "channel":working["channel"],
+                "width":working["width"]
+            }
+        )
 
 payload = {
     "checked_hostapd_config":finalConfigs,
