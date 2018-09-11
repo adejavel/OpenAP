@@ -123,7 +123,7 @@ def checkConfigHostapd():
                             # os.system("hostapd /etc/hostapd/hostapd_check_conf.conf")
                             # output = subprocess.check_output("hostapd /etc/hostapd/hostapd_check_conf.conf", shell=True)
                             # output = subprocess.Popen("hostapd /etc/hostapd/hostapd_check_conf.conf")
-                            cmd = ['hostapd', '/etc/hostapd/hostapd_check_conf.conf', '/dev/null']
+                            #cmd = ['hostapd', '/etc/hostapd/hostapd_check_conf.conf', '/dev/null']
                             output = subprocess.run(cmd, timeout=0.5)
                             # print(output)
                             print("It didn't worked!")
@@ -206,11 +206,11 @@ def checkConfigHostapd():
                         "width": width,
                     })
     tm = time.time()
-    with open('hostapd_available_config.json', 'w') as fp:
-        json.dump({"configs": workingConfigs, "time": tm}, fp)
+    # with open('hostapd_available_config.json', 'w') as fp:
+    #     json.dump({"configs": workingConfigs, "time": tm}, fp)
 
     logger.info("Ended in {}".format(time.time() - begin))
-    return {"status": True}
+    return {"status": True,"workingConfig":workingConfigs}
 
 
 
