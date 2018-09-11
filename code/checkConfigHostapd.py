@@ -255,7 +255,7 @@ for wifimode in ["b","g"]:
                         )
                         pass
                     except:
-                        ps = os.popen("ps -A").read()
+                        #ps = os.popen("ps -A").read()
                         #logger.info(ps)
                         logger.info("last exception")
                         logger.exception("Error")
