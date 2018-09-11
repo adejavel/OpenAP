@@ -117,7 +117,7 @@ for wifimode in ["b","g"]:
 
                             #out = os.system("hostapd /etc/hostapd/hostapd_check_conf.conf &")
 
-                            logger.info(ps)
+                            #logger.info(ps)
                             #logger.info(out)
                             #os.system("hostapd /etc/hostapd/hostapd_check_conf.conf")
                             #output = subprocess.check_output("hostapd /etc/hostapd/hostapd_check_conf.conf", shell=True)
@@ -161,7 +161,7 @@ for wifimode in ["b","g"]:
                             pass
                         except:
                             ps = os.popen("ps -A").read()
-                            logger.info(ps)
+                            #logger.info(ps)
                             logger.exception("Error")
                             logger.info("last exception")
                             traceback.print_exc()
@@ -212,7 +212,7 @@ for wifimode in ["b","g"]:
                         output.wait()
                         logger.info(output.returncode)
                         ps = os.popen("ps -A").read()
-                        logger.info(ps)
+                        #logger.info(ps)
                         for line in output.stdout.readlines():
                             logger.info(line)
                         logger.info(output)
@@ -248,7 +248,7 @@ for wifimode in ["b","g"]:
                         pass
                     except:
                         ps = os.popen("ps -A").read()
-                        logger.info(ps)
+                        #logger.info(ps)
                         logger.info("last exception")
                         logger.exception("Error")
                         traceback.print_exc()
