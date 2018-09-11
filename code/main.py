@@ -42,7 +42,7 @@ def get_config():
 def checkConfigHostapd():
     def do_work():
         # do something that takes a long time
-        subprocess.call("python3 OpenAP/OpenAP/code/checkConfigHostapd.py", shell=True)
+        subprocess.call("python3 OpenAP/OpenAP/code/checkConfigHostapd.py")
 
     thread = Thread(target=do_work)
     thread.start()
