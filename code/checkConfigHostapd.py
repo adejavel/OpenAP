@@ -116,7 +116,7 @@ for wifimode in ["b","g"]:
                                 setParameterHostapdConfig("ieee80211n", "1")
                             setParameterHostapdConfig("ht_capab", ht_c)
 
-                            out = os.system("hostapd /etc/hostapd/hostapd_check_conf.conf")
+                            out = os.system("hostapd /etc/hostapd/hostapd_check_conf.conf &")
 
                             #logger.info(ps)
                             #logger.info(out)
@@ -125,14 +125,17 @@ for wifimode in ["b","g"]:
                             #output = subprocess.Popen("/usr/sbin/hostapd /etc/hostapd/hostapd_check_conf.conf")
                             cmd = ['hostapd', '/etc/hostapd/hostapd_check_conf.conf']
                             #output = subprocess.call("hostapd /etc/hostapd/hostapd_check_conf.conf",shell=True)
-                            #output = subprocess.Popen('/usr/sbin/hostapd /etc/hostapd/hostapd_check_conf.conf', shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-                            #output.wait(0.5)
-                            #logger.info(output.returncode)
-                            #for line in output.stdout.readlines():
-                                #logger.info(line)
+                            output = subprocess.Popen('/usr/sbin/hostapd /etc/hostapd/hostapd_check_conf.conf', shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+                            output.wait(0.5)
+                            with open("/etc/hostapd/hostapd_check_conf.conf") as old_file:
+                                for line in old_file:
+                                    logger.info(line)
+                            logger.info(output.returncode)
+                            for line in output.stdout.readlines():
+                                logger.info(line)
                             #logger.info(output)
                             ps = os.popen("ps -A").read()
-                            logger.info(ps)
+                            #logger.info(ps)
                             workingConfigs.append(
                                 {
                                     "wifimode": wifimode,
@@ -206,18 +209,23 @@ for wifimode in ["b","g"]:
                         if wifimode in ["a"]:
                             setParameterHostapdConfig("ieee80211n", "1")
 
-                        out = os.system("hostapd /etc/hostapd/hostapd_check_conf.conf")
+                        out = os.system("hostapd /etc/hostapd/hostapd_check_conf.conf &")
                         #ps = os.popen("ps -A").read()
                         # output = subprocess.call("hostapd /etc/hostapd/hostapd_check_conf.conf",shell=True)
-                        #output = subprocess.Popen('/usr/sbin/hostapd /etc/hostapd/hostapd_check_conf.conf', shell=True,
-                                                  #stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-                        #output.wait(0.5)
-                        #logger.info(output.returncode)
+                        with open("/etc/hostapd/hostapd_check_conf.conf") as old_file:
+                            for line in old_file:
+                                logger.info(line)
+                        output = subprocess.Popen('/usr/sbin/hostapd /etc/hostapd/hostapd_check_conf.conf', shell=True,
+                                                  stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+                        output.wait(0.5)
+                        with open("/etc/hostapd/hostapd_check_conf.conf") as old_file:
+                            for line in old_file:
+                                logger.info(line)
+                        logger.info(output.returncode)
                         ps = os.popen("ps -A").read()
-                        logger.info(ps)
                         #logger.info(ps)
-                        #for line in output.stdout.readlines():
-                            #logger.info(line)
+                        for line in output.stdout.readlines():
+                            logger.info(line)
                         #logger.info(output)
                         #
                         #output = subprocess.check_output("hostapd -B /etc/hostapd/hostapd_check_conf.conf", shell=True)
