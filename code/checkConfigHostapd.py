@@ -136,15 +136,6 @@ for wifimode in ["b","g"]:
                             #logger.info(output)
                             ps = os.popen("ps -A").read()
                             logger.info(ps)
-                            workingConfigs.append(
-                                {
-                                    "wifimode": wifimode,
-                                    "channel": channel,
-                                    "width": width,
-                                    "ht_capab": ht_c,
-                                    "country": country
-                                }
-                            )
                             #output = subprocess.run("hostapd /etc/hostapd/hostapd_check_conf.conf",timeout=0.2)
                             #print(output)
                             print("It didn't worked!")
@@ -237,14 +228,7 @@ for wifimode in ["b","g"]:
                         cmd = ['hostapd', '/etc/hostapd/hostapd_check_conf.conf']
                         #output = subprocess.run("hostapd /etc/hostapd/hostapd_check_conf.conf", timeout=0.2)
                         # print(output)
-                        workingConfigs.append(
-                            {
-                                "wifimode": wifimode,
-                                "channel": channel,
-                                "width": width,
-                                "country": country
-                            }
-                        )
+
                         print("It didn't worked!")
 
 
