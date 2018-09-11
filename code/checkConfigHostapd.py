@@ -130,7 +130,7 @@ for wifimode in ["b","g"]:
                                         "country": country
                                     }
                                 )
-
+                            logger.info(p.exitcode)
                             logger.info(p)
                             #logger.info(out)
                             #os.system("hostapd /etc/hostapd/hostapd_check_conf.conf")
@@ -215,7 +215,7 @@ for wifimode in ["b","g"]:
                                     "country": country
                                 }
                             )
-
+                        logger.info(p.exitcode)
                         logger.info(p)
                         #logger.info(out)
                         #
