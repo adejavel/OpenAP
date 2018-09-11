@@ -76,7 +76,7 @@ except:
 workingConfigs=[]
 checked=[]
 
-for wifimode in ["b","g","a"]:
+for wifimode in ["b","g"]:
     #for country in ["FR", "US", "CA", "RU", "CN"]:
     for country in ["FR"]:
         channels=[]
