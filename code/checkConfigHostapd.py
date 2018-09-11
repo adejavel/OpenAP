@@ -13,6 +13,7 @@ import traceback
 import subprocess
 import json
 import time
+import requests
 
 HOSTAPD_DEFAULT_CONFIG={
     "bridge":"br0",
@@ -24,6 +25,15 @@ HOSTAPD_DEFAULT_CONFIG={
 }
 
 begin = time.time()
+
+def getMac():
+    logger.info("Getting mac")
+    try:
+        mac = get_mac()
+        mac=':'.join(("%012X" % mac)[i:i + 2] for i in range(0, 12, 2))
+        return str(mac)
+    except:
+        return ""
 
 def setParameterHostapdConfig(param,value):
     logger.info("Setting parameter {} as {} in hostapd config".format(param,value))
@@ -65,7 +75,8 @@ workingConfigs=[]
 checked=[]
 
 for wifimode in ["b","g","a"]:
-    for country in ["FR","US","CA","RU","CN"]:
+    #for country in ["FR", "US", "CA", "RU", "CN"]:
+    for country in ["FR"]:
         channels=[]
         widths=[]
         if wifimode in ["b","g"]:
@@ -192,6 +203,16 @@ with open('hostapd_available_config.json', 'w') as fp:
     json.dump({"configs":workingConfigs,"time":time.time()}, fp)
 
 logger.info("Ended in {}".format(time.time()-begin))
+url = "https://api.openap.io/devices/postCheckedHostapdConfig"
+payload = {
+    "checked_hostapd_config":workingConfigs,
+}
+headers = {
+    'Content-Type': "application/json",
+    'Mac-Adress': getMac(),
+    }
+
+response = requests.request("POST", url, json=payload, headers=headers)
 # print("Executed in {}sec".format(time.time()-begin))
 # for check in checked:
 #     print(checked)
