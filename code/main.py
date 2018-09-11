@@ -7,6 +7,7 @@ import os
 import shutil
 import time
 import json
+import subprocess
 
 app = Flask(__name__)
 
@@ -39,7 +40,8 @@ def get_config():
 
 @app.route('/checkConfigHostapd',methods=["GET"])
 def checkConfigHostapd():
-    os.system("python3 OpenAP/OpenAP/code/checkConfigHostapd.py &")
+    subprocess.call("python3 OpenAP/OpenAP/code/checkConfigHostapd.py &", shell=True)
+    #os.system("python3 OpenAP/OpenAP/code/checkConfigHostapd.py &")
     return {"status": True}
 
 
