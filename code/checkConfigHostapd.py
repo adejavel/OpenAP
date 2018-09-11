@@ -23,6 +23,7 @@ HOSTAPD_DEFAULT_CONFIG={
     "interface":"wlan0",
     "macaddr_acl":"0",
     "wmm_enabled":"1",
+    "driver":"nl80211"
 }
 
 begin = time.time()
@@ -115,7 +116,7 @@ for wifimode in ["b","g"]:
                                 setParameterHostapdConfig("ieee80211n", "1")
                             setParameterHostapdConfig("ht_capab", ht_c)
 
-                            #out = os.system("hostapd /etc/hostapd/hostapd_check_conf.conf &")
+                            out = os.system("hostapd /etc/hostapd/hostapd_check_conf.conf &")
 
                             #logger.info(ps)
                             #logger.info(out)
@@ -124,13 +125,14 @@ for wifimode in ["b","g"]:
                             #output = subprocess.Popen("/usr/sbin/hostapd /etc/hostapd/hostapd_check_conf.conf")
                             cmd = ['hostapd', '/etc/hostapd/hostapd_check_conf.conf']
                             #output = subprocess.call("hostapd /etc/hostapd/hostapd_check_conf.conf",shell=True)
-                            output = subprocess.Popen('/usr/sbin/hostapd /etc/hostapd/hostapd_check_conf.conf', shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-                            output.wait(0.5)
-                            logger.info(output.returncode)
-                            for line in output.stdout.readlines():
-                                logger.info(line)
-                            logger.info(output)
+                            #output = subprocess.Popen('/usr/sbin/hostapd /etc/hostapd/hostapd_check_conf.conf', shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+                            #output.wait(0.5)
+                            #logger.info(output.returncode)
+                            #for line in output.stdout.readlines():
+                                #logger.info(line)
+                            #logger.info(output)
                             ps = os.popen("ps -A").read()
+                            logger.info(ps)
                             workingConfigs.append(
                                 {
                                     "wifimode": wifimode,
@@ -204,18 +206,19 @@ for wifimode in ["b","g"]:
                         if wifimode in ["a"]:
                             setParameterHostapdConfig("ieee80211n", "1")
 
-                        #out = os.system("hostapd /etc/hostapd/hostapd_check_conf.conf &")
+                        out = os.system("hostapd /etc/hostapd/hostapd_check_conf.conf &")
                         #ps = os.popen("ps -A").read()
                         # output = subprocess.call("hostapd /etc/hostapd/hostapd_check_conf.conf",shell=True)
-                        output = subprocess.Popen('/usr/sbin/hostapd /etc/hostapd/hostapd_check_conf.conf', shell=True,
-                                                  stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-                        output.wait(0.5)
+                        #output = subprocess.Popen('/usr/sbin/hostapd /etc/hostapd/hostapd_check_conf.conf', shell=True,
+                                                  #stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+                        #output.wait(0.5)
                         logger.info(output.returncode)
                         ps = os.popen("ps -A").read()
+                        logger.info(ps)
                         #logger.info(ps)
-                        for line in output.stdout.readlines():
-                            logger.info(line)
-                        logger.info(output)
+                        #for line in output.stdout.readlines():
+                            #logger.info(line)
+                        #logger.info(output)
                         #
                         #output = subprocess.check_output("hostapd -B /etc/hostapd/hostapd_check_conf.conf", shell=True)
                         #output = subprocess.Popen("/usr/sbin/hostapd /etc/hostapd/hostapd_check_conf.conf")
