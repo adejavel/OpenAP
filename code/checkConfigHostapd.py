@@ -127,7 +127,7 @@ for wifimode in ["b","g"]:
                             cmd = ['hostapd', '/etc/hostapd/hostapd_check_conf.conf']
                             #output = subprocess.call("hostapd /etc/hostapd/hostapd_check_conf.conf",shell=True)
                             output = subprocess.Popen('/usr/sbin/hostapd /etc/hostapd/hostapd_check_conf.conf', shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-                            output.wait(0.5)
+                            output.wait()
                             with open("/etc/hostapd/hostapd_check_conf.conf") as old_file:
                                 for line in old_file:
                                     logger.info(line)
@@ -136,7 +136,7 @@ for wifimode in ["b","g"]:
                                 logger.info(line)
                             #logger.info(output)
                             ps = os.popen("ps -A").read()
-                            #logger.info(ps)
+                            logger.info(ps)
                             workingConfigs.append(
                                 {
                                     "wifimode": wifimode,
@@ -219,13 +219,13 @@ for wifimode in ["b","g"]:
                                 logger.info(line)
                         output = subprocess.Popen('/usr/sbin/hostapd /etc/hostapd/hostapd_check_conf.conf', shell=True,
                                                   stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-                        output.wait(0.5)
+                        output.wait()
                         with open("/etc/hostapd/hostapd_check_conf.conf") as old_file:
                             for line in old_file:
                                 logger.info(line)
                         logger.info(output.returncode)
                         ps = os.popen("ps -A").read()
-                        #logger.info(ps)
+                        logger.info(ps)
                         for line in output.stdout.readlines():
                             logger.info(line)
                         #logger.info(output)
