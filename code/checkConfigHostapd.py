@@ -209,8 +209,9 @@ for wifimode in ["b","g"]:
 
                     output = subprocess.Popen('/usr/sbin/hostapd /etc/hostapd/hostapd_check_conf.conf', shell=True,
                                               stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-                    output.wait(0.2)
-                    output.kill()
+                    #output.wait(0.2)
+                    time.sleep(1)
+
                     logger.info("######################################")
                     logger.info(output.returncode)
                     ps = os.popen("ps -A").read()
@@ -223,6 +224,7 @@ for wifimode in ["b","g"]:
                         "width": width,
                         "country": country
                     })
+                    output.kill()
                     logger.info("######################################")
                     #logger.info(output)
                     #
