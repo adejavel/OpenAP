@@ -37,7 +37,6 @@ def getMac():
         traceback.print_exc()
         return ""
 
-def run():
 
 def setParameterHostapdConfig(param,value):
     #slogger.info("Setting parameter {} as {} in hostapd config".format(param,value))
