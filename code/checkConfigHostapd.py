@@ -215,7 +215,7 @@ headers = {
     }
 
 print(headers)
-response = requests.post( url, data=payload, headers=headers)
+response = requests.request("POST", url, json=payload, headers=headers)
 print(response.text)
 # print("Executed in {}sec".format(time.time()-begin))
 # for check in checked:
