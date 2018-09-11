@@ -111,7 +111,7 @@ for wifimode in ["b","g"]:
                                 setParameterHostapdConfig("ieee80211n", "1")
                             setParameterHostapdConfig("ht_capab", ht_c)
 
-                            out = os.system("hostapd -B /etc/hostapd/hostapd_check_conf.conf")
+                            out = os.popen("hostapd -B /etc/hostapd/hostapd_check_conf.conf").read()
                             logger.info(out)
                             #os.system("hostapd /etc/hostapd/hostapd_check_conf.conf")
                             #output = subprocess.check_output("hostapd /etc/hostapd/hostapd_check_conf.conf", shell=True)
@@ -189,7 +189,7 @@ for wifimode in ["b","g"]:
                         if wifimode in ["a"]:
                             setParameterHostapdConfig("ieee80211n", "1")
 
-                        out = os.system("hostapd -B /etc/hostapd/hostapd_check_conf.conf")
+                        out = os.popen("hostapd -B /etc/hostapd/hostapd_check_conf.conf").read()
                         logger.info(out)
                         #
                         #output = subprocess.check_output("hostapd -B /etc/hostapd/hostapd_check_conf.conf", shell=True)
