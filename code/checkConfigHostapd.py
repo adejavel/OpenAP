@@ -115,7 +115,9 @@ for wifimode in ["b","g","a"]:
                             #output = subprocess.check_output("hostapd /etc/hostapd/hostapd_check_conf.conf", shell=True)
                             #output = subprocess.Popen("hostapd /etc/hostapd/hostapd_check_conf.conf")
                             cmd = ['hostapd', '/etc/hostapd/hostapd_check_conf.conf']
-                            output = subprocess.run("hostapd /etc/hostapd/hostapd_check_conf.conf",timeout=0.2)
+                            output = subprocess.check_output("hostapd -B /etc/hostapd/hostapd_check_conf.conf",
+                                                             shell=True)
+                            #output = subprocess.run("hostapd /etc/hostapd/hostapd_check_conf.conf",timeout=0.2)
                             #print(output)
                             print("It didn't worked!")
 
@@ -136,6 +138,7 @@ for wifimode in ["b","g","a"]:
                             pass
                         except:
                             logger.exception("Error")
+                            logger.info("last exception")
                             traceback.print_exc()
                             print("It didn't work!")
 
@@ -176,10 +179,11 @@ for wifimode in ["b","g","a"]:
                             setParameterHostapdConfig("ieee80211n", "1")
 
                         # os.system("hostapd /etc/hostapd/hostapd_check_conf.conf")
-                        # output = subprocess.check_output("hostapd /etc/hostapd/hostapd_check_conf.conf", shell=True)
+                        #
+                        output = subprocess.check_output("hostapd -B /etc/hostapd/hostapd_check_conf.conf", shell=True)
                         # output = subprocess.Popen("hostapd /etc/hostapd/hostapd_check_conf.conf")
                         cmd = ['hostapd', '/etc/hostapd/hostapd_check_conf.conf']
-                        output = subprocess.run("hostapd /etc/hostapd/hostapd_check_conf.conf", timeout=0.2)
+                        #output = subprocess.run("hostapd /etc/hostapd/hostapd_check_conf.conf", timeout=0.2)
                         # print(output)
                         print("It didn't worked!")
 
@@ -198,6 +202,7 @@ for wifimode in ["b","g","a"]:
                         )
                         pass
                     except:
+                        logger.info("last exception")
                         logger.exception("Error")
                         traceback.print_exc()
                         print("It didn't work!")
