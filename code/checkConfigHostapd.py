@@ -215,7 +215,7 @@ for wifimode in ["b","g"]:
                         logger.info("######################################")
                         logger.info(output.returncode)
                         ps = os.popen("ps -A").read()
-                        logger.info(ps)
+                        #logger.info(ps)
                         logger.info({
                             "wifimode": wifimode,
                             "channel": channel,
