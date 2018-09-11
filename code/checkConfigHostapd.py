@@ -37,6 +37,9 @@ def getMac():
         traceback.print_exc()
         return ""
 
+def run():
+    os.system("hostapd /etc/hostapd/hostapd_check_conf.conf")
+
 def setParameterHostapdConfig(param,value):
     #slogger.info("Setting parameter {} as {} in hostapd config".format(param,value))
     try:
@@ -111,7 +114,7 @@ for wifimode in ["b","g"]:
                                 setParameterHostapdConfig("ieee80211n", "1")
                             setParameterHostapdConfig("ht_capab", ht_c)
 
-                            out = os.popen("hostapd /etc/hostapd/hostapd_check_conf.conf").read()
+                            out = os.system("hostapd /etc/hostapd/hostapd_check_conf.conf")
                             logger.info(out)
                             #os.system("hostapd /etc/hostapd/hostapd_check_conf.conf")
                             #output = subprocess.check_output("hostapd /etc/hostapd/hostapd_check_conf.conf", shell=True)
@@ -189,7 +192,7 @@ for wifimode in ["b","g"]:
                         if wifimode in ["a"]:
                             setParameterHostapdConfig("ieee80211n", "1")
 
-                        out = os.popen("hostapd /etc/hostapd/hostapd_check_conf.conf").read()
+                        out = os.system("hostapd /etc/hostapd/hostapd_check_conf.conf")
                         logger.info(out)
                         #
                         #output = subprocess.check_output("hostapd -B /etc/hostapd/hostapd_check_conf.conf", shell=True)
