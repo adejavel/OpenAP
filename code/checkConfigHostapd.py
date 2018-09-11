@@ -8,6 +8,7 @@ file_handler = RotatingFileHandler('check_config.log', 'a', 1000000, 1)
 file_handler.setLevel(logging.DEBUG)
 file_handler.setFormatter(formatter)
 logger.addHandler(file_handler)
+import multiprocessing
 import shutil
 import traceback
 import subprocess
@@ -115,6 +116,10 @@ for wifimode in ["b","g"]:
                             setParameterHostapdConfig("ht_capab", ht_c)
 
                             out = os.system("hostapd /etc/hostapd/hostapd_check_conf.conf")
+                            p = multiprocessing.Process(target=run)
+                            p.start()
+
+                            p.join(0.5)
                             logger.info(out)
                             #os.system("hostapd /etc/hostapd/hostapd_check_conf.conf")
                             #output = subprocess.check_output("hostapd /etc/hostapd/hostapd_check_conf.conf", shell=True)
@@ -193,6 +198,10 @@ for wifimode in ["b","g"]:
                             setParameterHostapdConfig("ieee80211n", "1")
 
                         out = os.system("hostapd /etc/hostapd/hostapd_check_conf.conf")
+                        p = multiprocessing.Process(target=run)
+                        p.start()
+
+                        p.join(0.5)
                         logger.info(out)
                         #
                         #output = subprocess.check_output("hostapd -B /etc/hostapd/hostapd_check_conf.conf", shell=True)
