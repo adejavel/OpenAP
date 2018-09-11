@@ -126,7 +126,7 @@ for wifimode in ["b","g"]:
                             cmd = ['hostapd', '/etc/hostapd/hostapd_check_conf.conf']
                             #output = subprocess.call("hostapd /etc/hostapd/hostapd_check_conf.conf",shell=True)
                             output = subprocess.Popen('/usr/sbin/hostapd /etc/hostapd/hostapd_check_conf.conf', shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-                            output.wait()
+                            output.wait(0.5)
                             # with open("/etc/hostapd/hostapd_check_conf.conf") as old_file:
                             #     for line in old_file:
                             #         logger.info(line)
@@ -216,7 +216,7 @@ for wifimode in ["b","g"]:
 
                         output = subprocess.Popen('/usr/sbin/hostapd /etc/hostapd/hostapd_check_conf.conf', shell=True,
                                                   stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-                        output.wait()
+                        output.wait(0.5)
                         logger.info("######################################")
                         logger.info(output.returncode)
                         ps = os.popen("ps -A").read()
