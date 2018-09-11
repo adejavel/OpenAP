@@ -119,7 +119,7 @@ for wifimode in ["b","g"]:
                             p = multiprocessing.Process(target=os.system("hostapd /etc/hostapd/hostapd_check_conf.conf"))
                             p.start()
 
-                            p.join(0.5)
+                            p.join(0.1)
                             if p.is_alive():
                                 workingConfigs.append(
                                     {
@@ -130,6 +130,8 @@ for wifimode in ["b","g"]:
                                         "country": country
                                     }
                                 )
+
+                            logger.info(p)
                             #logger.info(out)
                             #os.system("hostapd /etc/hostapd/hostapd_check_conf.conf")
                             #output = subprocess.check_output("hostapd /etc/hostapd/hostapd_check_conf.conf", shell=True)
@@ -203,17 +205,18 @@ for wifimode in ["b","g"]:
                         p = multiprocessing.Process(target=os.system("hostapd /etc/hostapd/hostapd_check_conf.conf"))
                         p.start()
 
-                        p.join(0.5)
+                        p.join(0.1)
                         if p.is_alive():
                             workingConfigs.append(
                                 {
                                     "wifimode": wifimode,
                                     "channel": channel,
                                     "width": width,
-                                    "ht_capab": ht_c,
                                     "country": country
                                 }
                             )
+
+                        logger.info(p)
                         #logger.info(out)
                         #
                         #output = subprocess.check_output("hostapd -B /etc/hostapd/hostapd_check_conf.conf", shell=True)
