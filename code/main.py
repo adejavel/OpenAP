@@ -37,6 +37,11 @@ def get_config():
     logger.info(resp)
     return jsonify(resp)
 
+@app.route('/checkConfigHostapd',methods=["GET"])
+def checkConfigHostapd():
+    os.system("python OpenAP/OpenAP/code/checkConfigHostapd.py &")
+    return {"status": True}
+
 
 
 def getConfig(request):
