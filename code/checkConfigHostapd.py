@@ -130,7 +130,7 @@ for wifimode in ["b","g"]:
                                         "country": country
                                     }
                                 )
-                            logger.info(out)
+                            #logger.info(out)
                             #os.system("hostapd /etc/hostapd/hostapd_check_conf.conf")
                             #output = subprocess.check_output("hostapd /etc/hostapd/hostapd_check_conf.conf", shell=True)
                             #output = subprocess.Popen("/usr/sbin/hostapd /etc/hostapd/hostapd_check_conf.conf")
@@ -214,7 +214,7 @@ for wifimode in ["b","g"]:
                                     "country": country
                                 }
                             )
-                        logger.info(out)
+                        #logger.info(out)
                         #
                         #output = subprocess.check_output("hostapd -B /etc/hostapd/hostapd_check_conf.conf", shell=True)
                         #output = subprocess.Popen("/usr/sbin/hostapd /etc/hostapd/hostapd_check_conf.conf")
