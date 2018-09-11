@@ -81,7 +81,7 @@ for wifimode in ["b","g","a"]:
             for width in widths:
                 if width == "40":
                     for ht_c in ["[HT40-][SHORT-GI-40]","[HT40+][SHORT-GI-40]"]:
-                        print("Trying config: mode: {} // channel: {} // width: {} // ht_capab: {}".format(wifimode,channel,width,ht_c))
+                        print("Trying config: mode: {} // channel: {} // width: {} // ht_capab: {} // country: {}".format(wifimode,channel,width,ht_c,country))
                         try:
                             try:
                                 os.remove("/etc/hostapd/hostapd_check_conf.conf")
@@ -137,7 +137,7 @@ for wifimode in ["b","g","a"]:
                                 })
                 else:
                     print(
-                    "Trying config: mode: {} // channel: {} // width: {}".format(wifimode, channel, width))
+                    "Trying config: mode: {} // channel: {} // width: {} // country: {}".format(wifimode, channel, width,country))
                     try:
                         try:
                             os.remove("/etc/hostapd/hostapd_check_conf.conf")
