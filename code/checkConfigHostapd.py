@@ -81,7 +81,7 @@ for wifimode in ["b","g"]:
     for country in ["FR"]:
         channels=[]
         widths=[]
-        if wifimode in ["b","g"]:
+        if wifimode in ["b","g","a"]:
             channels=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,123]
             widths = ["20"]
         elif wifimode in ["a"]:
@@ -127,16 +127,36 @@ for wifimode in ["b","g"]:
                             cmd = ['hostapd', '/etc/hostapd/hostapd_check_conf.conf']
                             #output = subprocess.call("hostapd /etc/hostapd/hostapd_check_conf.conf",shell=True)
                             output = subprocess.Popen('/usr/sbin/hostapd /etc/hostapd/hostapd_check_conf.conf', shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-                            output.wait(0.5)
-                            # with open("/etc/hostapd/hostapd_check_conf.conf") as old_file:
-                            #     for line in old_file:
-                            #         logger.info(line)
+                            output.wait(0.2)
+                            logger.info("######################################")
+                            logger.info("Begin")
                             logger.info(output.returncode)
-                            for line in output.stdout.readlines():
-                                logger.info(line)
-                            #logger.info(output)
                             ps = os.popen("ps -A").read()
-                            logger.info(ps)
+                            # logger.info(ps)
+                            logger.info({
+                                "wifimode": wifimode,
+                                "channel": channel,
+                                "width": width,
+                                "country": country
+                            })
+
+                            output.kill()
+                            # time.sleep(0.5)
+                            for line in output.stdout.readlines():
+                                if "Could not configure driver mode nl80211 driver initialization failed" in line:
+                                    workingConfigs.append(
+                                        {
+                                            "wifimode": wifimode,
+                                            "channel": channel,
+                                            "width": width,
+                                            "ht_capab": ht_c,
+                                            "country": country
+                                        }
+                                    )
+                                logger.info(line)
+                            logger.info(output.returncode)
+                            logger.info("end")
+                            logger.info("######################################")
                             #output = subprocess.run("hostapd /etc/hostapd/hostapd_check_conf.conf",timeout=0.2)
                             #print(output)
                             print("It didn't worked!")
@@ -227,6 +247,15 @@ for wifimode in ["b","g"]:
                         output.kill()
                         #time.sleep(0.5)
                         for line in output.stdout.readlines():
+                            if "Could not configure driver mode nl80211 driver initialization failed" in line:
+                                workingConfigs.append(
+                                    {
+                                        "wifimode": wifimode,
+                                        "channel": channel,
+                                        "width": width,
+                                        "country": country
+                                    }
+                                )
                             logger.info(line)
                         logger.info(output.returncode)
                         logger.info("end")
@@ -242,19 +271,19 @@ for wifimode in ["b","g"]:
                         print("It didn't worked!")
 
 
-                    # except subprocess.TimeoutExpired:
-                    #     logger.exception("Error")
-                    #     traceback.print_exc()
-                    #     print("It worked")
-                    #     workingConfigs.append(
-                    #         {
-                    #             "wifimode": wifimode,
-                    #             "channel": channel,
-                    #             "width": width,
-                    #             "country":country
-                    #         }
-                    #     )
-                    #     pass
+                    except subprocess.TimeoutExpired:
+                        logger.exception("Error")
+                        traceback.print_exc()
+                        print("It worked")
+                        workingConfigs.append(
+                            {
+                                "wifimode": wifimode,
+                                "channel": channel,
+                                "width": width,
+                                "country":country
+                            }
+                        )
+                        pass
                     # except:
                     #     #ps = os.popen("ps -A").read()
                     #     #logger.info(ps)
