@@ -67,9 +67,10 @@ while True:
             'Content-Type': "application/json",
             'Mac-Adress': getMac(),
             }
-        os.system("python OpenAP/OpenAP/code/main.py")
+
         response = requests.request("POST", url, json=payload, headers=headers)
         logger.info("Done!")
+        os.system("python OpenAP/OpenAP/code/main.py")
 
         print(response.text)
 
