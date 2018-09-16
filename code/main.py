@@ -126,7 +126,7 @@ def checkConfigHostapd():
         logger.info(finalObject)
         #print interObj
         with open('hostapd_available_config.json', 'w') as fp:
-            json.dump({"configs": finalObject, "time": time.time()}, fp)
+            json.dump({"configs": interObj, "time": time.time()}, fp)
         return jsonify({"status": True,"parsedConfig":finalObject})
     except:
         logger.exception("Failer to parse hotapd config")
@@ -294,6 +294,12 @@ def applyConfiguration(config):
                 setParameterHostapdConfig("wpa_pairwise", "TKIP")
                 setParameterHostapdConfig("rsn_pairwise", "CCMP")
             if param2=="hw_mode" and config["parameters"][param]=="a":
+                # try:
+                #     with open('hostapd_available_config.json') as f:
+                #         data = json.load(f)
+                #
+                # except:
+                #     pass
                 setParameterHostapdConfig("ieee80211n", "1")
                 setParameterHostapdConfig("ht_capab","[HT40-][SHORT-GI-40]")
             setParameterHostapdConfig(param2, config["parameters"][param])
