@@ -95,7 +95,7 @@ for wifimode in ["b","g","a"]:
                 if width == "40":
                     for ht_c in ["[HT40-][SHORT-GI-40]","[HT40+][SHORT-GI-40]"]:
                         time.sleep(0.5)
-                        print("Trying config: mode: {} // channel: {} // width: {} // ht_capab: {} // country: {}".format(wifimode,channel,width,ht_c,country))
+
                         try:
                             os.system("killall hostapd")
                             time.sleep(0.1)
@@ -118,8 +118,9 @@ for wifimode in ["b","g","a"]:
                                 setParameterHostapdConfig("ieee80211n", "1")
                             setParameterHostapdConfig("ht_capab", ht_c)
                             output = subprocess.Popen('/usr/sbin/hostapd /etc/hostapd/hostapd_check_conf.conf', shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-                            output.wait(0.2)
+                            output.wait(0.5)
                             logger.info("######################################")
+                            logger.info("Trying config: mode: {} // channel: {} // width: {} // ht_capab: {} // country: {}".format(wifimode, channel, width, ht_c, country))
                             logger.info("Begin")
                             logger.info(output.returncode)
                             logger.info({
@@ -218,10 +219,14 @@ for wifimode in ["b","g","a"]:
 
                         output = subprocess.Popen('/usr/sbin/hostapd /etc/hostapd/hostapd_check_conf.conf', shell=True,
                                                   stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-                        output.wait(0.2)
+                        output.wait(0.5)
                         #time.sleep(0.1)
 
                         logger.info("######################################")
+                        logger.info(
+                            "Trying config: mode: {} // channel: {} // width: {} // country: {}".format(
+                                wifimode, channel, width, country))
+
                         logger.info("Begin")
                         logger.info(output.returncode)
                         ps = os.popen("ps -A").read()
