@@ -106,19 +106,23 @@ def checkConfigHostapd():
         }
         for channel in obj["a"]:
             if ((channel - 4) in obj["a"] and (channel - 2) in obj["a"]):
-                finalObject["a"]["40"].append(channel)
+                if not channel in finalObject["a"]["40"]:
+                    finalObject["a"]["40"].append(channel)
                 if str(channel) in interObj["a"]["40"]:
                     interObj["a"]["40"][str(channel)] = "+-"
                 else:
                     interObj["a"]["40"][str(channel)] = "-"
             if ((channel + 4) in obj["a"] and (channel + 2) in obj["a"]):
-                finalObject["a"]["40"].append(channel)
+                if not channel in finalObject["a"]["40"]:
+                    finalObject["a"]["40"].append(channel)
                 if str(channel) in interObj["a"]["40"]:
                     interObj["a"]["40"][str(channel)] = "+-"
                 else:
                     interObj["a"]["40"][str(channel)] = "+"
-            finalObject["a"]["20"].append(channel)
-            interObj["a"]["20"].append(channel)
+            if not channel in finalObject["a"]["20"]:
+                finalObject["a"]["20"].append(channel)
+            if not channel in interObj["a"]["20"]:
+                interObj["a"]["20"].append(channel)
         logger.info(finalObject)
         #print interObj
         with open('hostapd_available_config.json', 'w') as fp:
