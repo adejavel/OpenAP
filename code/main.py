@@ -170,7 +170,7 @@ def getConfig(request):
 
 
 def compareConfig(deviceConfig,appliedConfig):
-    toIgnore=["wpa","wpa_key_mgmt","wpa_pairwise","rsn_pairwise","ieee80211n","ht_capab"]
+    toIgnore=["wpa","wpa_key_mgmt","wpa_pairwise","rsn_pairwise","ieee80211n","ht_capab","width"]
     for key in deviceConfig:
         if key not in toIgnore:
             if key in appliedConfig:
