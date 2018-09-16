@@ -43,10 +43,12 @@ def checkConfigHostapd():
     logger.info("Trying to parse hostapd configuration")
     try:
         output = subprocess.Popen('iw wlan0 info', shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+        wlan=0
         for line in output.stdout.readlines():
             if "phy" in line:
                 wlan = line.split()[1]
         #print wlan
+        logger.info(wlan)
         output2 = subprocess.Popen('iw phy{} info'.format(wlan), shell=True, stdout=subprocess.PIPE,
                                    stderr=subprocess.STDOUT)
         obj = {

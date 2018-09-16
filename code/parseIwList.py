@@ -3,7 +3,6 @@ output = subprocess.Popen('iw wlan0 info', shell=True, stdout=subprocess.PIPE, s
 for line in output.stdout.readlines():
     if "phy" in line:
         wlan = line.split()[1]
-print wlan
 output2 = subprocess.Popen('iw phy{} info'.format(wlan), shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 obj={
     "bgn":[],
