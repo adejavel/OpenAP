@@ -44,10 +44,8 @@ def checkConfigHostapd():
     try:
         output = subprocess.check_output('iw wlan0 info &', shell=True)
         logger.info(output)
-        for l in output.split('\n'):
-            logger.info(l)
         wlan=0
-        for line in output.stdout.readlines():
+        for line in output.split('\n'):
             if "phy" in line:
                 logger.info("Found phy interface")
                 wlan = line.split()[1]
@@ -60,7 +58,7 @@ def checkConfigHostapd():
         inBand1 = False
         inBand2 = False
         inFreq = False
-        for line in output2.stdout.readlines():
+        for line in output2.split('\n'):
             raw = repr(line)
             line2 = line.replace(" ", "")
             leading_spaces = len(line2) - len(line2.lstrip())
