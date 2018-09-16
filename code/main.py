@@ -43,6 +43,8 @@ def checkConfigHostapd():
     logger.info("Trying to parse hostapd configuration")
     try:
         #ubprocess.check_output('/root/iw wlan0 info', shell=True)
+        output1 = os.popen("env").read()
+        logger.info(output1)
         output = os.popen("iw wlan0 info")
         output=output.read()
         logger.info(output)
