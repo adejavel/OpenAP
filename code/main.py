@@ -112,8 +112,8 @@ def checkConfigHostapd():
                     interObj["a"]["40"][str(channel)] = "+"
             finalObject["a"]["20"].append(channel)
             interObj["a"]["20"].append(channel)
-        print finalObject
-        print interObj
+        #print finalObject
+        #print interObj
         with open('hostapd_available_config.json', 'w') as fp:
             json.dump({"configs": finalObject, "time": time.time()}, fp)
         return jsonify({"status": True,"parsedConfig":interObj})
