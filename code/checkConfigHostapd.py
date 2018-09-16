@@ -77,8 +77,8 @@ workingConfigs=[]
 checked=[]
 
 for wifimode in ["b","g","a"]:
-    #for country in ["FR", "US", "CA", "RU", "CN"]:
-    for country in ["FR"]:
+    for country in ["FR", "US", "CA", "RU", "CN"]:
+    #for country in ["FR"]:
         channels=[]
         widths=[]
         if wifimode in ["b","g","a"]:
@@ -116,23 +116,11 @@ for wifimode in ["b","g","a"]:
                             if wifimode in ["a"]:
                                 setParameterHostapdConfig("ieee80211n", "1")
                             setParameterHostapdConfig("ht_capab", ht_c)
-
-                            #out = os.system("hostapd /etc/hostapd/hostapd_check_conf.conf &")
-
-                            #logger.info(ps)
-                            #logger.info(out)
-                            #os.system("hostapd /etc/hostapd/hostapd_check_conf.conf")
-                            #output = subprocess.check_output("hostapd /etc/hostapd/hostapd_check_conf.conf", shell=True)
-                            #output = subprocess.Popen("/usr/sbin/hostapd /etc/hostapd/hostapd_check_conf.conf")
-                            cmd = ['hostapd', '/etc/hostapd/hostapd_check_conf.conf']
-                            #output = subprocess.call("hostapd /etc/hostapd/hostapd_check_conf.conf",shell=True)
                             output = subprocess.Popen('/usr/sbin/hostapd /etc/hostapd/hostapd_check_conf.conf', shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
                             output.wait(0.2)
                             logger.info("######################################")
                             logger.info("Begin")
                             logger.info(output.returncode)
-                            ps = os.popen("ps -A").read()
-                            # logger.info(ps)
                             logger.info({
                                 "wifimode": wifimode,
                                 "channel": channel,
@@ -141,7 +129,6 @@ for wifimode in ["b","g","a"]:
                             })
 
                             output.kill()
-                            # time.sleep(0.5)
                             for line in output.stdout.readlines():
                                 if b"Could not configure driver mode nl80211 driver initialization failed" in line:
                                     workingConfigs.append(
@@ -284,18 +271,6 @@ for wifimode in ["b","g","a"]:
                             }
                         )
                         pass
-                    # except:
-                    #     #ps = os.popen("ps -A").read()
-                    #     #logger.info(ps)
-                    #     logger.info("last exception")
-                    #     logger.exception("Error")
-                    #     traceback.print_exc()
-                    #     print("It didn't work!")
-                    #
-                    #     try:
-                    #         os.system("killall hostapd")
-                    #     except:
-                    #         pass
                     except:
                         logger.exception("Error bordel")
                     checked.append({
