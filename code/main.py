@@ -46,6 +46,7 @@ def checkConfigHostapd():
         wlan=0
         for line in output.stdout.readlines():
             if "phy" in line:
+                logger.info("Found phy interface")
                 wlan = line.split()[1]
         logger.info(wlan)
         output2 = subprocess.Popen('iw phy{} info'.format(wlan), shell=True, stdout=subprocess.PIPE,
