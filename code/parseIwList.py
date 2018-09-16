@@ -37,10 +37,6 @@ for line in output2.stdout.readlines():
     if "Frequencies" in line:
         inFreq=True
 
-
-
-
-print obj
 finalObject={
     "bgn":obj["bgn"],
     "a":{
@@ -48,9 +44,21 @@ finalObject={
         "20":[]
     }
 }
+interObj={
+    "bgn":obj["obj"],
+    "a":{
+        "40":{},
+        "20":{}
+    }
+}
 for channel in obj["a"]:
-    if ((channel-4) in obj["a"] and (channel-2) in obj["a"]) or ((channel+4) in obj["a"] and (channel+2) in obj["a"]):
+    if ((channel-4) in obj["a"] and (channel-2) in obj["a"]):
         finalObject["a"]["40"].append(channel)
+        interObj["a"]["40"][str(channel)] = "-"
+    if ((channel+4) in obj["a"] and (channel+2) in obj["a"]):
+        finalObject["a"]["40"].append(channel)
+        interObj["a"]["40"][str(channel)]="+"
     finalObject["a"]["20"].append(channel)
 print finalObject
+print interObj
 
