@@ -23,7 +23,7 @@ for line in output2.stdout.readlines():
         if leading_spaces != 3:
             inFreq=False
         else:
-            if not "(radar detection)" in raw or "(disabled)" in raw:
+            if not "(radar detection)" in raw and not "(disabled)" in raw:
                 print "GOOD STARTTTTT"
                 if inBand1:
                     obj["bgn"].append(line)
