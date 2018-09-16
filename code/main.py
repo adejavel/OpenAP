@@ -298,12 +298,15 @@ def applyConfiguration(config):
                     try:
                         with open('hostapd_available_config.json') as f:
                             data = json.load(f)
-                            if config["parameters"]
-
+                            avai = data["configs"]["a"]["40"][config["parameters"]["channel"]]
+                            if "+" in avai:
+                                setParameterHostapdConfig("ht_capab", "[HT40+][SHORT-GI-40]")
+                            elif "-" in avai:
+                                setParameterHostapdConfig("ht_capab", "[HT40-][SHORT-GI-40]")
                     except:
                         pass
                 setParameterHostapdConfig("ieee80211n", "1")
-                setParameterHostapdConfig("ht_capab","[HT40-][SHORT-GI-40]")
+
             setParameterHostapdConfig(param2, config["parameters"][param])
         return True
     return False
