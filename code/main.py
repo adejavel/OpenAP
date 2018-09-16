@@ -44,6 +44,7 @@ def checkConfigHostapd():
     try:
         #ubprocess.check_output('/root/iw wlan0 info', shell=True)
         output = os.popen("/root/iw wlan0 info")
+        output=output.read()
         logger.info(output)
         wlan=0
         for line in output.split('\n'):
