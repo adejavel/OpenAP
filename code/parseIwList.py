@@ -13,10 +13,8 @@ inBand1=False
 inBand2=False
 inFreq=False
 for line in output2.stdout.readlines():
-    raw= repr(line)
-    line2 = line.replace(" ","")
-    leading_spaces = len(line2) - len(line2.lstrip())
-    print leading_spaces
+    line2 = "{}".format(line)
+    raw= repr(line2)
     print raw
     if inFreq:
         print "IN FREQ"
