@@ -15,6 +15,7 @@ inFreq=False
 for line in output2.stdout.readlines():
     raw= repr(line)
     leading_spaces = len(raw) - len(raw.lstrip())
+    print leading_spaces
     print raw
 
     if "Band 1" in line:
