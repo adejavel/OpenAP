@@ -51,6 +51,6 @@ finalObject={
 for channel in obj["a"]:
     if (channel-4) in obj["a"] or (channel+4) in obj["a"]:
         finalObject["a"]["40"].append(channel)
-    finalObject["20"].append(channel)
+    finalObject["a"]["20"].append(channel)
 print finalObject
 
