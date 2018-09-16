@@ -18,7 +18,16 @@ for line in output2.stdout.readlines():
     leading_spaces = len(line2) - len(line2.lstrip())
     print leading_spaces
     print raw
-
+    if inFreq:
+        print "IN FREQ"
+        if leading_spaces != 3:
+            inFreq=False
+        else:
+            print "GOOD STARTTTTT"
+            if inBand1:
+                obj["bgn"].append(line)
+            elif inBand2:
+                obj["a"].append(line)
     if "Band 1" in line:
         print "BAND 1"
         inBand1=True
@@ -32,16 +41,7 @@ for line in output2.stdout.readlines():
     if "Frequencies" in line:
         print "FREQ"
         inFreq=True
-    if inFreq:
-        print "IN FREQ"
-        if leading_spaces != 3:
-            inFreq=False
-        else:
-            print "GOOD STARTTTTT"
-            if inBand1:
-                obj["bgn"].append(line)
-            elif inBand2:
-                obj["a"].append(line)
+
 
 
 
