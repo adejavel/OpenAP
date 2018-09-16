@@ -6,4 +6,4 @@ for line in output.stdout.readlines():
 print wlan
 output2 = subprocess.Popen('iw list', shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 for line in output2.stdout.readlines():
-    print line
+    print repr(line)
