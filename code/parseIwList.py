@@ -54,13 +54,13 @@ interObj={
 for channel in obj["a"]:
     if ((channel-4) in obj["a"] and (channel-2) in obj["a"]):
         finalObject["a"]["40"].append(channel)
-        if interObj["a"]["40"][str(channel)] is not None:
+        if str(channel) in interObj["a"]["40"]:
             interObj["a"]["40"][str(channel)] = "+-"
         else:
             interObj["a"]["40"][str(channel)] = "-"
     if ((channel+4) in obj["a"] and (channel+2) in obj["a"]):
         finalObject["a"]["40"].append(channel)
-        if interObj["a"]["40"][str(channel)] is not None:
+        if str(channel) in interObj["a"]["40"]:
             interObj["a"]["40"][str(channel)] = "+-"
         else:
             interObj["a"]["40"][str(channel)]="+"
