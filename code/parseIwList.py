@@ -14,7 +14,7 @@ inBand2=False
 inFreq=False
 for line in output2.stdout.readlines():
     raw= repr(line)
-    leading_spaces = len(raw) - len(raw.lstrip())
+    leading_spaces = len(line) - len(line.lstrip())
     print leading_spaces
     print raw
 
