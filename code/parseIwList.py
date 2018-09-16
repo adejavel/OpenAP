@@ -48,16 +48,22 @@ interObj={
     "bgn":obj["bgn"],
     "a":{
         "40":{},
-        "20":{}
+        "20":[]
     }
 }
 for channel in obj["a"]:
     if ((channel-4) in obj["a"] and (channel-2) in obj["a"]):
         finalObject["a"]["40"].append(channel)
-        interObj["a"]["40"][str(channel)] = "-"
+        if interObj["a"]["40"][str(channel)]:
+            interObj["a"]["40"][str(channel)] = "+-"
+        else:
+            interObj["a"]["40"][str(channel)] = "-"
     if ((channel+4) in obj["a"] and (channel+2) in obj["a"]):
         finalObject["a"]["40"].append(channel)
-        interObj["a"]["40"][str(channel)]="+"
+        if interObj["a"]["40"][str(channel)]:
+            interObj["a"]["40"][str(channel)] = "+-"
+        else:
+            interObj["a"]["40"][str(channel)]="+"
     finalObject["a"]["20"].append(channel)
 print finalObject
 print interObj
