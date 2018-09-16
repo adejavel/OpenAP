@@ -42,14 +42,14 @@ def get_config():
 def checkConfigHostapd():
     logger.info("Trying to parse hostapd configuration")
     try:
-        output = subprocess.Popen('iw wlan0 info', shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+        output = subprocess.Popen('iw wlan0 info &', shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
         wlan=0
         for line in output.stdout.readlines():
             if "phy" in line:
                 logger.info("Found phy interface")
                 wlan = line.split()[1]
         logger.info(wlan)
-        output2 = subprocess.Popen('iw phy{} info'.format(wlan), shell=True, stdout=subprocess.PIPE,
+        output2 = subprocess.Popen('iw phy{} info &'.format(wlan), shell=True, stdout=subprocess.PIPE,
                                    stderr=subprocess.STDOUT)
         obj = {
             "bgn": [],
