@@ -32,6 +32,7 @@ for line in output2.stdout.readlines():
         if not raw.startswith("\t\t\t"):
             inFreq=False
         else:
+            print "GOOD STARTTTTT"
             if inBand1:
                 obj["bgn"].append(line)
             elif inBand2:
