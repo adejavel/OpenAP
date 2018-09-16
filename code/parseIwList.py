@@ -65,6 +65,7 @@ for channel in obj["a"]:
         else:
             interObj["a"]["40"][str(channel)]="+"
     finalObject["a"]["20"].append(channel)
+    interObj["a"]["20"].append(channel)
 print finalObject
 print interObj
 
