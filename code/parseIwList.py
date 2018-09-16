@@ -29,7 +29,7 @@ for line in output2.stdout.readlines():
         print "FREQ"
         inFreq=True
     if inFreq:
-        if not "'\t\t\t" in raw:
+        if not '\t\t\t' in line:
             inFreq=False
         else:
             print "GOOD STARTTTTT"
