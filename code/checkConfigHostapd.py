@@ -81,7 +81,7 @@ for wifimode in ["b","g","a"]:
     #for country in ["FR"]:
         channels=[]
         widths=[]
-        if wifimode in ["b","g","a"]:
+        if wifimode in ["b","g"]:
             channels=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,123]
             widths = ["20"]
         elif wifimode in ["a"]:
