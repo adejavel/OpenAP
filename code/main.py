@@ -42,10 +42,8 @@ def get_config():
 def checkConfigHostapd():
     logger.info("Trying to parse hostapd configuration")
     try:
-        try:
-            output = subprocess.check_output('/root/iw wlan0 info', shell=True)
-        except:
-            logger.exception("error iw")
+        output = subprocess.check_output('/root/iw wlan0 info', shell=True)
+
         logger.info(output)
         wlan=0
         for line in output.split('\n'):
