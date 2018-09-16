@@ -13,12 +13,14 @@ inBand1=False
 inBand2=False
 inFreq=False
 for line in output2.stdout.readlines():
-    line2 = "{}".format(line)
-    raw= repr(line2)
+    raw= repr(line)
+    line2 = line.replace(" ","")
+    leading_spaces = len(line2) - len(line2.lstrip())
+    print leading_spaces
     print raw
     if inFreq:
         print "IN FREQ"
-        if "\t\t\t" in raw:
+        if leading_spaces != 3:
             inFreq=False
         else:
             print "GOOD STARTTTTT"
