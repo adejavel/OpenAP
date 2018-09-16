@@ -47,7 +47,6 @@ def checkConfigHostapd():
         for line in output.stdout.readlines():
             if "phy" in line:
                 wlan = line.split()[1]
-        #print wlan
         logger.info(wlan)
         output2 = subprocess.Popen('iw phy{} info'.format(wlan), shell=True, stdout=subprocess.PIPE,
                                    stderr=subprocess.STDOUT)
