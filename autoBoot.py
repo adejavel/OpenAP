@@ -1,3 +1,4 @@
+#!/usr/bin/python
 import socket
 from uuid import getnode as get_mac
 import os
