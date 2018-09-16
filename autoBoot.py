@@ -53,7 +53,7 @@ while True:
                 pass
         logger.info("Found tunnel {}".format(tunnel))
         logger.info("Running main code")
-
+        os.system("python OpenAP/OpenAP/code/main.py > /dev/null")
         logger.info("Done, sleeping 2 sec")
         time.sleep(2)
         logger.info("Registering to server")
@@ -70,7 +70,6 @@ while True:
 
         response = requests.request("POST", url, json=payload, headers=headers)
         logger.info("Done!")
-        os.system("python OpenAP/OpenAP/code/main.py")
 
         print(response.text)
 
