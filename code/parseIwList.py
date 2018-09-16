@@ -48,3 +48,16 @@ for line in output2.stdout.readlines():
 
 
 print obj
+finalObject={
+    "bgn":obj["bgn"],
+    "a":{
+        "40":[],
+        "20":[]
+    }
+}
+for channel in obj["a"]:
+    if (channel-4) in obj["a"] or (channel+4) in obj["a"]:
+        finalObject["a"]["40"].append(channel)
+    finalObject["20"].append(channel)
+print finalObject
+
