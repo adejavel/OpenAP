@@ -4,7 +4,7 @@ for line in output.stdout.readlines():
     if "phy" in line:
         wlan = line.split()[1]
 print wlan
-output2 = subprocess.Popen('iw list', shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+output2 = subprocess.Popen('iw phy{} info'.format(wlan), shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 obj={
     "bgn":[],
     "a":[]
@@ -23,11 +23,12 @@ for line in output2.stdout.readlines():
         if leading_spaces != 3:
             inFreq=False
         else:
-            print "GOOD STARTTTTT"
-            if inBand1:
-                obj["bgn"].append(line)
-            elif inBand2:
-                obj["a"].append(line)
+            if not "(radar detection)" in raw or "(disabled)" in raw:
+                print "GOOD STARTTTTT"
+                if inBand1:
+                    obj["bgn"].append(line)
+                elif inBand2:
+                    obj["a"].append(line)
     if "Band 1" in line:
         print "BAND 1"
         inBand1=True
