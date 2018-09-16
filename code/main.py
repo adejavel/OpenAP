@@ -73,7 +73,7 @@ def checkConfigHostapd():
                 if leading_spaces != 3:
                     inFreq = False
                 else:
-                    if not "(radar detection)" in raw and not "(disabled)" in raw and not "(no ir)" in raw:
+                    if not "radar detection" in raw and not "disabled" in raw:
                         fr = (line.split("[")[1]).split("]")[0]
                         if inBand1:
                             obj["bgn"].append(int(fr))
