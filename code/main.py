@@ -73,7 +73,7 @@ def checkConfigHostapd():
                 if leading_spaces != 3:
                     inFreq = False
                 else:
-                    if not "(radar detection)" in raw and not "(disabled)" in raw:
+                    if not "(radar detection)" in raw and not "(disabled)" in raw and not "(no ir)" in raw:
                         fr = (line.split("[")[1]).split("]")[0]
                         if inBand1:
                             obj["bgn"].append(int(fr))
@@ -294,12 +294,14 @@ def applyConfiguration(config):
                 setParameterHostapdConfig("wpa_pairwise", "TKIP")
                 setParameterHostapdConfig("rsn_pairwise", "CCMP")
             if param2=="hw_mode" and config["parameters"][param]=="a":
-                # try:
-                #     with open('hostapd_available_config.json') as f:
-                #         data = json.load(f)
-                #
-                # except:
-                #     pass
+                if "width" in config["parameters"] and config["parameters"]["width"]=="40":
+                    try:
+                        with open('hostapd_available_config.json') as f:
+                            data = json.load(f)
+                            if config["parameters"]
+
+                    except:
+                        pass
                 setParameterHostapdConfig("ieee80211n", "1")
                 setParameterHostapdConfig("ht_capab","[HT40-][SHORT-GI-40]")
             setParameterHostapdConfig(param2, config["parameters"][param])
