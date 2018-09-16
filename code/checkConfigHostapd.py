@@ -94,6 +94,7 @@ for wifimode in ["b","g","a"]:
             for width in widths:
                 if width == "40":
                     for ht_c in ["[HT40-][SHORT-GI-40]","[HT40+][SHORT-GI-40]"]:
+                        time.sleep(0.5)
                         print("Trying config: mode: {} // channel: {} // width: {} // ht_capab: {} // country: {}".format(wifimode,channel,width,ht_c,country))
                         try:
                             os.system("killall hostapd")
@@ -187,6 +188,7 @@ for wifimode in ["b","g","a"]:
                                     "country":country
                                 })
                 else:
+                    time.sleep(0.5)
                     print(
                     "Trying config: mode: {} // channel: {} // width: {} // country: {}".format(wifimode, channel, width,country))
                     try:
