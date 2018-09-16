@@ -24,11 +24,12 @@ for line in output2.stdout.readlines():
             inFreq=False
         else:
             if not "(radar detection)" in raw and not "(disabled)" in raw:
+                fr = (line.split("[")[1]).split("]")[0]
                 print "GOOD STARTTTTT"
                 if inBand1:
-                    obj["bgn"].append(line)
+                    obj["bgn"].append(fr)
                 elif inBand2:
-                    obj["a"].append(line)
+                    obj["a"].append(fr)
     if "Band 1" in line:
         print "BAND 1"
         inBand1=True
