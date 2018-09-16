@@ -27,9 +27,9 @@ for line in output2.stdout.readlines():
                 fr = (line.split("[")[1]).split("]")[0]
                 print "GOOD STARTTTTT"
                 if inBand1:
-                    obj["bgn"].append(fr)
+                    obj["bgn"].append(int(fr))
                 elif inBand2:
-                    obj["a"].append(fr)
+                    obj["a"].append(int(fr))
     if "Band 1" in line:
         print "BAND 1"
         inBand1=True
