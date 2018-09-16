@@ -33,6 +33,7 @@ for line in output2.stdout.readlines():
         print "FREQ"
         inFreq=True
     if inFreq:
+        print "IN FREQ"
         if leading_spaces != 3:
             inFreq=False
         else:
