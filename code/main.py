@@ -42,16 +42,14 @@ def get_config():
 def checkConfigHostapd():
     logger.info("Trying to parse hostapd configuration")
     try:
-        try:
-            subprocess.check_output('/root/iw wlan0 info', shell=True)
-        except:
-            logger.exception("error iw")
-        #logger.info(output)
+        #ubprocess.check_output('/root/iw wlan0 info', shell=True)
+        output = os.popen("/root/iw wlan0 info")
+        logger.info(output)
         wlan=0
-        # for line in output.split('\n'):
-        #     if "phy" in line:
-        #         logger.info("Found phy interface")
-        #         wlan = line.split()[1]
+        for line in output.split('\n'):
+            if "phy" in line:
+                logger.info("Found phy interface")
+                wlan = line.split()[1]
         logger.info(wlan)
         output2 = subprocess.check_output('/root/iw phy{} info'.format(wlan), shell=True)
         obj = {
