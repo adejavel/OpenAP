@@ -131,18 +131,18 @@ for wifimode in ["b","g","a"]:
                             })
 
                             output.kill()
-                            for line in output.stdout.readlines():
-                                if b"Could not configure driver mode nl80211 driver initialization failed" in line:
-                                    workingConfigs.append(
-                                        {
-                                            "wifimode": wifimode,
-                                            "channel": channel,
-                                            "width": width,
-                                            "ht_capab": ht_c,
-                                            "country": country
-                                        }
-                                    )
-                                logger.info(line)
+                            # for line in output.stdout.readlines():
+                            #     if b"Could not configure driver mode nl80211 driver initialization failed" in line:
+                            #         workingConfigs.append(
+                            #             {
+                            #                 "wifimode": wifimode,
+                            #                 "channel": channel,
+                            #                 "width": width,
+                            #                 "ht_capab": ht_c,
+                            #                 "country": country
+                            #             }
+                            #         )
+                            #     logger.info(line)
                             logger.info(output.returncode)
                             logger.info("end")
                             logger.info("######################################")
@@ -240,17 +240,17 @@ for wifimode in ["b","g","a"]:
 
                         output.kill()
                         #time.sleep(0.5)
-                        for line in output.stdout.readlines():
-                            if b"Could not configure driver mode nl80211 driver initialization failed" in line:
-                                workingConfigs.append(
-                                    {
-                                        "wifimode": wifimode,
-                                        "channel": channel,
-                                        "width": width,
-                                        "country": country
-                                    }
-                                )
-                            logger.info(line)
+                        # for line in output.stdout.readlines():
+                        #     if b"Could not configure driver mode nl80211 driver initialization failed" in line:
+                        #         workingConfigs.append(
+                        #             {
+                        #                 "wifimode": wifimode,
+                        #                 "channel": channel,
+                        #                 "width": width,
+                        #                 "country": country
+                        #             }
+                        #         )
+                        #     logger.info(line)
                         logger.info(output.returncode)
                         logger.info("end")
                         logger.info("######################################")
