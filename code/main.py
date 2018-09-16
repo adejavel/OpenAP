@@ -65,6 +65,7 @@ def checkConfigHostapd():
         inBand2 = False
         inFreq = False
         for line in output2.split('\n'):
+            logger.info(line)
             raw = repr(line)
             line2 = line.replace(" ", "")
             leading_spaces = len(line2) - len(line2.lstrip())
