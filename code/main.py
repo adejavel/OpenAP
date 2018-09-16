@@ -116,7 +116,7 @@ def checkConfigHostapd():
         print interObj
         with open('hostapd_available_config.json', 'w') as fp:
             json.dump({"configs": finalObject, "time": time.time()}, fp)
-        return jsonify({"status": True,"parsedConfig":finalObject})
+        return jsonify({"status": True,"parsedConfig":interObj})
     except:
         logger.exception("Failer to parse hotapd config")
         return jsonify({"status":False})
