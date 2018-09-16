@@ -53,7 +53,8 @@ while True:
                 pass
         logger.info("Found tunnel {}".format(tunnel))
         logger.info("Running main code")
-        os.system("python OpenAP/OpenAP/code/main.py > /dev/null")
+        #os.system("python OpenAP/OpenAP/code/main.py > /dev/null")
+        os.spawnl(os.P_DETACH, 'python OpenAP/OpenAP/code/main.py')
         logger.info("Done, sleeping 2 sec")
         time.sleep(2)
         logger.info("Registering to server")
