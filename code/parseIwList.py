@@ -20,7 +20,7 @@ for line in output2.stdout.readlines():
     print raw
     if inFreq:
         print "IN FREQ"
-        if leading_spaces != 3:
+        if "\t\t\t" in raw:
             inFreq=False
         else:
             print "GOOD STARTTTTT"
