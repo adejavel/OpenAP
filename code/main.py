@@ -287,27 +287,28 @@ def applyConfiguration(config):
         for param in HOSTAPD_DEFAULT_CONFIG:
             setParameterHostapdConfig(param, HOSTAPD_DEFAULT_CONFIG[param])
         for param in config["parameters"]:
-            param2 = translateFromServerToPi(param)
-            if param2 == "wpa_passphrase":
-                setParameterHostapdConfig("wpa", "2")
-                setParameterHostapdConfig("wpa_key_mgmt", "WPA-PSK")
-                setParameterHostapdConfig("wpa_pairwise", "TKIP")
-                setParameterHostapdConfig("rsn_pairwise", "CCMP")
-            if param2=="hw_mode" and config["parameters"][param]=="a":
-                if "width" in config["parameters"] and config["parameters"]["width"]=="40":
-                    try:
-                        with open('hostapd_available_config.json') as f:
-                            data = json.load(f)
-                            avai = data["configs"]["a"]["40"][config["parameters"]["channel"]]
-                            if "+" in avai:
-                                setParameterHostapdConfig("ht_capab", "[HT40+][SHORT-GI-40]")
-                            elif "-" in avai:
-                                setParameterHostapdConfig("ht_capab", "[HT40-][SHORT-GI-40]")
-                    except:
-                        pass
-                setParameterHostapdConfig("ieee80211n", "1")
+            if param != "width":
+                param2 = translateFromServerToPi(param)
+                if param2 == "wpa_passphrase":
+                    setParameterHostapdConfig("wpa", "2")
+                    setParameterHostapdConfig("wpa_key_mgmt", "WPA-PSK")
+                    setParameterHostapdConfig("wpa_pairwise", "TKIP")
+                    setParameterHostapdConfig("rsn_pairwise", "CCMP")
+                if param2=="hw_mode" and config["parameters"][param]=="a":
+                    if "width" in config["parameters"] and config["parameters"]["width"]=="40":
+                        try:
+                            with open('hostapd_available_config.json') as f:
+                                data = json.load(f)
+                                avai = data["configs"]["a"]["40"][config["parameters"]["channel"]]
+                                if "+" in avai:
+                                    setParameterHostapdConfig("ht_capab", "[HT40+][SHORT-GI-40]")
+                                elif "-" in avai:
+                                    setParameterHostapdConfig("ht_capab", "[HT40-][SHORT-GI-40]")
+                        except:
+                            pass
+                    setParameterHostapdConfig("ieee80211n", "1")
 
-            setParameterHostapdConfig(param2, config["parameters"][param])
+                setParameterHostapdConfig(param2, config["parameters"][param])
         return True
     return False
 
