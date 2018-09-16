@@ -6,8 +6,8 @@ for line in output.stdout.readlines():
 print wlan
 output2 = subprocess.Popen('iw list', shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 obj={
-    "2.4":[],
-    "5":[]
+    "bgn":[],
+    "a":[]
 }
 inBand1=False
 inBand2=False
@@ -33,9 +33,9 @@ for line in output2.stdout.readlines():
             inFreq=False
         else:
             if inBand1:
-                obj["2.4"].append(line)
+                obj["bgn"].append(line)
             elif inBand2:
-                obj["5"].append(line)
+                obj["a"].append(line)
 
 
 
