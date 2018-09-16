@@ -41,89 +41,89 @@ def get_config():
 @app.route('/checkConfigHostapd',methods=["GET"])
 def checkConfigHostapd():
     logger.info("Trying to parse hostapd configuration")
-    try:
+    #try:
         #ubprocess.check_output('/root/iw wlan0 info', shell=True)
-        output1 = os.popen("env").read()
-        logger.info(output1)
-        output = os.popen("iw wlan0 info")
-        output=output.read()
-        logger.info(output)
-        wlan=0
-        for line in output.split('\n'):
-            if "phy" in line:
-                logger.info("Found phy interface")
-                wlan = line.split()[1]
-        logger.info(wlan)
-        output2 = subprocess.check_output('iw phy{} info'.format(wlan), shell=True)
-        obj = {
-            "bgn": [],
-            "a": []
-        }
-        inBand1 = False
-        inBand2 = False
-        inFreq = False
-        for line in output2.split('\n'):
-            raw = repr(line)
-            line2 = line.replace(" ", "")
-            leading_spaces = len(line2) - len(line2.lstrip())
-            if inFreq:
-                if leading_spaces != 3:
-                    inFreq = False
-                else:
-                    if not "(radar detection)" in raw and not "(disabled)" in raw:
-                        fr = (line.split("[")[1]).split("]")[0]
-                        if inBand1:
-                            obj["bgn"].append(int(fr))
-                        elif inBand2:
-                            obj["a"].append(int(fr))
-            if "Band 1" in line:
-                inBand1 = True
-                inBand2 = False
+    output1 = os.popen("env").read()
+    logger.info(output1)
+    output = os.popen("iw wlan0 info")
+    output=output.read()
+    logger.info(output)
+    wlan=0
+    for line in output.split('\n'):
+        if "phy" in line:
+            logger.info("Found phy interface")
+            wlan = line.split()[1]
+    logger.info(wlan)
+    output2 = subprocess.check_output('iw phy{} info'.format(wlan), shell=True)
+    obj = {
+        "bgn": [],
+        "a": []
+    }
+    inBand1 = False
+    inBand2 = False
+    inFreq = False
+    for line in output2.split('\n'):
+        raw = repr(line)
+        line2 = line.replace(" ", "")
+        leading_spaces = len(line2) - len(line2.lstrip())
+        if inFreq:
+            if leading_spaces != 3:
                 inFreq = False
-            elif "Band 2" in line:
-                inBand1 = False
-                inBand2 = True
-                inFreq = False
-            if "Frequencies" in line:
-                inFreq = True
+            else:
+                if not "(radar detection)" in raw and not "(disabled)" in raw:
+                    fr = (line.split("[")[1]).split("]")[0]
+                    if inBand1:
+                        obj["bgn"].append(int(fr))
+                    elif inBand2:
+                        obj["a"].append(int(fr))
+        if "Band 1" in line:
+            inBand1 = True
+            inBand2 = False
+            inFreq = False
+        elif "Band 2" in line:
+            inBand1 = False
+            inBand2 = True
+            inFreq = False
+        if "Frequencies" in line:
+            inFreq = True
 
-        finalObject = {
-            "bgn": obj["bgn"],
-            "a": {
-                "40": [],
-                "20": []
-            }
+    finalObject = {
+        "bgn": obj["bgn"],
+        "a": {
+            "40": [],
+            "20": []
         }
-        interObj = {
-            "bgn": obj["bgn"],
-            "a": {
-                "40": {},
-                "20": []
-            }
+    }
+    interObj = {
+        "bgn": obj["bgn"],
+        "a": {
+            "40": {},
+            "20": []
         }
-        for channel in obj["a"]:
-            if ((channel - 4) in obj["a"] and (channel - 2) in obj["a"]):
-                finalObject["a"]["40"].append(channel)
-                if str(channel) in interObj["a"]["40"]:
-                    interObj["a"]["40"][str(channel)] = "+-"
-                else:
-                    interObj["a"]["40"][str(channel)] = "-"
-            if ((channel + 4) in obj["a"] and (channel + 2) in obj["a"]):
-                finalObject["a"]["40"].append(channel)
-                if str(channel) in interObj["a"]["40"]:
-                    interObj["a"]["40"][str(channel)] = "+-"
-                else:
-                    interObj["a"]["40"][str(channel)] = "+"
-            finalObject["a"]["20"].append(channel)
-            interObj["a"]["20"].append(channel)
-        #print finalObject
-        #print interObj
-        with open('hostapd_available_config.json', 'w') as fp:
-            json.dump({"configs": finalObject, "time": time.time()}, fp)
-        return jsonify({"status": True,"parsedConfig":interObj})
-    except:
-        logger.exception("Failer to parse hotapd config")
-        return jsonify({"status":False})
+    }
+    for channel in obj["a"]:
+        if ((channel - 4) in obj["a"] and (channel - 2) in obj["a"]):
+            finalObject["a"]["40"].append(channel)
+            if str(channel) in interObj["a"]["40"]:
+                interObj["a"]["40"][str(channel)] = "+-"
+            else:
+                interObj["a"]["40"][str(channel)] = "-"
+        if ((channel + 4) in obj["a"] and (channel + 2) in obj["a"]):
+            finalObject["a"]["40"].append(channel)
+            if str(channel) in interObj["a"]["40"]:
+                interObj["a"]["40"][str(channel)] = "+-"
+            else:
+                interObj["a"]["40"][str(channel)] = "+"
+        finalObject["a"]["20"].append(channel)
+        interObj["a"]["20"].append(channel)
+    #print finalObject
+    #print interObj
+    with open('hostapd_available_config.json', 'w') as fp:
+        json.dump({"configs": finalObject, "time": time.time()}, fp)
+    return jsonify({"status": True,"parsedConfig":interObj})
+    # except:
+    #     logger.exception("Failer to parse hotapd config")
+    #     return jsonify({"status":False})
 
 
 
