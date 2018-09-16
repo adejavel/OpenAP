@@ -14,6 +14,7 @@ inBand2=False
 inFreq=False
 for line in output2.stdout.readlines():
     raw= repr(line)
+    print line
     if "Band 1" in line:
         print "BAND 1"
         inBand1=True
