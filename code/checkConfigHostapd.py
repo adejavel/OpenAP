@@ -247,7 +247,7 @@ for wifimode in ["b","g","a"]:
                         output.kill()
                         #time.sleep(0.5)
                         for line in output.stdout.readlines():
-                            if "Could not configure driver mode nl80211 driver initialization failed" in line:
+                            if b"Could not configure driver mode nl80211 driver initialization failed" in line:
                                 workingConfigs.append(
                                     {
                                         "wifimode": wifimode,
