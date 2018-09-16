@@ -45,7 +45,7 @@ finalObject={
     }
 }
 interObj={
-    "bgn":obj["obj"],
+    "bgn":obj["bgn"],
     "a":{
         "40":{},
         "20":{}
