@@ -176,10 +176,11 @@ def getConfig(request):
                 if not start:
                     logger.info("not started")
                     try:
-                        with open('hostapd_available_config.json') as f:
+                        with open('hostapd_available_config.json') as f2:
                             channel = getFieldHostapdConfig("channel")
-                            data = json.load(f)
+                            data = json.load(f2)
                             avai = data["configs"]["a"]["40"][channel]
+                            logger.info(avai)
                             ht_capab = getFieldHostapdConfig("ht_capab")
                             if ht_capab is not None:
                                 logger.info(ht_capab)
@@ -189,9 +190,23 @@ def getConfig(request):
                                 elif ht_capab == "[HT40+][SHORT-GI-40]" and "-" in avai:
                                     logger.info("trying 40 -")
                                     setParameterHostapdConfig("ht_capab", "[HT40-][SHORT-GI-40]")
-                                else :
-                                    logger.info("trying 20")
-                                    setParameterHostapdConfig("ht_capab", None)
+                            start = restartHostapd()
+                    except:
+                        logger.exception("error")
+                        pass
+                if not start:
+                    logger.info("not started")
+                    try:
+                        with open('hostapd_available_config.json') as f2:
+                            channel = getFieldHostapdConfig("channel")
+                            data = json.load(f2)
+                            avai = data["configs"]["a"]["40"][channel]
+                            logger.info(avai)
+                            ht_capab = getFieldHostapdConfig("ht_capab")
+                            if ht_capab is not None:
+                                logger.info(ht_capab)
+                                logger.info("trying 20")
+                                setParameterHostapdConfig("ht_capab", None)
                             start = restartHostapd()
                     except:
                         logger.exception("error")
