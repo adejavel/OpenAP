@@ -226,7 +226,7 @@ def getConfig(request):
 
             else:
                 logger.info("In sync!")
-                logger.info(hostapdConfig)
+                #logger.info(hostapdConfig)
                 return {"status": True, "inSync": True,"config": {"ip_address": ip, "hostapd_config": hostapdConfig, "mac_address": mac,"checked_hostapd_config":finalobj}}
         else:
             return {"status":False}
@@ -317,7 +317,7 @@ def getMac():
 def applyConfig():
     try:
         config = json.loads(request.data, strict=False)
-        logger.info(config)
+        #logger.info(config)
         if config["type"]=="AP":
             logger.info("Configuring AP")
             Hconf = parseHostapdConfig()
@@ -337,10 +337,10 @@ def applyConfig():
                             channel = getFieldHostapdConfig("channel")
                             data = json.load(f2)
                             avai = data["configs"]["a"]["40"][channel]
-                            logger.info(avai)
+                            #logger.info(avai)
                             ht_capab = getFieldHostapdConfig("ht_capab")
                             if ht_capab is not None:
-                                logger.info(ht_capab)
+                                #logger.info(ht_capab)
                                 if ht_capab == "[HT40-][SHORT-GI-40]" and "+" in avai:
                                     logger.info("trying 40 +")
                                     setParameterHostapdConfig("ht_capab", "[HT40+][SHORT-GI-40]")
@@ -358,10 +358,10 @@ def applyConfig():
                             channel = getFieldHostapdConfig("channel")
                             data = json.load(f2)
                             avai = data["configs"]["a"]["40"][channel]
-                            logger.info(avai)
+                            #logger.info(avai)
                             ht_capab = getFieldHostapdConfig("ht_capab")
                             if ht_capab is not None:
-                                logger.info(ht_capab)
+                                #logger.info(ht_capab)
                                 logger.info("trying 20")
                                 setParameterHostapdConfig("ht_capab", None)
                             start = restartHostapd()
@@ -381,9 +381,9 @@ def applyConfig():
         return jsonify({"status": False, "inSync": False})
 
     except:
-        logger.info(request)
-        logger.info(request.data)
-        logger.info(request.json)
+        #logger.info(request)
+        #logger.info(request.data)
+        #logger.info(request.json)
         logger.exception("error while applying config")
         return jsonify({"status": False})
 
@@ -462,9 +462,10 @@ def setParameterHostapdConfig(param,value):
             with open("/etc/hostapd/hostapd.conf") as old_file:
                 found = False
                 for line in old_file:
-                    if line.startswith(param) and value is not None:
-                        found=True
-                        new_file.write("{}={}\n".format(param,value))
+                    if line.startswith(param):
+                        if value is not None:
+                            found=True
+                            new_file.write("{}={}\n".format(param,value))
                     else:
                         new_file.write(line)
                 if not found and value is not None:
@@ -499,7 +500,7 @@ def restartHostapd():
         #output = popen_timeout("hostapd /etc/hostapd/hostapd.conf",1)
         time.sleep(1)
         ps = os.popen("ps -A").read()
-        logger.info(ps)
+        #logger.info(ps)
         if "hostapd" in ps:
             try:
                 os.system("killall hostapd")
