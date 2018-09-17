@@ -173,6 +173,7 @@ def getConfig(request):
                 logger.info("Config applied, trying to reboot")
                 start = restartHostapd()
                 if not start:
+                    logger.info("not started")
                     try:
                         with open('hostapd_available_config.json') as f:
                             channel = getFieldHostapdConfig("channel")
@@ -180,11 +181,15 @@ def getConfig(request):
                             avai = data["configs"]["a"]["40"][channel]
                             ht_capab = getFieldHostapdConfig("ht_capab")
                             if ht_capab is not None:
+                                logger.info(ht_capab)
                                 if ht_capab == "[HT40-][SHORT-GI-40]" and "+" in avai:
+                                    logger.info("trying 40 +")
                                     setParameterHostapdConfig("ht_capab", "[HT40+][SHORT-GI-40]")
                                 elif ht_capab == "[HT40+][SHORT-GI-40]" and "-" in avai:
+                                    logger.info("trying 40 -")
                                     setParameterHostapdConfig("ht_capab", "[HT40-][SHORT-GI-40]")
                                 else :
+                                    logger.info("trying 20")
                                     setParameterHostapdConfig("ht_capab", None)
                             start = restartHostapd()
                     except:
@@ -309,6 +314,7 @@ def applyConfig():
                 logger.info("Config applied, trying to reboot")
                 start = restartHostapd()
                 if not start:
+                    logger.info("not started")
                     try:
                         with open('hostapd_available_config.json') as f:
                             channel = getFieldHostapdConfig("channel")
@@ -316,11 +322,15 @@ def applyConfig():
                             avai = data["configs"]["a"]["40"][channel]
                             ht_capab = getFieldHostapdConfig("ht_capab")
                             if ht_capab is not None:
+                                logger.info(ht_capab)
                                 if ht_capab == "[HT40-][SHORT-GI-40]" and "+" in avai:
+                                    logger.info("trying 40 +")
                                     setParameterHostapdConfig("ht_capab", "[HT40+][SHORT-GI-40]")
                                 elif ht_capab == "[HT40+][SHORT-GI-40]" and "-" in avai:
+                                    logger.info("trying 40 -")
                                     setParameterHostapdConfig("ht_capab", "[HT40-][SHORT-GI-40]")
                                 else :
+                                    logger.info("trying 20")
                                     setParameterHostapdConfig("ht_capab", None)
                             start = restartHostapd()
                     except:
