@@ -289,10 +289,12 @@ def applyConfig():
                 try:
                     os.system("killall hostapd")
                 except:
+                    logger.exception("error")
                     pass
                 try:
                     os.system("hostapd -B /etc/hostapd/hostapd.conf")
                 except:
+                    logger.exception("error")
                     time.sleep(1)
                     os.system('sudo shutdown -r now')
                     return jsonify({"status":True,"inSync":False})
