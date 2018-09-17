@@ -171,31 +171,54 @@ def getConfig(request):
                 logger.info("Not same config")
                 applyConfiguration(config)
                 logger.info("Config applied, trying to reboot")
-                try:
-                    os.system("killall hostapd")
-                    time.sleep(2)
-                except:
-                    pass
-                try:
-                    os.system("hostapd -B /etc/hostapd/hostapd.conf")
-                except:
-                    time.sleep(1)
-                    os.system('sudo shutdown -r now')
-                    return {"status": True, "inSync": False,
+                start = restartHostapd()
+                if not start:
+                    try:
+                        with open('hostapd_available_config.json') as f:
+                            channel = getFieldHostapdConfig("channel")
+                            data = json.load(f)
+                            avai = data["configs"]["a"]["40"][channel]
+                            ht_capab = getFieldHostapdConfig("ht_capab")
+                            if ht_capab == "[HT40-][SHORT-GI-40]" and "+" in avai:
+                                setParameterHostapdConfig("ht_capab", "[HT40+][SHORT-GI-40]")
+                            elif ht_capab == "[HT40+][SHORT-GI-40]" and "-" in avai:
+                                setParameterHostapdConfig("ht_capab", "[HT40-][SHORT-GI-40]")
+                            start = restartHostapd()
+                    except:
+                        pass
+
+                if start:
+                    return {"status": True, "inSync": True,
                             "config": {"ip_address": ip, "hostapd_config": hostapdConfig, "mac_address": mac,
                                        "checked_hostapd_config": finalobj}}
 
-                # @after_this_request
-                # def reboot(test):
+                else:
+                    return {"status": True, "inSync": False,
+                            "config": {"ip_address": ip, "hostapd_config": hostapdConfig, "mac_address": mac,
+                                       "checked_hostapd_config": finalobj}}
+                # try:
+                #     os.system("killall hostapd")
+                #     time.sleep(2)
+                # except:
+                #     pass
+                # try:
+                #     os.system("hostapd -B /etc/hostapd/hostapd.conf")
+                # except:
                 #     time.sleep(1)
                 #     os.system('sudo shutdown -r now')
-                #     return jsonify({"status":True,"inSync":False})
-                # @after_this_request
-                # def reboot(test):
-                #     time.sleep(1)
-                #     os.system('sudo shutdown -r now')
-                #     return {"status": True, "inSync": False, "config": {"ip_address": ip, "hostapd_config": hostapdConfig, "mac_address": mac,"checked_hostapd_config":finalobj}}
-                return {"status":True,"inSync":False,"config":{"ip_address":ip,"hostapd_config":hostapdConfig,"mac_address":mac,"checked_hostapd_config":finalobj}}
+                #
+                #
+                # # @after_this_request
+                # # def reboot(test):
+                # #     time.sleep(1)
+                # #     os.system('sudo shutdown -r now')
+                # #     return jsonify({"status":True,"inSync":False})
+                # # @after_this_request
+                # # def reboot(test):
+                # #     time.sleep(1)
+                # #     os.system('sudo shutdown -r now')
+                # #     return {"status": True, "inSync": False, "config": {"ip_address": ip, "hostapd_config": hostapdConfig, "mac_address": mac,"checked_hostapd_config":finalobj}}
+                # return {"status":True,"inSync":False,"config":{"ip_address":ip,"hostapd_config":hostapdConfig,"mac_address":mac,"checked_hostapd_config":finalobj}}
             else:
                 logger.info("In sync!")
                 logger.info(hostapdConfig)
@@ -247,6 +270,22 @@ def parseHostapdConfig():
     except:
         logger.exception("Error while paring hostapd config")
 
+def getFieldHostapdConfig(field):
+    logger.info("trying to get {}".format(field))
+    try:
+        toRet = None
+        with open("/etc/hostapd/hostapd.conf") as config:
+            for line in config:
+                if not line.startswith("#"):
+                    words = line.split("=")
+                    # if words[0]=="ht_capab":
+                    #     hostapdConfig["width"]="40"
+                    if not words[0] == field:
+                        toRet= words[1]
+        return toRet
+    except:
+        logger.exception("Error while paring hostapd config")
+
 
 def getIP():
     logger.info("Getting IP address")
@@ -287,26 +326,27 @@ def applyConfig():
                 logger.info("Not same config")
                 applyConfiguration(config)
                 logger.info("Config applied, trying to reboot")
-                try:
-                    os.system("killall hostapd")
-                    time.sleep(2)
-                except:
-                    logger.exception("error")
-                    pass
-                try:
-                    os.system("hostapd -B /etc/hostapd/hostapd.conf")
-                except:
-                    logger.exception("error")
-                    time.sleep(1)
-                    os.system('sudo shutdown -r now')
-                    return jsonify({"status":True,"inSync":False})
+                start = restartHostapd()
+                if not start:
+                    try:
+                        with open('hostapd_available_config.json') as f:
+                            channel = getFieldHostapdConfig("channel")
+                            data = json.load(f)
+                            avai = data["configs"]["a"]["40"][channel]
+                            ht_capab = getFieldHostapdConfig("ht_capab")
+                            if ht_capab == "[HT40-][SHORT-GI-40]" and "+" in avai:
+                                setParameterHostapdConfig("ht_capab", "[HT40+][SHORT-GI-40]")
+                            elif ht_capab == "[HT40+][SHORT-GI-40]" and "-" in avai:
+                                setParameterHostapdConfig("ht_capab", "[HT40-][SHORT-GI-40]")
+                            start = restartHostapd()
+                    except:
+                        pass
 
-                # @after_this_request
-                # def reboot(test):
-                #     time.sleep(1)
-                #     os.system('sudo shutdown -r now')
-                #     return jsonify({"status":True,"inSync":False})
-                return jsonify({"status":True,"inSync":False})
+                if start:
+                    return jsonify({"status": True, "inSync": True})
+                else:
+                    return jsonify({"status": True, "inSync": False})
+
             else:
                 return jsonify({"status": True,"inSync":True})
         return jsonify({"status": False, "inSync": False})
@@ -353,10 +393,10 @@ def applyConfiguration(config):
                             with open('hostapd_available_config.json') as f:
                                 data = json.load(f)
                                 avai = data["configs"]["a"]["40"][config["parameters"]["channel"]]
-                                if "-" in avai:
-                                    setParameterHostapdConfig("ht_capab", "[HT40-][SHORT-GI-40]")
-                                elif "+" in avai:
+                                if "+" in avai:
                                     setParameterHostapdConfig("ht_capab", "[HT40+][SHORT-GI-40]")
+                                elif "-" in avai:
+                                    setParameterHostapdConfig("ht_capab", "[HT40-][SHORT-GI-40]")
                         except:
                             pass
                     setParameterHostapdConfig("ieee80211n", "1")
@@ -407,6 +447,27 @@ def setParameterHostapdConfig(param,value):
     except:
         logger.exception("Error while modifying hostapd config")
         return {"status": False}
+
+def restartHostapd():
+    try:
+        os.system("killall hostapd")
+        time.sleep(1)
+    except:
+        pass
+    try:
+        output = subprocess.Popen("hostapd /etc/hostapd/hostapd.conf",shell=True)
+        output.wait(1)
+        return False
+    except subprocess.TimeoutExpired:
+        try:
+            os.system("killall hostapd")
+            time.sleep(1)
+        except:
+            pass
+        os.system("hostapd -B /etc/hostapd/hostapd.conf")
+        return True
+    except:
+        return False
 
 if __name__ == '__main__':
     app.run(port=80,host="0.0.0.0")
