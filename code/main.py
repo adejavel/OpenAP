@@ -318,6 +318,10 @@ def applyConfig():
                 start = restartHostapd()
                 if not start:
                     logger.info("not started")
+                    with open('hostapd_available_config.json') as f:
+                        channel = getFieldHostapdConfig("channel")
+                        data = json.load(f)
+                        logger.info(f)
                     try:
                         with open('hostapd_available_config.json') as f:
                             channel = getFieldHostapdConfig("channel")
