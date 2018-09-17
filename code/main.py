@@ -465,7 +465,8 @@ def restartHostapd():
     try:
 
         #output = subprocess.Popen("hostapd /etc/hostapd/hostapd.conf",shell=True)
-        output = popen_timeout("hostapd /etc/hostapd/hostapd.conf",1)
+        output = popen_timeout("hostapd -B /etc/hostapd/hostapd.conf",1)
+        logger.info(output)
         if not output:
             return True
         else:
