@@ -196,11 +196,13 @@ def getConfig(request):
                         pass
 
                 if start:
+                    logger.info("started!")
                     return {"status": True, "inSync": True,
                             "config": {"ip_address": ip, "hostapd_config": hostapdConfig, "mac_address": mac,
                                        "checked_hostapd_config": finalobj}}
 
                 else:
+                    logger.info("not started!")
                     return {"status": False, "inSync": False,
                             "config": {"ip_address": ip, "hostapd_config": hostapdConfig, "mac_address": mac,
                                        "checked_hostapd_config": finalobj}}
@@ -337,8 +339,10 @@ def applyConfig():
                         pass
 
                 if start:
+                    logger.info("started!")
                     return jsonify({"status": True, "inSync": True})
                 else:
+                    logger.info("not started!")
                     return jsonify({"status": False, "inSync": False})
 
             else:
@@ -445,8 +449,8 @@ def setParameterHostapdConfig(param,value):
 
 def popen_timeout(command, timeout):
     p = subprocess.Popen(command,shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    for t in xrange(timeout*10):
-        time.sleep(0.1)
+    for t in xrange(timeout):
+        time.sleep(1)
         if p.poll() is not None:
             return p.communicate()
     p.kill()
