@@ -39,7 +39,7 @@ def getIP():
         logger.exception("Error while getting IP address")
 
 
-time.sleep(15)
+time.sleep(5)
 while True:
     try:
         logger.info("Trying to activate ngrok...")
