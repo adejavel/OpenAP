@@ -321,7 +321,7 @@ def applyConfig():
                     with open('hostapd_available_config.json') as f:
                         channel = getFieldHostapdConfig("channel")
                         data = json.load(f)
-                        logger.info(f)
+                        logger.info(data)
                     try:
                         with open('hostapd_available_config.json') as f:
                             channel = getFieldHostapdConfig("channel")
