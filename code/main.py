@@ -1,4 +1,5 @@
 #!/usr/bin/python
+# -*- coding: utf-8 -*-
 
 from flask import Flask,jsonify,after_this_request,request
 import logging
@@ -326,7 +327,7 @@ def applyConfig():
                         with open('hostapd_available_config.json', encoding='utf-8') as f:
                             channel = getFieldHostapdConfig("channel")
                             data = json.load(f)
-                            avai = data["configs"]["a"]["40"][channel]
+                            avai = data['configs']['a']['40'][channel]
                             ht_capab = getFieldHostapdConfig("ht_capab")
                             if ht_capab is not None:
                                 logger.info(ht_capab)
