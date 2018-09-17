@@ -472,7 +472,7 @@ def restartHostapd():
         if "hostapd" in ps:
             try:
                 os.system("killall hostapd")
-                time.sleep(1)
+                time.sleep(5)
             except:
                 pass
             return True
