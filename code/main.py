@@ -464,7 +464,7 @@ def restartHostapd():
         pass
     try:
 
-        output = subprocess.Popen("hostapd -B /etc/hostapd/hostapd.conf",shell=True)
+        output = subprocess.Popen("hostapd /etc/hostapd/hostapd.conf",shell=True)
         #output = popen_timeout("hostapd /etc/hostapd/hostapd.conf",1)
         time.sleep(1)
         ps = os.popen("ps -A").read()
@@ -475,6 +475,7 @@ def restartHostapd():
                 time.sleep(5)
             except:
                 pass
+            subprocess.Popen("hostapd /etc/hostapd/hostapd.conf", shell=True)
             return True
         else:
             return False
