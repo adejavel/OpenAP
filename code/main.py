@@ -193,7 +193,7 @@ def getConfig(request):
                                        "checked_hostapd_config": finalobj}}
 
                 else:
-                    return {"status": True, "inSync": False,
+                    return {"status": False, "inSync": False,
                             "config": {"ip_address": ip, "hostapd_config": hostapdConfig, "mac_address": mac,
                                        "checked_hostapd_config": finalobj}}
                 # try:
@@ -345,7 +345,7 @@ def applyConfig():
                 if start:
                     return jsonify({"status": True, "inSync": True})
                 else:
-                    return jsonify({"status": True, "inSync": False})
+                    return jsonify({"status": False, "inSync": False})
 
             else:
                 return jsonify({"status": True,"inSync":True})
