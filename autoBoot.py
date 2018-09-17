@@ -59,7 +59,7 @@ while True:
         logger.info("Running main code")
         #os.system("python OpenAP/OpenAP/code/main.py > /dev/null")
         #os.spawnl(os.P_DETACH, 'python OpenAP/OpenAP/code/main.py')
-        subprocess.Popen("python3 OpenAP/OpenAP/code/main.py", shell=True)
+        subprocess.Popen("python OpenAP/OpenAP/code/main.py", shell=True)
         logger.info("Done, sleeping 2 sec")
         time.sleep(2)
         logger.info("Registering to server")

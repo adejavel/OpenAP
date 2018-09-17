@@ -452,16 +452,18 @@ def restartHostapd():
         output = subprocess.Popen("hostapd /etc/hostapd/hostapd.conf",shell=True)
         output.wait(1)
         return False
-    except subprocess.TimeoutExpired:
-        try:
-            os.system("killall hostapd")
-            time.sleep(1)
-        except:
-            pass
-        os.system("hostapd -B /etc/hostapd/hostapd.conf")
-        return True
     except:
-        return False
+        logger.exception("error")
+    # except subprocess.:
+    #     try:
+    #         os.system("killall hostapd")
+    #         time.sleep(1)
+    #     except:
+    #         pass
+    #     os.system("hostapd -B /etc/hostapd/hostapd.conf")
+    #     return True
+    # except:
+    #     return False
 
 if __name__ == '__main__':
     app.run(port=80,host="0.0.0.0")
