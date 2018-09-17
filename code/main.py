@@ -317,11 +317,6 @@ def applyConfig():
                 start = restartHostapd()
                 if not start:
                     logger.info("not started")
-                    with open('hostapd_available_config.json') as f:
-                        channel = getFieldHostapdConfig("channel")
-                        logger.info(channel)
-                        data = json.load(f)
-                        logger.info(data)
                     try:
                         with open('hostapd_available_config.json') as f2:
                             channel = getFieldHostapdConfig("channel")
@@ -337,9 +332,23 @@ def applyConfig():
                                 elif ht_capab == "[HT40+][SHORT-GI-40]" and "-" in avai:
                                     logger.info("trying 40 -")
                                     setParameterHostapdConfig("ht_capab", "[HT40-][SHORT-GI-40]")
-                                else :
-                                    logger.info("trying 20")
-                                    setParameterHostapdConfig("ht_capab", None)
+                            start = restartHostapd()
+                    except:
+                        logger.exception("error")
+                        pass
+                if not start:
+                    logger.info("not started")
+                    try:
+                        with open('hostapd_available_config.json') as f2:
+                            channel = getFieldHostapdConfig("channel")
+                            data = json.load(f2)
+                            avai = data["configs"]["a"]["40"][channel]
+                            logger.info(avai)
+                            ht_capab = getFieldHostapdConfig("ht_capab")
+                            if ht_capab is not None:
+                                logger.info(ht_capab)
+                                logger.info("trying 20")
+                                setParameterHostapdConfig("ht_capab", None)
                             start = restartHostapd()
                     except:
                         logger.exception("error")
