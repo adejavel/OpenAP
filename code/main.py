@@ -442,6 +442,16 @@ def setParameterHostapdConfig(param,value):
         logger.exception("Error while modifying hostapd config")
         return {"status": False}
 
+
+def popen_timeout(command, timeout):
+    p = subprocess.Popen(command,shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    for t in xrange(timeout*10):
+        time.sleep(0.1)
+        if p.poll() is not None:
+            return p.communicate()
+    p.kill()
+    return False
+
 def restartHostapd():
     try:
         os.system("killall hostapd")
@@ -449,11 +459,16 @@ def restartHostapd():
     except:
         pass
     try:
-        output = subprocess.Popen("hostapd /etc/hostapd/hostapd.conf",shell=True)
-        output.wait(1)
-        return False
+
+        #output = subprocess.Popen("hostapd /etc/hostapd/hostapd.conf",shell=True)
+        output = popen_timeout("hostapd /etc/hostapd/hostapd.conf",1)
+        if not output:
+            return True
+        else:
+            return False
     except:
         logger.exception("error")
+        return False
     # except subprocess.:
     #     try:
     #         os.system("killall hostapd")
