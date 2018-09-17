@@ -179,10 +179,11 @@ def getConfig(request):
                             data = json.load(f)
                             avai = data["configs"]["a"]["40"][channel]
                             ht_capab = getFieldHostapdConfig("ht_capab")
-                            if ht_capab == "[HT40-][SHORT-GI-40]" and "+" in avai:
-                                setParameterHostapdConfig("ht_capab", "[HT40+][SHORT-GI-40]")
-                            elif ht_capab == "[HT40+][SHORT-GI-40]" and "-" in avai:
-                                setParameterHostapdConfig("ht_capab", "[HT40-][SHORT-GI-40]")
+                            if ht_capab is not None:
+                                if ht_capab == "[HT40-][SHORT-GI-40]" and "+" in avai:
+                                    setParameterHostapdConfig("ht_capab", "[HT40+][SHORT-GI-40]")
+                                elif ht_capab == "[HT40+][SHORT-GI-40]" and "-" in avai:
+                                    setParameterHostapdConfig("ht_capab", "[HT40-][SHORT-GI-40]")
                             start = restartHostapd()
                     except:
                         pass
@@ -196,29 +197,7 @@ def getConfig(request):
                     return {"status": False, "inSync": False,
                             "config": {"ip_address": ip, "hostapd_config": hostapdConfig, "mac_address": mac,
                                        "checked_hostapd_config": finalobj}}
-                # try:
-                #     os.system("killall hostapd")
-                #     time.sleep(2)
-                # except:
-                #     pass
-                # try:
-                #     os.system("hostapd -B /etc/hostapd/hostapd.conf")
-                # except:
-                #     time.sleep(1)
-                #     os.system('sudo shutdown -r now')
-                #
-                #
-                # # @after_this_request
-                # # def reboot(test):
-                # #     time.sleep(1)
-                # #     os.system('sudo shutdown -r now')
-                # #     return jsonify({"status":True,"inSync":False})
-                # # @after_this_request
-                # # def reboot(test):
-                # #     time.sleep(1)
-                # #     os.system('sudo shutdown -r now')
-                # #     return {"status": True, "inSync": False, "config": {"ip_address": ip, "hostapd_config": hostapdConfig, "mac_address": mac,"checked_hostapd_config":finalobj}}
-                # return {"status":True,"inSync":False,"config":{"ip_address":ip,"hostapd_config":hostapdConfig,"mac_address":mac,"checked_hostapd_config":finalobj}}
+
             else:
                 logger.info("In sync!")
                 logger.info(hostapdConfig)
@@ -433,12 +412,12 @@ def setParameterHostapdConfig(param,value):
             with open("/etc/hostapd/hostapd.conf") as old_file:
                 found = False
                 for line in old_file:
-                    if line.startswith(param):
+                    if line.startswith(param) and value is not None:
                         found=True
                         new_file.write("{}={}\n".format(param,value))
                     else:
                         new_file.write(line)
-                if not found:
+                if not found and value is not None:
                     new_file.write("{}={}\n".format(param, value))
 
         os.remove("/etc/hostapd/hostapd.conf")
