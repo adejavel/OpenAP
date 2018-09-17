@@ -464,13 +464,25 @@ def restartHostapd():
         pass
     try:
 
-        #output = subprocess.Popen("hostapd /etc/hostapd/hostapd.conf",shell=True)
-        output = popen_timeout("hostapd /etc/hostapd/hostapd.conf",1)
-        logger.info(output)
-        if not output:
+        output = subprocess.Popen("hostapd -B /etc/hostapd/hostapd.conf",shell=True)
+        #output = popen_timeout("hostapd /etc/hostapd/hostapd.conf",1)
+        time.sleep(1)
+        ps = os.popen("ps -A").read()
+        logger.info(ps)
+        if "hostapd" in ps:
+            try:
+                os.system("killall hostapd")
+                time.sleep(1)
+            except:
+                pass
             return True
         else:
             return False
+        # logger.info(output)
+        # if not output:
+        #     return True
+        # else:
+        #     return False
     except:
         logger.exception("error")
         return False
