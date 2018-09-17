@@ -193,6 +193,7 @@ def getConfig(request):
                                     setParameterHostapdConfig("ht_capab", None)
                             start = restartHostapd()
                     except:
+                        logger.exception("error")
                         pass
 
                 if start:
@@ -336,6 +337,7 @@ def applyConfig():
                                     setParameterHostapdConfig("ht_capab", None)
                             start = restartHostapd()
                     except:
+                        logger.exception("error")
                         pass
 
                 if start:
@@ -472,7 +474,7 @@ def restartHostapd():
         if "hostapd" in ps:
             try:
                 os.system("killall hostapd")
-                time.sleep(5)
+                time.sleep(1)
             except:
                 pass
             subprocess.Popen("hostapd /etc/hostapd/hostapd.conf", shell=True)
