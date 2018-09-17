@@ -26,7 +26,7 @@ logger.addHandler(file_handler)
 DEFAULT_PARAMETERS=["wpa","wpa_key_mgmt","wpa_pairwise","rsn_pairwise","ieee80211n","ht_capab"]
 HOSTAPD_DEFAULT_CONFIG={
     "bridge":"br0",
-    "country_code":"FR",
+    "country_code":"US",
     "ignore_broadcast_ssid":"0",
     "interface":"wlan0",
     "macaddr_acl":"0",
@@ -40,94 +40,101 @@ def get_config():
     logger.info(resp)
     return jsonify(resp)
 
+
+def checkIWConfig():
+    output1 = os.popen("env").read()
+    logger.info(output1)
+    output = os.popen("iw wlan0 info")
+    output = output.read()
+    logger.info(output)
+    wlan = 0
+    for line in output.split('\n'):
+        if "phy" in line:
+            logger.info("Found phy interface")
+            wlan = line.split()[1]
+    logger.info(wlan)
+    output2 = subprocess.check_output('iw phy{} info'.format(wlan), shell=True)
+    obj = {
+        "bgn": [],
+        "a": []
+    }
+    inBand1 = False
+    inBand2 = False
+    inFreq = False
+    for line in output2.split('\n'):
+        logger.info(line)
+        raw = repr(line)
+        line2 = line.replace(" ", "")
+        leading_spaces = len(line2) - len(line2.lstrip())
+        if inFreq:
+            if leading_spaces != 3:
+                inFreq = False
+            else:
+                if not "radar detection" in raw and not "disabled" in raw:
+                    fr = (line.split("[")[1]).split("]")[0]
+                    if inBand1:
+                        obj["bgn"].append(int(fr))
+                    elif inBand2:
+                        obj["a"].append(int(fr))
+        if "Band 1" in line:
+            inBand1 = True
+            inBand2 = False
+            inFreq = False
+        elif "Band 2" in line:
+            inBand1 = False
+            inBand2 = True
+            inFreq = False
+        if "Frequencies" in line:
+            inFreq = True
+
+    finalObject = {
+        "bgn": obj["bgn"],
+        "a": {
+            "40": [],
+            "20": []
+        }
+    }
+    interObj = {
+        "bgn": obj["bgn"],
+        "a": {
+            "40": {},
+            "20": []
+        }
+    }
+    for channel in obj["a"]:
+        if ((channel - 4) in obj["a"] and (channel - 2) in obj["a"]):
+            if not channel in finalObject["a"]["40"]:
+                finalObject["a"]["40"].append(channel)
+            if str(channel) in interObj["a"]["40"]:
+                interObj["a"]["40"][str(channel)] = "+-"
+            else:
+                interObj["a"]["40"][str(channel)] = "-"
+        if ((channel + 4) in obj["a"] and (channel + 2) in obj["a"]):
+            if not channel in finalObject["a"]["40"]:
+                finalObject["a"]["40"].append(channel)
+            if str(channel) in interObj["a"]["40"]:
+                interObj["a"]["40"][str(channel)] = "+-"
+            else:
+                interObj["a"]["40"][str(channel)] = "+"
+        if not channel in finalObject["a"]["20"]:
+            finalObject["a"]["20"].append(channel)
+        if not channel in interObj["a"]["20"]:
+            interObj["a"]["20"].append(channel)
+    logger.info(finalObject)
+    # print interObj
+    with open('hostapd_available_config.json', 'w') as fp:
+        json.dump({"configs": interObj, "time": time.time()}, fp)
+    return finalObject
+
+
+
 @app.route('/checkConfigHostapd',methods=["GET"])
 def checkConfigHostapd():
     logger.info("Trying to parse hostapd configuration")
     try:
-        #ubprocess.check_output('/root/iw wlan0 info', shell=True)
-        output1 = os.popen("env").read()
-        logger.info(output1)
-        output = os.popen("iw wlan0 info")
-        output=output.read()
-        logger.info(output)
-        wlan=0
-        for line in output.split('\n'):
-            if "phy" in line:
-                logger.info("Found phy interface")
-                wlan = line.split()[1]
-        logger.info(wlan)
-        output2 = subprocess.check_output('iw phy{} info'.format(wlan), shell=True)
-        obj = {
-            "bgn": [],
-            "a": []
-        }
-        inBand1 = False
-        inBand2 = False
-        inFreq = False
-        for line in output2.split('\n'):
-            logger.info(line)
-            raw = repr(line)
-            line2 = line.replace(" ", "")
-            leading_spaces = len(line2) - len(line2.lstrip())
-            if inFreq:
-                if leading_spaces != 3:
-                    inFreq = False
-                else:
-                    if not "radar detection" in raw and not "disabled" in raw:
-                        fr = (line.split("[")[1]).split("]")[0]
-                        if inBand1:
-                            obj["bgn"].append(int(fr))
-                        elif inBand2:
-                            obj["a"].append(int(fr))
-            if "Band 1" in line:
-                inBand1 = True
-                inBand2 = False
-                inFreq = False
-            elif "Band 2" in line:
-                inBand1 = False
-                inBand2 = True
-                inFreq = False
-            if "Frequencies" in line:
-                inFreq = True
+        finalobj = checkIWConfig()
+        return jsonify({"status": False,"parsedConfig":finalobj})
 
-        finalObject = {
-            "bgn": obj["bgn"],
-            "a": {
-                "40": [],
-                "20": []
-            }
-        }
-        interObj = {
-            "bgn": obj["bgn"],
-            "a": {
-                "40": {},
-                "20": []
-            }
-        }
-        for channel in obj["a"]:
-            if ((channel - 4) in obj["a"] and (channel - 2) in obj["a"]):
-                if not channel in finalObject["a"]["40"]:
-                    finalObject["a"]["40"].append(channel)
-                if str(channel) in interObj["a"]["40"]:
-                    interObj["a"]["40"][str(channel)] = "+-"
-                else:
-                    interObj["a"]["40"][str(channel)] = "-"
-            if ((channel + 4) in obj["a"] and (channel + 2) in obj["a"]):
-                if not channel in finalObject["a"]["40"]:
-                    finalObject["a"]["40"].append(channel)
-                if str(channel) in interObj["a"]["40"]:
-                    interObj["a"]["40"][str(channel)] = "+-"
-                else:
-                    interObj["a"]["40"][str(channel)] = "+"
-            if not channel in finalObject["a"]["20"]:
-                finalObject["a"]["20"].append(channel)
-            if not channel in interObj["a"]["20"]:
-                interObj["a"]["20"].append(channel)
-        logger.info(finalObject)
-        #print interObj
-        with open('hostapd_available_config.json', 'w') as fp:
-            json.dump({"configs": interObj, "time": time.time()}, fp)
-        return jsonify({"status": True,"parsedConfig":finalObject})
     except:
         logger.exception("Failer to parse hotapd config")
         return jsonify({"status":False})
@@ -144,7 +151,12 @@ def getConfig(request):
         hostapdConfig = parseHostapdConfig()
         if config["type"]=="AP":
             logger.info("Comparing config")
+            finalobj={}
             configH = parseHostapdConfig()
+            try:
+                finalobj = checkIWConfig()
+            except:
+                pass
             if not compareConfig(configH,config["parameters"]):
                 logger.info("Not in SYNC")
                 try:
@@ -156,12 +168,12 @@ def getConfig(request):
                 def reboot(test):
                     time.sleep(1)
                     os.system('sudo shutdown -r now')
-                    return {"status": True, "inSync": False, "config": {"ip_address": ip, "hostapd_config": hostapdConfig, "mac_address": mac}}
-                return {"status":True,"inSync":False,"config":{"ip_address":ip,"hostapd_config":hostapdConfig,"mac_address":mac}}
+                    return {"status": True, "inSync": False, "config": {"ip_address": ip, "hostapd_config": hostapdConfig, "mac_address": mac,"checked_hostapd_config":finalobj}}
+                return {"status":True,"inSync":False,"config":{"ip_address":ip,"hostapd_config":hostapdConfig,"mac_address":mac,"checked_hostapd_config":finalobj}}
             else:
                 logger.info("In sync!")
                 logger.info(hostapdConfig)
-                return {"status": True, "inSync": True,"config": {"ip_address": ip, "hostapd_config": hostapdConfig, "mac_address": mac}}
+                return {"status": True, "inSync": True,"config": {"ip_address": ip, "hostapd_config": hostapdConfig, "mac_address": mac,"checked_hostapd_config":finalobj}}
         else:
             return {"status":False}
     except:
