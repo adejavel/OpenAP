@@ -164,11 +164,36 @@ def getConfig(request):
                 except:
                     pass
                 applyConfiguration(config)
-                @after_this_request
-                def reboot(test):
+                try:
+                    os.system("killall hostapd")
+                except:
+                    pass
+                logger.info("Not same config")
+                applyConfiguration(config)
+                logger.info("Config applied, trying to reboot")
+                try:
+                    os.system("killall hostapd")
+                except:
+                    pass
+                try:
+                    os.system("hostapd -B /etc/hostapd/hostapd.conf")
+                except:
                     time.sleep(1)
                     os.system('sudo shutdown -r now')
-                    return {"status": True, "inSync": False, "config": {"ip_address": ip, "hostapd_config": hostapdConfig, "mac_address": mac,"checked_hostapd_config":finalobj}}
+                    return {"status": True, "inSync": False,
+                            "config": {"ip_address": ip, "hostapd_config": hostapdConfig, "mac_address": mac,
+                                       "checked_hostapd_config": finalobj}}
+
+                # @after_this_request
+                # def reboot(test):
+                #     time.sleep(1)
+                #     os.system('sudo shutdown -r now')
+                #     return jsonify({"status":True,"inSync":False})
+                # @after_this_request
+                # def reboot(test):
+                #     time.sleep(1)
+                #     os.system('sudo shutdown -r now')
+                #     return {"status": True, "inSync": False, "config": {"ip_address": ip, "hostapd_config": hostapdConfig, "mac_address": mac,"checked_hostapd_config":finalobj}}
                 return {"status":True,"inSync":False,"config":{"ip_address":ip,"hostapd_config":hostapdConfig,"mac_address":mac,"checked_hostapd_config":finalobj}}
             else:
                 logger.info("In sync!")
@@ -261,12 +286,22 @@ def applyConfig():
                 logger.info("Not same config")
                 applyConfiguration(config)
                 logger.info("Config applied, trying to reboot")
-
-                @after_this_request
-                def reboot(test):
+                try:
+                    os.system("killall hostapd")
+                except:
+                    pass
+                try:
+                    os.system("hostapd -B /etc/hostapd/hostapd.conf")
+                except:
                     time.sleep(1)
                     os.system('sudo shutdown -r now')
                     return jsonify({"status":True,"inSync":False})
+
+                # @after_this_request
+                # def reboot(test):
+                #     time.sleep(1)
+                #     os.system('sudo shutdown -r now')
+                #     return jsonify({"status":True,"inSync":False})
                 return jsonify({"status":True,"inSync":False})
             else:
                 return jsonify({"status": True,"inSync":True})
