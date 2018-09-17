@@ -321,13 +321,15 @@ def applyConfig():
                     logger.info("not started")
                     with open('hostapd_available_config.json') as f:
                         channel = getFieldHostapdConfig("channel")
+                        logger.info(channel)
                         data = json.load(f)
                         logger.info(data)
                     try:
-                        with open('hostapd_available_config.json') as f:
+                        with open('hostapd_available_config.json') as f2:
                             channel = getFieldHostapdConfig("channel")
-                            data = json.load(f)
-                            avai = data['configs']['a']['40'][channel]
+                            data = json.load(f2)
+                            avai = data["configs"]["a"]["40"]
+                            logger.info(avai)
                             ht_capab = getFieldHostapdConfig("ht_capab")
                             if ht_capab is not None:
                                 logger.info(ht_capab)
