@@ -173,6 +173,7 @@ def getConfig(request):
                 logger.info("Config applied, trying to reboot")
                 try:
                     os.system("killall hostapd")
+                    time.sleep(2)
                 except:
                     pass
                 try:
@@ -288,6 +289,7 @@ def applyConfig():
                 logger.info("Config applied, trying to reboot")
                 try:
                     os.system("killall hostapd")
+                    time.sleep(2)
                 except:
                     logger.exception("error")
                     pass
