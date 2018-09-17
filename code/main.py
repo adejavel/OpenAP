@@ -184,6 +184,8 @@ def getConfig(request):
                                     setParameterHostapdConfig("ht_capab", "[HT40+][SHORT-GI-40]")
                                 elif ht_capab == "[HT40+][SHORT-GI-40]" and "-" in avai:
                                     setParameterHostapdConfig("ht_capab", "[HT40-][SHORT-GI-40]")
+                                else :
+                                    setParameterHostapdConfig("ht_capab", None)
                             start = restartHostapd()
                     except:
                         pass
@@ -313,10 +315,13 @@ def applyConfig():
                             data = json.load(f)
                             avai = data["configs"]["a"]["40"][channel]
                             ht_capab = getFieldHostapdConfig("ht_capab")
-                            if ht_capab == "[HT40-][SHORT-GI-40]" and "+" in avai:
-                                setParameterHostapdConfig("ht_capab", "[HT40+][SHORT-GI-40]")
-                            elif ht_capab == "[HT40+][SHORT-GI-40]" and "-" in avai:
-                                setParameterHostapdConfig("ht_capab", "[HT40-][SHORT-GI-40]")
+                            if ht_capab is not None:
+                                if ht_capab == "[HT40-][SHORT-GI-40]" and "+" in avai:
+                                    setParameterHostapdConfig("ht_capab", "[HT40+][SHORT-GI-40]")
+                                elif ht_capab == "[HT40+][SHORT-GI-40]" and "-" in avai:
+                                    setParameterHostapdConfig("ht_capab", "[HT40-][SHORT-GI-40]")
+                                else :
+                                    setParameterHostapdConfig("ht_capab", None)
                             start = restartHostapd()
                     except:
                         pass
