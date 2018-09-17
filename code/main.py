@@ -268,10 +268,8 @@ def getFieldHostapdConfig(field):
             for line in config:
                 if not line.startswith("#"):
                     words = line.split("=")
-                    # if words[0]=="ht_capab":
-                    #     hostapdConfig["width"]="40"
-                    if not words[0] == field:
-                        toRet= words[1]
+                    if words[0] == field:
+                        toRet= words[1].rstrip()
         return toRet
     except:
         logger.exception("Error while paring hostapd config")
@@ -328,7 +326,7 @@ def applyConfig():
                         with open('hostapd_available_config.json') as f2:
                             channel = getFieldHostapdConfig("channel")
                             data = json.load(f2)
-                            avai = data["configs"]["a"]["40"]
+                            avai = data["configs"]["a"]["40"][channel]
                             logger.info(avai)
                             ht_capab = getFieldHostapdConfig("ht_capab")
                             if ht_capab is not None:
