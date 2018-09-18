@@ -47,7 +47,7 @@ while True:
                 proc.kill()
         time.sleep(2)
         logger.info("Trying to activate ngrok...")
-        resp = os.popen('./ngrok http 80 > /root/test.log &').read()
+        resp = os.popen('./ngrok http 80 > /test.log &').read()
         logger.info("...Success => waiting 5 sec")
         time.sleep(5)
         logger.info("Getting tunnel")
