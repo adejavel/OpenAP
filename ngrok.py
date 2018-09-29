@@ -17,6 +17,7 @@ file_handler = RotatingFileHandler('ngrok.log', 'a', 1000000, 1)
 file_handler.setLevel(logging.DEBUG)
 file_handler.setFormatter(formatter)
 logger.addHandler(file_handler)
+logger.info("Running ngrok script!")
 
 def getMac():
     logger.info("Getting mac")
