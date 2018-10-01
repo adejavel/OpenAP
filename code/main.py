@@ -21,7 +21,7 @@ file_handler = RotatingFileHandler('agent.log', 'a', 1000000, 1)
 file_handler.setLevel(logging.DEBUG)
 file_handler.setFormatter(formatter)
 logger.addHandler(file_handler)
-
+logger.info("Running main script!")
 
 
 DEFAULT_PARAMETERS=["wpa","wpa_key_mgmt","wpa_pairwise","rsn_pairwise","ieee80211n","ht_capab"]
