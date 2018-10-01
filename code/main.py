@@ -382,9 +382,6 @@ def applyConfig():
         return jsonify({"status": False, "inSync": False})
 
     except:
-        #logger.info(request)
-        #logger.info(request.data)
-        #logger.info(request.json)
         logger.exception("error while applying config")
         return jsonify({"status": False})
 
@@ -512,24 +509,9 @@ def restartHostapd():
             return True
         else:
             return False
-        # logger.info(output)
-        # if not output:
-        #     return True
-        # else:
-        #     return False
     except:
         logger.exception("error")
         return False
-    # except subprocess.:
-    #     try:
-    #         os.system("killall hostapd")
-    #         time.sleep(1)
-    #     except:
-    #         pass
-    #     os.system("hostapd -B /etc/hostapd/hostapd.conf")
-    #     return True
-    # except:
-    #     return False
 
 if __name__ == '__main__':
     app.run(port=80,host="0.0.0.0")
