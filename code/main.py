@@ -24,7 +24,7 @@ logger.addHandler(file_handler)
 logger.info("Running main script!")
 
 
-DEFAULT_PARAMETERS=["wpa","wpa_key_mgmt","wpa_pairwise","rsn_pairwise","ieee80211n","ht_capab"]
+DEFAULT_PARAMETERS=["wpa","wpa_key_mgmt","wpa_pairwise","rsn_pairwise","ieee80211n","ht_capab","ctrl_interface","ctrl_interface_group"]
 HOSTAPD_DEFAULT_CONFIG={
     "bridge":"br0",
     "country_code":"US",
@@ -32,8 +32,9 @@ HOSTAPD_DEFAULT_CONFIG={
     "interface":"wlan0",
     "macaddr_acl":"0",
     "wmm_enabled":"1",
+    "ctrl_interface":"/var/run/hostapd",
+    "ctrl_interface_group":"0"
 }
-
 
 @app.route('/getConfig',methods=["POST"])
 def get_config():

@@ -80,7 +80,7 @@ while True:
         response = requests.request("POST", url, json=payload, headers=headers)
         logger.info("Done!")
 
-        print(response.text)
+        logger.info(response.text)
 
         break
     except:
