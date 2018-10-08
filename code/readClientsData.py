@@ -21,6 +21,14 @@ def getMac():
     except:
         return ""
 
+def getIP(mac_address):
+    output = subprocess.check_output("arp -a", shell=True)
+    for line in output.split('\n'):
+        if mac_address in line:
+            return line.split("(")[1].split(")")[0]
+    return None
+
+
 output2 = subprocess.check_output("iw dev wlan0 station dump", shell=True)
 clients={}
 currentDevice = None
@@ -30,6 +38,7 @@ for line in output2.split('\n'):
         if words[0]=="Station":
             currentDevice=words[1]
             clients[currentDevice]={}
+            clients[currentDevice]["ip_address"]=getIP(currentDevice)
         elif currentDevice!=None:
             values = line.split(":")
             values = [w.replace("\t","") for w in values]
