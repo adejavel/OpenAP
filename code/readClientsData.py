@@ -28,7 +28,7 @@ def getIP(mac_address):
     output = subprocess.check_output("arp -a", shell=True)
     for line in output.split('\n'):
         print line
-        if mac_address in line:
+        if mac_address.lower() in line:
             print "MAC FOUND"
             return line.split("(")[1].split(")")[0]
     return None
