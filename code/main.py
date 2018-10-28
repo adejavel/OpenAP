@@ -234,6 +234,7 @@ def getConfig(request):
             else:
                 return {"status":False}
         else:
+            logger.info("no applied config")
             return {"status": True}
     except:
         logger.exception("Error while getting config")
