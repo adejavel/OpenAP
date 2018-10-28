@@ -148,90 +148,93 @@ def getConfig(request):
     logger.info(request.json)
     try:
         data = request.json
-        config = data["applied_config"]
-        ip = getIP()
-        mac = getMac()
-        hostapdConfig = parseHostapdConfig()
-        if config["type"]=="AP":
-            logger.info("Comparing config")
-            finalobj={}
-            configH = parseHostapdConfig()
-            try:
-                finalobj = checkIWConfig()
-            except:
-                pass
-            if not compareConfig(configH,config["parameters"]):
-                logger.info("Not in SYNC")
+        if "applied_config" in data:
+            config = data["applied_config"]
+            ip = getIP()
+            mac = getMac()
+            hostapdConfig = parseHostapdConfig()
+            if config["type"]=="AP":
+                logger.info("Comparing config")
+                finalobj={}
+                configH = parseHostapdConfig()
                 try:
-                    os.system("killall hostapd")
+                    finalobj = checkIWConfig()
                 except:
                     pass
-                applyConfiguration(config)
-                try:
-                    os.system("killall hostapd")
-                except:
-                    pass
-                logger.info("Not same config")
-                applyConfiguration(config)
-                logger.info("Config applied, trying to reboot")
-                start = restartHostapd()
-                if not start:
-                    logger.info("not started")
+                if not compareConfig(configH,config["parameters"]):
+                    logger.info("Not in SYNC")
                     try:
-                        with open('hostapd_available_config.json') as f2:
-                            channel = getFieldHostapdConfig("channel")
-                            data = json.load(f2)
-                            avai = data["configs"]["a"]["40"][channel]
-                            logger.info(avai)
-                            ht_capab = getFieldHostapdConfig("ht_capab")
-                            if ht_capab is not None:
-                                logger.info(ht_capab)
-                                if ht_capab == "[HT40-][SHORT-GI-40]" and "+" in avai:
-                                    logger.info("trying 40 +")
-                                    setParameterHostapdConfig("ht_capab", "[HT40+][SHORT-GI-40]")
-                                elif ht_capab == "[HT40+][SHORT-GI-40]" and "-" in avai:
-                                    logger.info("trying 40 -")
-                                    setParameterHostapdConfig("ht_capab", "[HT40-][SHORT-GI-40]")
-                            start = restartHostapd()
+                        os.system("killall hostapd")
                     except:
-                        logger.exception("error")
                         pass
-                if not start:
-                    logger.info("not started")
+                    applyConfiguration(config)
                     try:
-                        with open('hostapd_available_config.json') as f2:
-                            channel = getFieldHostapdConfig("channel")
-                            data = json.load(f2)
-                            avai = data["configs"]["a"]["40"][channel]
-                            logger.info(avai)
-                            ht_capab = getFieldHostapdConfig("ht_capab")
-                            if ht_capab is not None:
-                                logger.info(ht_capab)
-                                logger.info("trying 20")
-                                setParameterHostapdConfig("ht_capab", None)
-                            start = restartHostapd()
+                        os.system("killall hostapd")
                     except:
-                        logger.exception("error")
                         pass
+                    logger.info("Not same config")
+                    applyConfiguration(config)
+                    logger.info("Config applied, trying to reboot")
+                    start = restartHostapd()
+                    if not start:
+                        logger.info("not started")
+                        try:
+                            with open('hostapd_available_config.json') as f2:
+                                channel = getFieldHostapdConfig("channel")
+                                data = json.load(f2)
+                                avai = data["configs"]["a"]["40"][channel]
+                                logger.info(avai)
+                                ht_capab = getFieldHostapdConfig("ht_capab")
+                                if ht_capab is not None:
+                                    logger.info(ht_capab)
+                                    if ht_capab == "[HT40-][SHORT-GI-40]" and "+" in avai:
+                                        logger.info("trying 40 +")
+                                        setParameterHostapdConfig("ht_capab", "[HT40+][SHORT-GI-40]")
+                                    elif ht_capab == "[HT40+][SHORT-GI-40]" and "-" in avai:
+                                        logger.info("trying 40 -")
+                                        setParameterHostapdConfig("ht_capab", "[HT40-][SHORT-GI-40]")
+                                start = restartHostapd()
+                        except:
+                            logger.exception("error")
+                            pass
+                    if not start:
+                        logger.info("not started")
+                        try:
+                            with open('hostapd_available_config.json') as f2:
+                                channel = getFieldHostapdConfig("channel")
+                                data = json.load(f2)
+                                avai = data["configs"]["a"]["40"][channel]
+                                logger.info(avai)
+                                ht_capab = getFieldHostapdConfig("ht_capab")
+                                if ht_capab is not None:
+                                    logger.info(ht_capab)
+                                    logger.info("trying 20")
+                                    setParameterHostapdConfig("ht_capab", None)
+                                start = restartHostapd()
+                        except:
+                            logger.exception("error")
+                            pass
 
-                if start:
-                    logger.info("started!")
-                    return {"status": True, "inSync": True,
-                            "config": {"ip_address": ip, "hostapd_config": hostapdConfig, "mac_address": mac,
-                                       "checked_hostapd_config": finalobj}}
+                    if start:
+                        logger.info("started!")
+                        return {"status": True, "inSync": True,
+                                "config": {"ip_address": ip, "hostapd_config": hostapdConfig, "mac_address": mac,
+                                           "checked_hostapd_config": finalobj}}
+
+                    else:
+                        logger.info("not started!")
+                        return {"status": False, "inSync": False,
+                                "config": {"ip_address": ip, "hostapd_config": hostapdConfig, "mac_address": mac,
+                                           "checked_hostapd_config": finalobj}}
 
                 else:
-                    logger.info("not started!")
-                    return {"status": False, "inSync": False,
-                            "config": {"ip_address": ip, "hostapd_config": hostapdConfig, "mac_address": mac,
-                                       "checked_hostapd_config": finalobj}}
-
+                    logger.info("In sync!")
+                    #logger.info(hostapdConfig)
+                    return {"status": True, "inSync": True,"config": {"ip_address": ip, "hostapd_config": hostapdConfig, "mac_address": mac,"checked_hostapd_config":finalobj}}
             else:
-                logger.info("In sync!")
-                #logger.info(hostapdConfig)
-                return {"status": True, "inSync": True,"config": {"ip_address": ip, "hostapd_config": hostapdConfig, "mac_address": mac,"checked_hostapd_config":finalobj}}
+                return {"status":False}
         else:
-            return {"status":False}
+            return {"status": True}
     except:
         logger.exception("Error while getting config")
         return {"status": False}
