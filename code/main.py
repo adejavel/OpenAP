@@ -145,6 +145,7 @@ def checkConfigHostapd():
 
 def getConfig(request):
     logger.info("Executing getConfig action")
+    logger.info(request.json)
     try:
         data = request.json
         config = data["applied_config"]
