@@ -7,6 +7,7 @@ from logging.handlers import RotatingFileHandler
 from uuid import getnode as get_mac
 import requests
 import sys
+import json
 
 app = Flask(__name__)
 
@@ -20,6 +21,13 @@ logger.addHandler(file_handler)
 logger.info("Running connection script!")
 
 logger.info(str(sys.argv))
+
+try:
+    with open('/root/deviceInfo.json') as json_data:
+        d = json.load(json_data)
+        OPENAP_HOST=d["apiEndPoint"]
+except:
+    OPENAP_HOST="https://staging-api.openap.io/"
 
 mac_address = sys.argv[1]
 def getMac():
@@ -40,10 +48,10 @@ headers = {
     }
 
 if sys.argv[3]=="True":
-    url = "https://api.openap.io/devices/connectDevice"
+    url = "{}devices/connectDevice".format(OPENAP_HOST)
 
 elif sys.argv[3]=="False":
-    url = "https://api.openap.io/devices/disconnectDevice"
+    url = "{}devices/disconnectDevice".format(OPENAP_HOST)
 else:
     url=""
 

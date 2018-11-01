@@ -19,6 +19,13 @@ file_handler.setFormatter(formatter)
 logger.addHandler(file_handler)
 logger.info("Running ngrok script!")
 
+try:
+    with open('/root/deviceInfo.json') as json_data:
+        d = json.load(json_data)
+        OPENAP_HOST=d["apiEndPoint"]
+except:
+    OPENAP_HOST="https://staging-api.openap.io/"
+
 def getMac():
     logger.info("Getting mac")
     try:
@@ -66,7 +73,7 @@ while True:
         logger.info("Done, sleeping 2 sec")
         time.sleep(2)
         logger.info("Registering to server")
-        url = "https://api.openap.io/devices/register"
+        url = "{}devices/register".format(OPENAP_HOST)
         ip= getIP()
         payload = {
             "http_tunnel":tunnel,

@@ -3,6 +3,7 @@ from uuid import getnode as get_mac
 import logging
 from logging.handlers import RotatingFileHandler
 import requests
+import json
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 formatter = logging.Formatter('%(asctime)s :: %(levelname)s :: %(message)s')
@@ -11,6 +12,13 @@ file_handler.setLevel(logging.DEBUG)
 file_handler.setFormatter(formatter)
 logger.addHandler(file_handler)
 logger.info("Running read device script!")
+
+try:
+    with open('/root/deviceInfo.json') as json_data:
+        d = json.load(json_data)
+        OPENAP_HOST=d["apiEndPoint"]
+except:
+    OPENAP_HOST="https://staging-api.openap.io/"
 
 def getSpeedTest():
 
@@ -60,7 +68,7 @@ headers = {
     'Mac-Adress': getMac(),
     }
 
-url = "https://api.openap.io/devices/postDeviceData"
+url = "{}devices/postDeviceData".format(OPENAP_HOST)
 
 
 response = requests.request("POST", url, json=payload, headers=headers)
