@@ -2,7 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5ca978ab-e601-49e4-92ff-7954533de01d" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ngrok.py" afterPath="$PROJECT_DIR$/ngrok.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/code/client.py" afterPath="$PROJECT_DIR$/code/client.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/code/main.py" afterPath="$PROJECT_DIR$/code/main.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/code/readClientsData.py" afterPath="$PROJECT_DIR$/code/readClientsData.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/code/readDeviceData.py" afterPath="$PROJECT_DIR$/code/readDeviceData.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -30,11 +33,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="ngrok.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ngrok.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ngrok.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="377">
-              <caret line="34" column="39" lean-forward="false" selection-start-line="34" selection-start-column="39" selection-end-line="34" selection-end-column="39" />
+              <caret line="34" column="27" lean-forward="true" selection-start-line="34" selection-start-column="27" selection-end-line="34" selection-end-column="39" />
               <folding>
                 <element signature="e#18#31#0" expanded="true" />
               </folding>
@@ -55,8 +58,8 @@
       <file leaf-file-name="client.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/code/client.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="81">
-              <caret line="10" column="16" lean-forward="false" selection-start-line="10" selection-start-column="16" selection-end-line="10" selection-end-column="16" />
+            <state relative-caret-position="371">
+              <caret line="35" column="39" lean-forward="false" selection-start-line="35" selection-start-column="39" selection-end-line="35" selection-end-column="39" />
               <folding>
                 <element signature="e#43#101#0" expanded="true" />
               </folding>
@@ -67,8 +70,8 @@
       <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/code/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="171">
-              <caret line="311" column="9" lean-forward="false" selection-start-line="311" selection-start-column="4" selection-end-line="311" selection-end-column="9" />
+            <state relative-caret-position="375">
+              <caret line="314" column="39" lean-forward="false" selection-start-line="314" selection-start-column="39" selection-end-line="314" selection-end-column="39" />
               <folding>
                 <element signature="e#43#101#0" expanded="true" />
               </folding>
@@ -88,7 +91,7 @@
       <file leaf-file-name="parseIwList.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/code/parseIwList.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="15">
+            <state relative-caret-position="-585">
               <caret line="1" column="25" lean-forward="false" selection-start-line="1" selection-start-column="25" selection-end-line="1" selection-end-column="25" />
               <folding />
             </state>
@@ -111,8 +114,8 @@
       <file leaf-file-name="readClientsData.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/code/readClientsData.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="6" column="16" lean-forward="false" selection-start-line="6" selection-start-column="16" selection-end-line="6" selection-end-column="16" />
+            <state relative-caret-position="377">
+              <caret line="26" column="39" lean-forward="false" selection-start-line="26" selection-start-column="39" selection-end-line="26" selection-end-column="39" />
               <folding>
                 <element signature="e#0#17#0" expanded="true" />
               </folding>
@@ -120,7 +123,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ReadUSBTest.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="ReadUSBTest.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/code/ReadUSBTest.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="45">
@@ -133,8 +136,8 @@
       <file leaf-file-name="readDeviceData.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/code/readDeviceData.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-362">
-              <caret line="6" column="16" lean-forward="false" selection-start-line="6" selection-start-column="16" selection-end-line="6" selection-end-column="16" />
+            <state relative-caret-position="358">
+              <caret line="54" column="39" lean-forward="false" selection-start-line="54" selection-start-column="39" selection-end-line="54" selection-end-column="39" />
               <folding>
                 <element signature="e#0#16#0" expanded="true" />
               </folding>
@@ -181,11 +184,11 @@
         <option value="$PROJECT_DIR$/code/scriptAPD.sh" />
         <option value="$PROJECT_DIR$/code/ReadUSBTest.py" />
         <option value="$PROJECT_DIR$/README.md" />
-        <option value="$PROJECT_DIR$/code/main.py" />
+        <option value="$PROJECT_DIR$/ngrok.py" />
         <option value="$PROJECT_DIR$/code/client.py" />
+        <option value="$PROJECT_DIR$/code/main.py" />
         <option value="$PROJECT_DIR$/code/readClientsData.py" />
         <option value="$PROJECT_DIR$/code/readDeviceData.py" />
-        <option value="$PROJECT_DIR$/ngrok.py" />
       </list>
     </option>
   </component>
@@ -597,10 +600,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/ngrok.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="377">
+          <caret line="34" column="27" lean-forward="true" selection-start-line="34" selection-start-column="27" selection-end-line="34" selection-end-column="39" />
+          <folding>
+            <element signature="e#18#31#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/code/client.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="81">
-          <caret line="10" column="16" lean-forward="false" selection-start-line="10" selection-start-column="16" selection-end-line="10" selection-end-column="16" />
+        <state relative-caret-position="371">
+          <caret line="35" column="39" lean-forward="false" selection-start-line="35" selection-start-column="39" selection-end-line="35" selection-end-column="39" />
           <folding>
             <element signature="e#43#101#0" expanded="true" />
           </folding>
@@ -609,8 +622,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/code/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="311" column="9" lean-forward="false" selection-start-line="311" selection-start-column="4" selection-end-line="311" selection-end-column="9" />
+        <state relative-caret-position="375">
+          <caret line="314" column="39" lean-forward="false" selection-start-line="314" selection-start-column="39" selection-end-line="314" selection-end-column="39" />
           <folding>
             <element signature="e#43#101#0" expanded="true" />
           </folding>
@@ -619,7 +632,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/code/parseIwList.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
+        <state relative-caret-position="-585">
           <caret line="1" column="25" lean-forward="false" selection-start-line="1" selection-start-column="25" selection-end-line="1" selection-end-column="25" />
           <folding />
         </state>
@@ -627,8 +640,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/code/readClientsData.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="16" lean-forward="false" selection-start-line="6" selection-start-column="16" selection-end-line="6" selection-end-column="16" />
+        <state relative-caret-position="377">
+          <caret line="26" column="39" lean-forward="false" selection-start-line="26" selection-start-column="39" selection-end-line="26" selection-end-column="39" />
           <folding>
             <element signature="e#0#17#0" expanded="true" />
           </folding>
@@ -637,8 +650,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/code/readDeviceData.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-362">
-          <caret line="6" column="16" lean-forward="false" selection-start-line="6" selection-start-column="16" selection-end-line="6" selection-end-column="16" />
+        <state relative-caret-position="358">
+          <caret line="54" column="39" lean-forward="false" selection-start-line="54" selection-start-column="39" selection-end-line="54" selection-end-column="39" />
           <folding>
             <element signature="e#0#16#0" expanded="true" />
           </folding>
@@ -650,16 +663,6 @@
         <state relative-caret-position="45">
           <caret line="3" column="4" lean-forward="false" selection-start-line="3" selection-start-column="4" selection-end-line="3" selection-end-column="4" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ngrok.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="377">
-          <caret line="34" column="39" lean-forward="false" selection-start-line="34" selection-start-column="39" selection-end-line="34" selection-end-column="39" />
-          <folding>
-            <element signature="e#18#31#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>

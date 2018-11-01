@@ -24,7 +24,7 @@ except:
 def getMac():
     logger.info("Getting mac")
     mac = str(netifaces.ifaddresses('eth0')[netifaces.AF_LINK][0]["addr"]).upper()
-    logger.info("Mac is {}").format(mac)
+    logger.info("Mac is {}".format(mac))
     return mac
     # try:
     #     mac = get_mac()
