@@ -4,6 +4,7 @@ import logging
 from logging.handlers import RotatingFileHandler
 import requests
 import json
+import netifaces
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 formatter = logging.Formatter('%(asctime)s :: %(levelname)s :: %(message)s')
@@ -22,12 +23,15 @@ except:
 
 def getMac():
     logger.info("Getting mac")
-    try:
-        mac = get_mac()
-        mac=':'.join(("%012X" % mac)[i:i + 2] for i in range(0, 12, 2))
-        return str(mac)
-    except:
-        return ""
+    mac = str(netifaces.ifaddresses('eth0')[netifaces.AF_LINK][0]["addr"]).upper()
+    logger.info("Mac is {}").format(mac)
+    return mac
+    # try:
+    #     mac = get_mac()
+    #     mac=':'.join(("%012X" % mac)[i:i + 2] for i in range(0, 12, 2))
+    #     return str(mac)
+    # except:
+    #     return ""
 
 def getIP(mac_address):
     print ""

@@ -9,6 +9,7 @@ import logging
 import subprocess
 import psutil
 from logging.handlers import RotatingFileHandler
+import netifaces
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
@@ -28,12 +29,15 @@ except:
 
 def getMac():
     logger.info("Getting mac")
-    try:
-        mac = get_mac()
-        mac=':'.join(("%012X" % mac)[i:i + 2] for i in range(0, 12, 2))
-        return str(mac)
-    except:
-        return ""
+    mac = str(netifaces.ifaddresses('eth0')[netifaces.AF_LINK][0]["addr"]).upper()
+    logger.info("Mac is {}").format(mac)
+    return mac
+    # try:
+    #     mac = get_mac()
+    #     mac=':'.join(("%012X" % mac)[i:i + 2] for i in range(0, 12, 2))
+    #     return str(mac)
+    # except:
+    #     return ""
 
 def getIP():
     logger.info("Getting IP address")

@@ -8,7 +8,7 @@ from uuid import getnode as get_mac
 import requests
 import sys
 import json
-
+import netifaces
 app = Flask(__name__)
 
 logger = logging.getLogger()
@@ -32,12 +32,15 @@ except:
 mac_address = sys.argv[1]
 def getMac():
     logger.info("Getting mac")
-    try:
-        mac = get_mac()
-        mac=':'.join(("%012X" % mac)[i:i + 2] for i in range(0, 12, 2))
-        return str(mac)
-    except:
-        return ""
+    mac = str(netifaces.ifaddresses('eth0')[netifaces.AF_LINK][0]["addr"]).upper()
+    logger.info("Mac is {}").format(mac)
+    return mac
+    # try:
+    #     mac = get_mac()
+    #     mac=':'.join(("%012X" % mac)[i:i + 2] for i in range(0, 12, 2))
+    #     return str(mac)
+    # except:
+    #     return ""
 
 payload = {
     "mac_address":mac_address

@@ -11,6 +11,7 @@ import shutil
 import time
 import json
 import subprocess
+import netifaces
 
 app = Flask(__name__)
 
@@ -309,14 +310,16 @@ def getIP():
         logger.exception("Error while getting IP address")
 
 def getMac():
-    logger.info("Trying to get mac address")
-    try:
-        mac = get_mac()
-        mac=':'.join(("%012X" % mac)[i:i + 2] for i in range(0, 12, 2))
-        return mac
-    except:
-        logger.exception("Error while getting mac address")
-        return ""
+    logger.info("Getting mac")
+    mac = str(netifaces.ifaddresses('eth0')[netifaces.AF_LINK][0]["addr"]).upper()
+    logger.info("Mac is {}").format(mac)
+    return mac
+    # try:
+    #     mac = get_mac()
+    #     mac=':'.join(("%012X" % mac)[i:i + 2] for i in range(0, 12, 2))
+    #     return str(mac)
+    # except:
+    #     return ""
 
 
 @app.route('/applyConfig',methods=["POST"])

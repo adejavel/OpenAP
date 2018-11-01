@@ -4,6 +4,7 @@ import logging
 from logging.handlers import RotatingFileHandler
 import requests
 import json
+import netifaces
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 formatter = logging.Formatter('%(asctime)s :: %(levelname)s :: %(message)s')
@@ -49,13 +50,16 @@ def getSpeedTest():
 print(getSpeedTest())
 
 def getMac():
-    #logger.info("Getting mac")
-    try:
-        mac = get_mac()
-        mac = ':'.join(("%012X" % mac)[i:i + 2] for i in range(0, 12, 2))
-        return str(mac)
-    except:
-        return ""
+    logger.info("Getting mac")
+    mac = str(netifaces.ifaddresses('eth0')[netifaces.AF_LINK][0]["addr"]).upper()
+    logger.info("Mac is {}").format(mac)
+    return mac
+    # try:
+    #     mac = get_mac()
+    #     mac=':'.join(("%012X" % mac)[i:i + 2] for i in range(0, 12, 2))
+    #     return str(mac)
+    # except:
+    #     return ""
 
 
 print(getMac())
