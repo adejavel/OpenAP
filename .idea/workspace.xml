@@ -2,11 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5ca978ab-e601-49e4-92ff-7954533de01d" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/code/client.py" afterPath="$PROJECT_DIR$/code/client.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/code/main.py" afterPath="$PROJECT_DIR$/code/main.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/code/readClientsData.py" afterPath="$PROJECT_DIR$/code/readClientsData.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/code/readDeviceData.py" afterPath="$PROJECT_DIR$/code/readDeviceData.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ngrok.py" afterPath="$PROJECT_DIR$/ngrok.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -35,11 +30,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="ngrok.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="ngrok.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ngrok.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="327">
-              <caret line="29" column="0" lean-forward="false" selection-start-line="29" selection-start-column="0" selection-end-line="39" selection-end-column="19" />
+            <state relative-caret-position="372">
+              <caret line="32" column="64" lean-forward="false" selection-start-line="32" selection-start-column="64" selection-end-line="32" selection-end-column="64" />
               <folding>
                 <element signature="e#18#31#0" expanded="true" />
               </folding>
@@ -125,7 +120,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ReadUSBTest.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ReadUSBTest.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/code/ReadUSBTest.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="45">
@@ -186,11 +181,11 @@
         <option value="$PROJECT_DIR$/code/scriptAPD.sh" />
         <option value="$PROJECT_DIR$/code/ReadUSBTest.py" />
         <option value="$PROJECT_DIR$/README.md" />
-        <option value="$PROJECT_DIR$/ngrok.py" />
         <option value="$PROJECT_DIR$/code/main.py" />
         <option value="$PROJECT_DIR$/code/client.py" />
         <option value="$PROJECT_DIR$/code/readClientsData.py" />
         <option value="$PROJECT_DIR$/code/readDeviceData.py" />
+        <option value="$PROJECT_DIR$/ngrok.py" />
       </list>
     </option>
   </component>
@@ -602,16 +597,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ngrok.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="327">
-          <caret line="29" column="0" lean-forward="false" selection-start-line="29" selection-start-column="0" selection-end-line="39" selection-end-column="19" />
-          <folding>
-            <element signature="e#18#31#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/code/client.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="81">
@@ -665,6 +650,16 @@
         <state relative-caret-position="45">
           <caret line="3" column="4" lean-forward="false" selection-start-line="3" selection-start-column="4" selection-end-line="3" selection-end-column="4" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ngrok.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="372">
+          <caret line="32" column="64" lean-forward="false" selection-start-line="32" selection-start-column="64" selection-end-line="32" selection-end-column="64" />
+          <folding>
+            <element signature="e#18#31#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
