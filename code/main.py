@@ -54,7 +54,7 @@ def checkIWConfig():
     logger.info(wlanList)
     globalResult=[]
     for wlanInt in wlanList:
-        output = os.popen("iw {} info".info(wlanInt))
+        output = os.popen("iw {} info".format(wlanInt))
         output = output.read()
         logger.info(output)
         wlan = 0
