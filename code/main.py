@@ -290,6 +290,8 @@ def parseHostapdConfig():
         return hostapdConfig
     except:
         logger.exception("Error while paring hostapd config")
+        return {}
+
 
 def getFieldHostapdConfig(field):
     logger.info("trying to get {}".format(field))
