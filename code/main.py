@@ -56,7 +56,7 @@ def checkIWConfig():
     for wlanInt in wlanList:
         output = os.popen("iw {} info".format(wlanInt))
         output = output.read()
-        logger.info(output)
+        #logger.info(output)
         wlan = 0
         for line in output.split('\n'):
             if "phy" in line:
