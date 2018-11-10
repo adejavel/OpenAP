@@ -428,6 +428,7 @@ def applyConfiguration(config):
     if config["type"] == "AP":
         shutil.move("/etc/hostapd/hostapd.conf", "/etc/hostapd/hostapd.old.conf")
         os.system("touch /etc/hostapd/hostapd.conf")
+        interface=config["parameters"]["interface"]
         for param in HOSTAPD_DEFAULT_CONFIG:
             setParameterHostapdConfig(param, HOSTAPD_DEFAULT_CONFIG[param])
         for param in config["parameters"]:
@@ -443,7 +444,7 @@ def applyConfiguration(config):
                         try:
                             with open('hostapd_available_config.json') as f:
                                 data = json.load(f)
-                                avai = data["configs"]["a"]["40"][config["parameters"]["channel"]]
+                                avai = data["configs"][interface]["a"]["40"][config["parameters"]["channel"]]
                                 if "+" in avai:
                                     setParameterHostapdConfig("ht_capab", "[HT40+][SHORT-GI-40]")
                                 elif "-" in avai:
