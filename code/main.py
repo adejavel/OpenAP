@@ -52,6 +52,7 @@ def checkIWConfig():
             wlanList.append(line.split(" ")[0])
     logger.info(wlanList)
     globalResult={}
+    globalInterObj={}
     for wlanInt in wlanList:
         output = os.popen("iw {} info".format(wlanInt))
         output = output.read()
@@ -131,11 +132,13 @@ def checkIWConfig():
                 interObj["a"]["20"].append(channel)
         logger.info(finalObject)
         # print interObj
-        with open('hostapd_available_config.json', 'w') as fp:
-            json.dump({"configs": interObj, "time": time.time()}, fp)
+
         #finalObject["interface"]=wlanInt
         globalResult[wlanInt]=finalObject
+        globalInterObj[wlanInt] = interObj
         #globalResult.append(finalObject)
+    with open('hostapd_available_config.json', 'w') as fp:
+        json.dump({"configs": globalInterObj, "time": time.time()}, fp)
     return globalResult
 
 
@@ -160,6 +163,7 @@ def getConfig(request):
         data = request.json
         if "applied_config" in data:
             config = data["applied_config"]
+            interface=config["interface"]
             ip = getIP()
             mac = getMac()
             hostapdConfig = parseHostapdConfig()
@@ -192,7 +196,7 @@ def getConfig(request):
                             with open('hostapd_available_config.json') as f2:
                                 channel = getFieldHostapdConfig("channel")
                                 data = json.load(f2)
-                                avai = data["configs"]["a"]["40"][channel]
+                                avai = data["configs"][interface]["a"]["40"][channel]
                                 logger.info(avai)
                                 ht_capab = getFieldHostapdConfig("ht_capab")
                                 if ht_capab is not None:
@@ -213,7 +217,7 @@ def getConfig(request):
                             with open('hostapd_available_config.json') as f2:
                                 channel = getFieldHostapdConfig("channel")
                                 data = json.load(f2)
-                                avai = data["configs"]["a"]["40"][channel]
+                                avai = data["configs"][interface]["a"]["40"][channel]
                                 logger.info(avai)
                                 ht_capab = getFieldHostapdConfig("ht_capab")
                                 if ht_capab is not None:
@@ -348,6 +352,7 @@ def applyConfig():
                     pass
                 logger.info("Not same config")
                 applyConfiguration(config)
+                interface=config["interface"]
                 logger.info("Config applied, trying to reboot")
                 start = restartHostapd()
                 if not start:
@@ -356,7 +361,7 @@ def applyConfig():
                         with open('hostapd_available_config.json') as f2:
                             channel = getFieldHostapdConfig("channel")
                             data = json.load(f2)
-                            avai = data["configs"]["a"]["40"][channel]
+                            avai = data["configs"][interface]["a"]["40"][channel]
                             #logger.info(avai)
                             ht_capab = getFieldHostapdConfig("ht_capab")
                             if ht_capab is not None:
@@ -377,7 +382,7 @@ def applyConfig():
                         with open('hostapd_available_config.json') as f2:
                             channel = getFieldHostapdConfig("channel")
                             data = json.load(f2)
-                            avai = data["configs"]["a"]["40"][channel]
+                            avai = data["configs"][interface]["a"]["40"][channel]
                             #logger.info(avai)
                             ht_capab = getFieldHostapdConfig("ht_capab")
                             if ht_capab is not None:
