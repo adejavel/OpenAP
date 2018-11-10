@@ -441,11 +441,15 @@ def applyConfiguration(config):
                     setParameterHostapdConfig("wpa_pairwise", "TKIP")
                     setParameterHostapdConfig("rsn_pairwise", "CCMP")
                 if param2=="hw_mode" and config["parameters"][param]=="a":
+                    logger.info("Trying to set a mode for wifi")
                     if "width" in config["parameters"] and config["parameters"]["width"]=="40":
+                        logger.info("Trying to set 40 width")
                         try:
                             with open('hostapd_available_config.json') as f:
                                 data = json.load(f)
                                 avai = data["configs"][interface]["a"]["40"][config["parameters"]["channel"]]
+                                logger.info("Avai:")
+                                logger.info(avai)
                                 if "+" in avai:
                                     setParameterHostapdConfig("ht_capab", "[HT40+][SHORT-GI-40]")
                                 elif "-" in avai:
