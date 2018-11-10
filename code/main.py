@@ -52,7 +52,7 @@ def checkIWConfig():
         if "wlan" in line.split(" ")[0]:
             wlanList.append(line.split(" ")[0])
     logger.info(wlanList)
-    globalResult=[]
+    globalResult={}
     for wlanInt in wlanList:
         output = os.popen("iw {} info".format(wlanInt))
         output = output.read()
@@ -134,8 +134,9 @@ def checkIWConfig():
         # print interObj
         with open('hostapd_available_config.json', 'w') as fp:
             json.dump({"configs": interObj, "time": time.time()}, fp)
-        finalObject["interface"]=wlanInt
-        globalResult.append(finalObject)
+        #finalObject["interface"]=wlanInt
+        globalResult[wlanInt]=finalObject
+        #globalResult.append(finalObject)
     return globalResult
 
 
