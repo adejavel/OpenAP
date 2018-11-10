@@ -163,7 +163,7 @@ def getConfig(request):
         data = request.json
         if "applied_config" in data:
             config = data["applied_config"]
-            interface=config["interface"]
+            interface=config["parameters"]["interface"]
             ip = getIP()
             mac = getMac()
             hostapdConfig = parseHostapdConfig()
@@ -352,7 +352,7 @@ def applyConfig():
                     pass
                 logger.info("Not same config")
                 applyConfiguration(config)
-                interface=config["interface"]
+                interface=config["parameters"]["interface"]
                 logger.info("Config applied, trying to reboot")
                 start = restartHostapd()
                 if not start:
