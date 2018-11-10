@@ -429,6 +429,7 @@ def applyConfiguration(config):
         shutil.move("/etc/hostapd/hostapd.conf", "/etc/hostapd/hostapd.old.conf")
         os.system("touch /etc/hostapd/hostapd.conf")
         interface=config["parameters"]["interface"]
+        logger.info("Interface is {}".format(interface))
         for param in HOSTAPD_DEFAULT_CONFIG:
             setParameterHostapdConfig(param, HOSTAPD_DEFAULT_CONFIG[param])
         for param in config["parameters"]:

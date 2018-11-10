@@ -67,8 +67,8 @@
       <file leaf-file-name="main.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/code/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="425">
-              <caret line="452" column="32" lean-forward="true" selection-start-line="452" selection-start-column="32" selection-end-line="452" selection-end-column="32" />
+            <state relative-caret-position="171">
+              <caret line="447" column="54" lean-forward="false" selection-start-line="447" selection-start-column="39" selection-end-line="447" selection-end-column="54" />
               <folding>
                 <element signature="e#43#101#0" expanded="true" />
               </folding>
@@ -160,6 +160,7 @@
       <find>getMa</find>
       <find>reboot</find>
       <find>applyConfiguration</find>
+      <find>data[&quot;configs&quot;]</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -650,8 +651,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/code/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="452" column="32" lean-forward="true" selection-start-line="452" selection-start-column="32" selection-end-line="452" selection-end-column="32" />
+        <state relative-caret-position="171">
+          <caret line="447" column="54" lean-forward="false" selection-start-line="447" selection-start-column="39" selection-end-line="447" selection-end-column="54" />
           <folding>
             <element signature="e#43#101#0" expanded="true" />
           </folding>
