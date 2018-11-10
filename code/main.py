@@ -30,7 +30,6 @@ HOSTAPD_DEFAULT_CONFIG={
     "bridge":"br0",
     "country_code":"US",
     "ignore_broadcast_ssid":"0",
-    "interface":"wlan0",
     "macaddr_acl":"0",
     "wmm_enabled":"1",
     "ctrl_interface":"/var/run/hostapd",
