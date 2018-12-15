@@ -456,6 +456,7 @@ def applyConfiguration(config):
                                 elif "-" in avai:
                                     setParameterHostapdConfig("ht_capab", "[HT40-][SHORT-GI-40]")
                         except:
+                            logger.exception("Error")
                             pass
                     setParameterHostapdConfig("ieee80211n", "1")
 
