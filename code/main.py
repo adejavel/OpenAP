@@ -341,6 +341,7 @@ def getMac():
 def applyConfig():
     try:
         config = json.loads(request.data, strict=False)
+        config=config["network_config"]
         logger.info(config)
         if config["type"]=="AP":
             logger.info("Configuring AP")
