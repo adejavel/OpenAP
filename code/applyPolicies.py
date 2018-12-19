@@ -38,7 +38,7 @@ try:
     }
     url = "{}devices/getDevicePolicies".format(OPENAP_HOST)
     response = requests.request("GET", url, headers=headers)
-    policy = json.load(response.text)
+    policy = json.loads(response.text)
     logger.info("Policies downloaded, applying")
     os.system("ebtables --flush")
     for client in policy["parameters"]["clients"]:
