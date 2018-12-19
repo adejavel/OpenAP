@@ -163,7 +163,7 @@ def getConfig(request):
         data = request.json
         if "applied_config" in data:
             config = data["applied_config"]
-            interface=config["parameters"]["interface_name"]
+            interface=config["parameters"]["interface"]
             ip = getIP()
             mac = getMac()
             hostapdConfig = parseHostapdConfig()
@@ -353,7 +353,7 @@ def applyConfig():
                     pass
                 logger.info("Not same config")
                 applyConfiguration(config)
-                interface=config["parameters"]["interface_name"]
+                interface=config["parameters"]["interface"]
                 logger.info("Config applied, trying to reboot")
                 start = restartHostapd()
                 if not start:
@@ -429,7 +429,7 @@ def applyConfiguration(config):
     if config["type"] == "AP":
         shutil.move("/etc/hostapd/hostapd.conf", "/etc/hostapd/hostapd.old.conf")
         os.system("touch /etc/hostapd/hostapd.conf")
-        interface=config["parameters"]["interface_name"]
+        interface=config["parameters"]["interface"]
         logger.info("Interface is {}".format(interface))
         for param in HOSTAPD_DEFAULT_CONFIG:
             setParameterHostapdConfig(param, HOSTAPD_DEFAULT_CONFIG[param])
