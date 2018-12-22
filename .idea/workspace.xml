@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="5ca978ab-e601-49e4-92ff-7954533de01d" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/autoBoot.py" afterPath="$PROJECT_DIR$/autoBoot.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/code/applyPolicies.py" afterPath="$PROJECT_DIR$/code/applyPolicies.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -42,11 +43,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="autoBoot.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="autoBoot.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/autoBoot.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="25" column="73" lean-forward="false" selection-start-line="25" selection-start-column="73" selection-end-line="25" selection-end-column="73" />
+            <state relative-caret-position="240">
+              <caret line="24" column="0" lean-forward="false" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -76,11 +77,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="applyPolicies.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="applyPolicies.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/code/applyPolicies.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="327">
-              <caret line="43" column="22" lean-forward="false" selection-start-line="43" selection-start-column="22" selection-end-line="43" selection-end-column="22" />
+            <state relative-caret-position="402">
+              <caret line="48" column="27" lean-forward="false" selection-start-line="48" selection-start-column="27" selection-end-line="48" selection-end-column="27" />
               <folding>
                 <element signature="e#0#17#0" expanded="true" />
               </folding>
@@ -190,8 +191,8 @@
         <option value="$PROJECT_DIR$/code/readClientsData.py" />
         <option value="$PROJECT_DIR$/code/readDeviceData.py" />
         <option value="$PROJECT_DIR$/code/main.py" />
-        <option value="$PROJECT_DIR$/code/applyPolicies.py" />
         <option value="$PROJECT_DIR$/autoBoot.py" />
+        <option value="$PROJECT_DIR$/code/applyPolicies.py" />
       </list>
     </option>
   </component>
@@ -655,21 +656,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/code/applyPolicies.py">
+    <entry file="file://$PROJECT_DIR$/autoBoot.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="327">
-          <caret line="43" column="22" lean-forward="false" selection-start-line="43" selection-start-column="22" selection-end-line="43" selection-end-column="22" />
-          <folding>
-            <element signature="e#0#17#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="240">
+          <caret line="24" column="0" lean-forward="false" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/autoBoot.py">
+    <entry file="file://$PROJECT_DIR$/code/applyPolicies.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="25" column="73" lean-forward="false" selection-start-line="25" selection-start-column="73" selection-end-line="25" selection-end-column="73" />
-          <folding />
+        <state relative-caret-position="402">
+          <caret line="48" column="27" lean-forward="false" selection-start-line="48" selection-start-column="27" selection-end-line="48" selection-end-column="27" />
+          <folding>
+            <element signature="e#0#17#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

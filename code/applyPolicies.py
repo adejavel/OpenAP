@@ -46,7 +46,7 @@ try:
     if policy["parameters"]["policy_type"]=="blacklist":
         key_word = "DROP"
         os.system("ebtables -P FORWARD ACCEPT")
-    if policy["policy_type"]=="whitelist":
+    if policy["parameters"]["policy_type"]=="whitelist":
         key_word = "ACCEPT"
         os.system("ebtables -P FORWARD DROP")
     for client in policy["parameters"]["clients"]:
