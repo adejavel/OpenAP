@@ -353,6 +353,7 @@ def applyPolicyConfig(policy_config):
             job.setall("{} {} * * *".format(from_min,from_hour))
             job2 = cron.new(command='python /root/OpenAP/OpenAP/code/applyPolicies.py')
             job2.setall("{} {} * * *".format(to_min, to_hour))
+    cron.write()
     os.system("python /root/OpenAP/OpenAP/code/applyPolicies.py")
 
 
