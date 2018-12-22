@@ -41,6 +41,7 @@ try:
     response = requests.request("GET", url, headers=headers)
     policy = json.loads(response.text)
     logger.info("Policies downloaded, applying")
+    logger.info(policy)
     os.system("ebtables --flush")
     if policy["parameters"]["policy_type"]=="blacklist":
         key_word = "DROP"
