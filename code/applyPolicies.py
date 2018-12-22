@@ -42,7 +42,7 @@ try:
     policy = json.loads(response.text)
     logger.info("Policies downloaded, applying")
     os.system("ebtables --flush")
-    if policy["policy_type"]=="blacklist":
+    if policy["parameters"]["policy_type"]=="blacklist":
         key_word = "DROP"
         os.system("ebtables -P FORWARD ACCEPT")
     if policy["policy_type"]=="whitelist":
