@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5ca978ab-e601-49e4-92ff-7954533de01d" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/code/applyPolicies.py" afterPath="$PROJECT_DIR$/code/applyPolicies.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/autoBoot.py" afterPath="$PROJECT_DIR$/autoBoot.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -42,11 +42,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="autoBoot.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="autoBoot.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/autoBoot.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="18" column="29" lean-forward="false" selection-start-line="18" selection-start-column="29" selection-end-line="18" selection-end-column="29" />
+            <state relative-caret-position="255">
+              <caret line="25" column="73" lean-forward="false" selection-start-line="25" selection-start-column="73" selection-end-line="25" selection-end-column="73" />
               <folding />
             </state>
           </provider>
@@ -76,7 +76,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="applyPolicies.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="applyPolicies.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/code/applyPolicies.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="327">
@@ -182,7 +182,6 @@
         <option value="$PROJECT_DIR$/code/checkConfigHostapd.py" />
         <option value="$PROJECT_DIR$/code/parseIwList.py" />
         <option value="$PROJECT_DIR$/ngrok.log" />
-        <option value="$PROJECT_DIR$/autoBoot.py" />
         <option value="$PROJECT_DIR$/code/scriptAPD.sh" />
         <option value="$PROJECT_DIR$/code/ReadUSBTest.py" />
         <option value="$PROJECT_DIR$/README.md" />
@@ -192,6 +191,7 @@
         <option value="$PROJECT_DIR$/code/readDeviceData.py" />
         <option value="$PROJECT_DIR$/code/main.py" />
         <option value="$PROJECT_DIR$/code/applyPolicies.py" />
+        <option value="$PROJECT_DIR$/autoBoot.py" />
       </list>
     </option>
   </component>
@@ -635,14 +635,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/autoBoot.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="18" column="29" lean-forward="false" selection-start-line="18" selection-start-column="29" selection-end-line="18" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/code/client.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="420">
@@ -670,6 +662,14 @@
           <folding>
             <element signature="e#0#17#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/autoBoot.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="25" column="73" lean-forward="false" selection-start-line="25" selection-start-column="73" selection-end-line="25" selection-end-column="73" />
+          <folding />
         </state>
       </provider>
     </entry>
