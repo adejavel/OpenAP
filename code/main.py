@@ -340,6 +340,7 @@ def getMac():
 @app.route('/applyConfig',methods=["POST"])
 def applyConfig():
     try:
+        logger.info(config)
         config = json.loads(request.data, strict=False)
         config=config["network_config"]
         logger.info(config)

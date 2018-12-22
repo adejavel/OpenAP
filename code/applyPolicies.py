@@ -1,5 +1,6 @@
 import subprocess
 from uuid import getnode as get_mac
+import datetime
 import logging
 from logging.handlers import RotatingFileHandler
 import requests
@@ -41,8 +42,26 @@ try:
     policy = json.loads(response.text)
     logger.info("Policies downloaded, applying")
     os.system("ebtables --flush")
+    if policy["policy_type"]=="blacklist":
+        key_word = "DROP"
+        os.system("ebtables -P FORWARD ACCEPT")
+    if policy["policy_type"]=="whitelist":
+        key_word = "ACCEPT"
+        os.system("ebtables -P FORWARD DROP")
     for client in policy["parameters"]["clients"]:
-        os.system("ebtables -A FORWARD -s {} -j DROP".format(client["mac_address"]))
+        if client["always"]:
+            os.system("ebtables -A FORWARD -s {} -j {}".format(client["mac_address"],key_word))
+        else:
+            date_from = datetime.datetime.strptime(client["from"],'%H:%M')
+            date_to = datetime.datetime.strptime(client["to"], '%H:%M')
+            date_now = datetime.datetime.now()
+            if date_from.time() > date_to.time():
+                if (date_now.time()<=date_from.time() and date_now.time()<=date_to.time()) or (date_now.time()>=date_from.time() and date_now.time()>=date_to.time()):
+                    os.system("ebtables -A FORWARD -s {} -j {}".format(client["mac_address"],key_word))
+            else:
+                if date_now.time()>=date_from.time() and date_now.time()<=date_to.time():
+                    os.system("ebtables -A FORWARD -s {} -j {}".format(client["mac_address"],key_word))
+
 
 except:
     logger.exception("Error")
