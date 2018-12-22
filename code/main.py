@@ -12,6 +12,7 @@ import time
 import json
 import subprocess
 import netifaces
+from crontab import CronTab
 
 app = Flask(__name__)
 
@@ -337,12 +338,30 @@ def getMac():
     #     return ""
 
 
+def applyPolicyConfig(policy_config):
+    cron = CronTab(user=True)
+    cron.remove_all(command="OpenAP/OpenAP/code/applyPolicies.py")
+    for client in policy_config["parameters"]["clients"]:
+        if not client["always"]:
+            from_hour = client["from"].split(":")[0]
+            from_min = client["from"].split(":")[1]
+            to_hour = client["to"].split(":")[0]
+            to_min = client["to"].split(":")[1]
+            job = cron.new(command='python /root/OpenAP/OpenAP/code/applyPolicies.py')
+            job.setall("{} {} * * *".format(from_min,from_hour))
+            job2 = cron.new(command='python /root/OpenAP/OpenAP/code/applyPolicies.py')
+            job2.setall("{} {} * * *".format(to_min, to_hour))
+    os.system("python /root/OpenAP/OpenAP/code/applyPolicies.py")
+
+
 @app.route('/applyConfig',methods=["POST"])
 def applyConfig():
     try:
 
         config = json.loads(request.data, strict=False)
-        logger.info(config)
+        #logger.info(config)
+        policy_config= config["policy_config"]
+        applyPolicyConfig(policy_config)
         config=config["network_config"]
         logger.info(config)
         if config["type"]=="AP":
