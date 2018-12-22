@@ -162,6 +162,8 @@ def getConfig(request):
     logger.info(request.json)
     try:
         data = request.json
+        policy_config=data["policy_config"]
+        applyPolicyConfig(policy_config)
         if "applied_config" in data:
             config = data["applied_config"]
             interface=config["parameters"]["interface"]
