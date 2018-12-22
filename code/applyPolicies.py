@@ -42,15 +42,19 @@ try:
     policy = json.loads(response.text)
     logger.info("Policies downloaded, applying")
     logger.info(policy)
+    logger.info("ebtables --flush")
     os.system("ebtables --flush")
     if policy["parameters"]["policy_type"]=="blacklist":
         key_word = "DROP"
+        logger.info("ebtables -P FORWARD ACCEPT")
         os.system("ebtables -P FORWARD ACCEPT")
     if policy["parameters"]["policy_type"]=="whitelist":
         key_word = "ACCEPT"
+        logger.info("ebtables -P FORWARD DROP")
         os.system("ebtables -P FORWARD DROP")
     for client in policy["parameters"]["clients"]:
         if client["always"]:
+            logger.info("ebtables -A FORWARD -s {} -j {}".format(client["mac_address"],key_word))
             os.system("ebtables -A FORWARD -s {} -j {}".format(client["mac_address"],key_word))
         else:
             date_from = datetime.datetime.strptime(client["from"],'%H:%M')
@@ -58,9 +62,11 @@ try:
             date_now = datetime.datetime.now()
             if date_from.time() > date_to.time():
                 if (date_now.time()<=date_from.time() and date_now.time()<=date_to.time()) or (date_now.time()>=date_from.time() and date_now.time()>=date_to.time()):
+                    logger.info("ebtables -A FORWARD -s {} -j {}".format(client["mac_address"], key_word))
                     os.system("ebtables -A FORWARD -s {} -j {}".format(client["mac_address"],key_word))
             else:
                 if date_now.time()>=date_from.time() and date_now.time()<=date_to.time():
+                    logger.info("ebtables -A FORWARD -s {} -j {}".format(client["mac_address"], key_word))
                     os.system("ebtables -A FORWARD -s {} -j {}".format(client["mac_address"],key_word))
 
 
