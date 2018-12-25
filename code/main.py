@@ -47,8 +47,8 @@ def get_config():
 @app.route('/getUSBStructure',methods=["GET"])
 def getStructureUSB():
     try:
-        data = os.popen("tree -JafsD /media/pi")
-        jsonData = json.loads(data.read().encode("utf-8"))[0]["contents"]
+        data = os.popen("tree -JfsD /media/pi")
+        jsonData = json.loads(data.read())[0]["contents"]
         newData=[]
         for elem in jsonData:
             logger.info(elem)
