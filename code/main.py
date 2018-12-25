@@ -44,6 +44,12 @@ def get_config():
     return jsonify(resp)
 
 
+@app.route('/getUSBStructure',methods=["GET"])
+def getStructureUSB():
+    data = os.popen("tree -J /media/pi")
+    return jsonify(data.read())
+
+
 def checkIWConfig():
     wlanResult = os.popen("iwconfig | grep wlan")
     wlanResult = wlanResult.read()
@@ -377,7 +383,10 @@ def applyConfig():
                     pass
                 logger.info("Not same config")
                 applyConfiguration(config)
-                interface=config["parameters"]["interface"]
+                try:
+                    interface=config["parameters"]["interface"]
+                except:
+                    interface="wlan0"
                 logger.info("Config applied, trying to reboot")
                 start = restartHostapd()
                 if not start:
@@ -453,7 +462,10 @@ def applyConfiguration(config):
     if config["type"] == "AP":
         shutil.move("/etc/hostapd/hostapd.conf", "/etc/hostapd/hostapd.old.conf")
         os.system("touch /etc/hostapd/hostapd.conf")
-        interface=config["parameters"]["interface"]
+        try:
+            interface = config["parameters"]["interface"]
+        except:
+            interface = "wlan0"
         logger.info("Interface is {}".format(interface))
         for param in HOSTAPD_DEFAULT_CONFIG:
             setParameterHostapdConfig(param, HOSTAPD_DEFAULT_CONFIG[param])
