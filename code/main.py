@@ -48,9 +48,10 @@ def get_config():
 def getStructureUSB():
     try:
         data = os.popen("tree -J /media/pi")
-        jsonData = json.loads(data.read())
+        jsonData = json.loads(data.read())[0]["contents"]
         newData=[]
         for elem in jsonData:
+            logger.info(elem)
             if elem["type"] == "directory":
                 elem["contents"] = getMimeType(elem["contents"])
                 newData.append(getMimeType(elem))
