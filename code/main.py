@@ -69,11 +69,11 @@ def getStructureUSB():
 
 def getMimeType(content):
     for elem in content:
-        logger.info(elem)
+        #logger.info(elem)
         if elem["type"]=="directory":
             elem["contents"]=getMimeType(elem["contents"])
         elif elem["type"]=="file":
-            elem["mime_type"]=os.popen("file -b --mime-type {}".format(elem["name"])).read()
+            elem["mime_type"]=os.popen("file -b --mime-type {}".format(elem["name"])).read().encode('utf-8')
     return content
 
 
