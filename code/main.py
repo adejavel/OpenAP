@@ -57,7 +57,7 @@ def getStructureUSB():
         logger.info("##################")
         logger.info("##################")
         logger.info(newData)
-        return jsonify(data.read())
+        return jsonify(newData)
     except:
         logger.exception()
         return jsonify({"error":True})
