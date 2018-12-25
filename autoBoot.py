@@ -23,7 +23,7 @@ logger.info("Running autoboot script!")
 while True:
     try:
 
-        subprocess.Popen("python OpenAP/OpenAP/code/main.py", shell=True)
+        #subprocess.Popen("python OpenAP/OpenAP/code/main.py", shell=True)
         break
     except:
         time.sleep(5)
