@@ -47,7 +47,24 @@ def get_config():
 @app.route('/getUSBStructure',methods=["GET"])
 def getStructureUSB():
     data = os.popen("tree -J /media/pi")
+    jsonData = json.loads(data.read())
+    newData=[]
+    for elem in jsonData:
+        newData.append(getMimeType(elem))
+    logger.info(jsonData)
+    logger.info("##################")
+    logger.info("##################")
+    logger.info("##################")
+    logger.info(newData)
     return jsonify(data.read())
+
+def getMimeType(content):
+    for elem in content:
+        if elem["type"]=="directory":
+            elem["contents"]=getMimeType(elem["contents"])
+        elif elem["type"]=="file":
+            elem["mime_type"]=os.popen("file -b --mime-type {}".format(elem["name"])).read()
+    return content
 
 
 def checkIWConfig():
