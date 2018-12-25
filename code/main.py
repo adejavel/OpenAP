@@ -47,11 +47,13 @@ def get_config():
 @app.route('/getUSBStructure',methods=["GET"])
 def getStructureUSB():
     try:
+        logger.info("Trying to read usb devices")
+        begin = time.time()
         data = os.popen("tree -JfsD /media/pi")
         jsonData = json.loads(data.read())[0]["contents"]
         newData=[]
         for elem in jsonData:
-            logger.info(elem)
+            #logger.info(elem)
             if elem["type"] == "directory":
                 elem["contents"] = getMimeType(elem["contents"])
                 newData.append(elem)
@@ -59,11 +61,7 @@ def getStructureUSB():
                 elem["mime_type"] = os.popen(
                     "file -b --mime-type {}".format(elem["name"].replace(" ", "\ ").encode('utf-8'))).read().replace("\n", "")
                 newData.append(elem)
-        logger.info(jsonData)
-        logger.info("##################")
-        logger.info("##################")
-        logger.info("##################")
-        logger.info(newData)
+        logger.info("Done in {} sec".format(time.time()-begin))
         return jsonify(newData)
     except:
         logger.exception("Error")
