@@ -51,7 +51,12 @@ def getStructureUSB():
         jsonData = json.loads(data.read())
         newData=[]
         for elem in jsonData:
-            newData.append(getMimeType(elem))
+            if elem["type"] == "directory":
+                elem["contents"] = getMimeType(elem["contents"])
+                newData.append(getMimeType(elem))
+            elif elem["type"] == "file":
+                elem["mime_type"] = os.popen("file -b --mime-type {}".format(elem["name"])).read()
+                newData.append(getMimeType(elem))
         logger.info(jsonData)
         logger.info("##################")
         logger.info("##################")
@@ -64,6 +69,7 @@ def getStructureUSB():
 
 def getMimeType(content):
     for elem in content:
+        logger.info(elem)
         if elem["type"]=="directory":
             elem["contents"]=getMimeType(elem["contents"])
         elif elem["type"]=="file":
