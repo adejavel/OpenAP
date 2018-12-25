@@ -59,7 +59,7 @@ def getStructureUSB():
         logger.info(newData)
         return jsonify(newData)
     except:
-        logger.exception()
+        logger.exception("Error")
         return jsonify({"error":True})
 
 def getMimeType(content):
