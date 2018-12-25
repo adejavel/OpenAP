@@ -47,7 +47,7 @@ def get_config():
 @app.route('/getUSBStructure',methods=["GET"])
 def getStructureUSB():
     try:
-        data = os.popen("tree -J /media/pi")
+        data = os.popen("tree -JafsD /media/pi")
         jsonData = json.loads(data.read())[0]["contents"]
         newData=[]
         for elem in jsonData:
@@ -70,7 +70,7 @@ def getStructureUSB():
 
 def getMimeType(content):
     for elem in content:
-        #logger.info(elem)
+        logger.info(elem)
         if elem["type"]=="directory":
             elem["contents"]=getMimeType(elem["contents"])
         elif elem["type"]=="file":
