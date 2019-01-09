@@ -52,6 +52,7 @@ with open("/etc/hostapd/hostapd.conf") as config:
             words = line.split("=")
             if words[0]=="interface":
                 interface=words[1]
+logger.info("interface is {}".format(interface))
 output2 = subprocess.check_output("iw dev {} station dump".format(interface), shell=True)
 clients={}
 currentDevice = None
