@@ -46,12 +46,12 @@ try:
     os.system("ebtables --flush")
     if policy["parameters"]["policy_type"]=="blacklist":
         key_word = "DROP"
-        #logger.info("ebtables -P FORWARD ACCEPT")
-        #os.system("ebtables -P FORWARD ACCEPT")
+        logger.info("ebtables -P FORWARD ACCEPT")
+        os.system("ebtables -P FORWARD ACCEPT")
     if policy["parameters"]["policy_type"]=="whitelist":
         key_word = "ACCEPT"
-        #logger.info("ebtables -P FORWARD DROP")
-        #os.system("ebtables -P FORWARD DROP")
+        logger.info("ebtables -P FORWARD DROP")
+        os.system("ebtables -P FORWARD DROP")
     for client in policy["parameters"]["clients"]:
         if client["always"]:
             logger.info("ebtables -A FORWARD -s {} -j {}".format(client["mac_address"],key_word))
@@ -68,15 +68,6 @@ try:
                 if date_now.time()>=date_from.time() and date_now.time()<=date_to.time():
                     logger.info("ebtables -A FORWARD -s {} -j {}".format(client["mac_address"], key_word))
                     os.system("ebtables -A FORWARD -s {} -j {}".format(client["mac_address"],key_word))
-    if policy["parameters"]["policy_type"]=="blacklist":
-        #key_word = "DROP"
-        logger.info("ebtables -P FORWARD ACCEPT")
-        os.system("ebtables -P FORWARD ACCEPT")
-    if policy["parameters"]["policy_type"]=="whitelist":
-        #key_word = "ACCEPT"
-        logger.info("ebtables -P FORWARD DROP")
-        os.system("ebtables -P FORWARD DROP")
-
 
 
 except:
