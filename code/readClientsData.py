@@ -45,8 +45,14 @@ def getIP(mac_address):
             return line.split("(")[1].split(")")[0]
     return None
 
-
-output2 = subprocess.check_output("iw dev wlan0 station dump", shell=True)
+interface = ""
+with open("/etc/hostapd/hostapd.conf") as config:
+    for line in config:
+        if not line.startswith("#"):
+            words = line.split("=")
+            if words[0]=="interface":
+                interface=words[1]
+output2 = subprocess.check_output("iw dev {} station dump".format(interface), shell=True)
 clients={}
 currentDevice = None
 for line in output2.split('\n'):
