@@ -51,7 +51,7 @@ with open("/etc/hostapd/hostapd.conf") as config:
         if not line.startswith("#"):
             words = line.split("=")
             if words[0]=="interface":
-                interface=words[1]
+                interface=str.replace(words[1],"\n","")
 logger.info("interface is {}".format(interface))
 output2 = subprocess.check_output("iw dev {} station dump".format(interface), shell=True)
 clients={}

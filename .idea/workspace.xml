@@ -68,8 +68,8 @@
       <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/code/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="277">
-              <caret line="319" column="20" lean-forward="false" selection-start-line="319" selection-start-column="20" selection-end-line="319" selection-end-column="43" />
+            <state relative-caret-position="397">
+              <caret line="327" column="32" lean-forward="false" selection-start-line="327" selection-start-column="32" selection-end-line="327" selection-end-column="58" />
               <folding>
                 <element signature="e#43#101#0" expanded="true" />
               </folding>
@@ -102,8 +102,8 @@
       <file leaf-file-name="readClientsData.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/code/readClientsData.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="60" column="17" lean-forward="true" selection-start-line="60" selection-start-column="17" selection-end-line="60" selection-end-column="17" />
+            <state relative-caret-position="351">
+              <caret line="63" column="37" lean-forward="true" selection-start-line="63" selection-start-column="37" selection-end-line="63" selection-end-column="37" />
               <folding>
                 <element signature="e#0#17#0" expanded="true" />
               </folding>
@@ -635,20 +635,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/code/readDeviceData.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="780">
-          <caret line="52" column="30" lean-forward="true" selection-start-line="52" selection-start-column="30" selection-end-line="52" selection-end-column="30" />
-          <folding>
-            <element signature="e#0#16#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/code/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="277">
-          <caret line="319" column="20" lean-forward="false" selection-start-line="319" selection-start-column="20" selection-end-line="319" selection-end-column="43" />
+        <state relative-caret-position="397">
+          <caret line="327" column="32" lean-forward="false" selection-start-line="327" selection-start-column="32" selection-end-line="327" selection-end-column="58" />
           <folding>
             <element signature="e#43#101#0" expanded="true" />
           </folding>
@@ -665,10 +655,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/code/readDeviceData.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="780">
+          <caret line="52" column="30" lean-forward="true" selection-start-line="52" selection-start-column="30" selection-end-line="52" selection-end-column="30" />
+          <folding>
+            <element signature="e#0#16#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/code/readClientsData.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="60" column="17" lean-forward="true" selection-start-line="60" selection-start-column="17" selection-end-line="60" selection-end-column="17" />
+        <state relative-caret-position="351">
+          <caret line="63" column="37" lean-forward="true" selection-start-line="63" selection-start-column="37" selection-end-line="63" selection-end-column="37" />
           <folding>
             <element signature="e#0#17#0" expanded="true" />
           </folding>
