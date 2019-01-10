@@ -204,19 +204,17 @@ def downloadFile(key,filename):
 
             filename= "/"+filename
             if os.path.isdir(filename):
-                base_path = pathlib.Path(filename+"/")
-                data = io.BytesIO()
-                with zipfile.ZipFile(data, mode='w') as z:
-                    for f_name in base_path.iterdir():
-                        z.write(f_name)
-                data.seek(0)
-                return send_file(
-                    data,
-                    mimetype='application/zip',
-                    as_attachment=True,
-                    attachment_filename=filename.split("/")[-1]
-                )
-                #return jsonify({"message":"This is a folder !"})
+                result = io.BytesIO()
+                dlen = len(filename)
+                with zipfile.ZipFile(result, "w") as zf:
+                    for root, dirs, files in os.walk(filename):
+                        for name in files:
+                            full = os.path.join(root, name)
+                            rel = root[dlen:]
+                            dest = os.path.join(rel, name)
+                            zf.write(full, dest)
+                result.seek(0)
+                return send_file(result, attachment_filename='capsule.zip', as_attachment=True)
             elif os.path.isfile(filename):
                 filename = filename.encode('utf-8')
                 folder = "/".join(filename.split("/")[0:-1])
