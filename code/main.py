@@ -193,7 +193,7 @@ def downloadFile(key,filename):
             'Content-Type': "application/json",
             'Mac-Adress': getMac(),
         }
-        url = "{}devices/checkDownloadPermission/{}/{}".format(OPENAP_HOST,key,base64.b64encode(filename))
+        url = "{}devices/checkDownloadPermission/{}/{}".format(OPENAP_HOST,key,base64.b64encode(filename.encode('utf-8')))
 
         response = requests.request("GET", url, headers=headers)
         jsonResp = json.loads(response.text)
