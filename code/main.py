@@ -13,6 +13,7 @@ import json
 import subprocess
 import netifaces
 from crontab import CronTab
+import requests
 
 app = Flask(__name__)
 
@@ -25,6 +26,12 @@ file_handler.setFormatter(formatter)
 logger.addHandler(file_handler)
 logger.info("Running main script!")
 
+try:
+    with open('/root/deviceInfo.json') as json_data:
+        d = json.load(json_data)
+        OPENAP_HOST=d["apiEndPoint"]
+except:
+    OPENAP_HOST="https://staging-api.openap.io/"
 
 DEFAULT_PARAMETERS=["wpa","wpa_key_mgmt","wpa_pairwise","rsn_pairwise","ieee80211n","ht_capab","ctrl_interface","ctrl_interface_group"]
 HOSTAPD_DEFAULT_CONFIG={
@@ -176,16 +183,28 @@ def checkIWConfig():
     return globalResult
 
 
-@app.route('/downloadFile/<path:filename>',methods=["GET"])
-def downloadFile(filename):
+@app.route('/downloadFile/<key>/<path:filename>',methods=["GET"])
+def downloadFile(key,filename):
 
     try:
-        filename= filename.encode('utf-8')
-        folder = "/".join(filename.split("/")[0:-1])
-        folder = "/" + folder
-        filename = filename.split("/")[-1]
-        logger.info("Downloading file {} from {}".format(filename,folder))
-        return send_from_directory(directory=folder, filename=filename)
+        headers = {
+            'Content-Type': "application/json",
+            'Mac-Adress': getMac(),
+        }
+
+        url = "{}devices/checkDownloadPermission/{}/{}".format(OPENAP_HOST,key,filename)
+
+        response = requests.request("GET", url, headers=headers)
+        jsonResp = json.loads(response.text)
+        if jsonResp["status"]:
+            filename= filename.encode('utf-8')
+            folder = "/".join(filename.split("/")[0:-1])
+            folder = "/" + folder
+            filename = filename.split("/")[-1]
+            logger.info("Downloading file {} from {}".format(filename,folder))
+            return send_from_directory(directory=folder, filename=filename)
+        else:
+            return jsonify({"status": False})
     except:
         logger.exception("error")
         return jsonify({"status":False})
