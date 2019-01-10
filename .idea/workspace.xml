@@ -69,7 +69,7 @@
         <entry file="file://$PROJECT_DIR$/code/main.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="363">
-              <caret line="180" column="37" lean-forward="true" selection-start-line="180" selection-start-column="37" selection-end-line="180" selection-end-column="37" />
+              <caret line="180" column="5" lean-forward="false" selection-start-line="180" selection-start-column="5" selection-end-line="180" selection-end-column="5" />
               <folding>
                 <element signature="e#43#121#0" expanded="true" />
               </folding>
@@ -665,7 +665,7 @@
     <entry file="file://$PROJECT_DIR$/code/main.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="363">
-          <caret line="180" column="37" lean-forward="true" selection-start-line="180" selection-start-column="37" selection-end-line="180" selection-end-column="37" />
+          <caret line="180" column="5" lean-forward="false" selection-start-line="180" selection-start-column="5" selection-end-line="180" selection-end-column="5" />
           <folding>
             <element signature="e#43#121#0" expanded="true" />
           </folding>

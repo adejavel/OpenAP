@@ -178,7 +178,7 @@ def checkIWConfig():
 
 @app.route('/downloadFile/<path:filename>',methods=["GET"])
 def downloadFile(filename):
-    filename= filename.decode("utf8")
+    #filename= filename.decode("utf8")
     try:
         folder = "/".join(filename.split("/")[0:-1])
         folder = "/" + folder
