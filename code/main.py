@@ -217,7 +217,7 @@ def downloadFile(key,filename):
                             except:
                                 pass
                 result.seek(0)
-                return send_file(result, attachment_filename=filename.split("/")[-1]+".zip", as_attachment=True)
+                return send_file(result, attachment_filename=filename.split("/")[-1]+".zip", as_attachment=True,mimetype="application/force-download")
             elif os.path.isfile(filename):
                 filename = filename.encode('utf-8')
                 folder = "/".join(filename.split("/")[0:-1])
