@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-from flask import send_from_directory,Flask,jsonify,after_this_request,request
+from flask import send_file,send_from_directory,Flask,jsonify,after_this_request,request
 import logging
 from logging.handlers import RotatingFileHandler
 from uuid import getnode as get_mac
@@ -16,6 +16,9 @@ from crontab import CronTab
 import requests
 import traceback
 import base64
+import zipfile
+import io
+import pathlib
 
 app = Flask(__name__)
 
@@ -201,7 +204,19 @@ def downloadFile(key,filename):
             filename = filename.encode('utf-8')
             filename= "/"+filename
             if os.path.isdir(filename):
-                return jsonify({"message":"This is a folder !"})
+                base_path = pathlib.Path(filename+"/")
+                data = io.BytesIO()
+                with zipfile.ZipFile(data, mode='w') as z:
+                    for f_name in base_path.iterdir():
+                        z.write(f_name)
+                data.seek(0)
+                return send_file(
+                    data,
+                    mimetype='application/zip',
+                    as_attachment=True,
+                    attachment_filename='data.zip'
+                )
+                #return jsonify({"message":"This is a folder !"})
             elif os.path.isfile(filename):
                 folder = "/".join(filename.split("/")[0:-1])
                 filename = filename.split("/")[-1]
