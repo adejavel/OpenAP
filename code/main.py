@@ -209,10 +209,13 @@ def downloadFile(key,filename):
                 with zipfile.ZipFile(result, "w") as zf:
                     for root, dirs, files in os.walk(filename):
                         for name in files:
-                            full = os.path.join(root, name)
-                            rel = root[dlen:]
-                            dest = os.path.join(rel, name)
-                            zf.write(full, dest)
+                            try:
+                                full = os.path.join(root, name)
+                                rel = root[dlen:]
+                                dest = os.path.join(rel, name)
+                                zf.write(full, dest)
+                            except:
+                                pass
                 result.seek(0)
                 return send_file(result, attachment_filename=filename.split("/")[-1]+".zip", as_attachment=True)
             elif os.path.isfile(filename):
