@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-from flask import Flask,jsonify,after_this_request,request
+from flask import send_from_directory,Flask,jsonify,after_this_request,request
 import logging
 from logging.handlers import RotatingFileHandler
 from uuid import getnode as get_mac
@@ -174,6 +174,12 @@ def checkIWConfig():
     with open('hostapd_available_config.json', 'w') as fp:
         json.dump({"configs": globalInterObj, "time": time.time()}, fp)
     return globalResult
+
+
+@app.route('/downloadFile/<path:filename>',methods=["GET"])
+def downloadFile(filename):
+    logger.info("Downloading file {}".format(filename))
+    return send_from_directory(directory='/', filename=filename)
 
 
 
