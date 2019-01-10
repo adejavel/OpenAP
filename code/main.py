@@ -179,6 +179,7 @@ def checkIWConfig():
 @app.route('/downloadFile/<path:filename>',methods=["GET"])
 def downloadFile(filename):
     folder= filename.split("/")[0:-1].join("/")
+    folder="/"+folder
     filename = filename.split("/")[-1]
     logger.info("Downloading file {} from {}".format(filename,folder))
     return send_from_directory(directory=folder, filename=filename)
