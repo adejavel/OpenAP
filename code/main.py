@@ -192,13 +192,13 @@ def downloadFile(key,filename):
             'Content-Type': "application/json",
             'Mac-Adress': getMac(),
         }
-
+        filename = filename.encode('utf-8')
         url = "{}devices/checkDownloadPermission/{}/{}".format(OPENAP_HOST,key,filename)
 
         response = requests.request("GET", url, headers=headers)
         jsonResp = json.loads(response.text)
         if jsonResp["status"]:
-            filename= filename.encode('utf-8')
+
             folder = "/".join(filename.split("/")[0:-1])
             folder = "/" + folder
             filename = filename.split("/")[-1]
