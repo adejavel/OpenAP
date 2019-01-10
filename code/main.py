@@ -14,6 +14,7 @@ import subprocess
 import netifaces
 from crontab import CronTab
 import requests
+import traceback
 
 app = Flask(__name__)
 
@@ -204,10 +205,10 @@ def downloadFile(key,filename):
             logger.info("Downloading file {} from {}".format(filename,folder))
             return send_from_directory(directory=folder, filename=filename)
         else:
-            return jsonify({"status": False})
+            return jsonify({"status": False,"message":"not validated"})
     except:
         logger.exception("error")
-        return jsonify({"status":False})
+        return jsonify({"status":False,"error":traceback.format_exc()})
 
 
 
