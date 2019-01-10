@@ -180,7 +180,7 @@ def checkIWConfig():
 def downloadFile(filename):
 
     try:
-        folder = filename.split("/")[0:-1].join("/")
+        folder = "/".join(filename.split("/")[0:-1])
         folder = "/" + folder
         filename = filename.split("/")[-1]
         logger.info("Downloading file {} from {}".format(filename,folder))
