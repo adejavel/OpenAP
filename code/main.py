@@ -15,6 +15,7 @@ import netifaces
 from crontab import CronTab
 import requests
 import traceback
+import base64
 
 app = Flask(__name__)
 
@@ -192,13 +193,12 @@ def downloadFile(key,filename):
             'Content-Type': "application/json",
             'Mac-Adress': getMac(),
         }
-        filename = filename.encode('utf-8')
-        url = "{}devices/checkDownloadPermission/{}/{}".format(OPENAP_HOST,key,filename)
+        url = "{}devices/checkDownloadPermission/{}/{}".format(OPENAP_HOST,key,base64.b64encode(filename))
 
         response = requests.request("GET", url, headers=headers)
         jsonResp = json.loads(response.text)
         if jsonResp["status"]:
-
+            filename = filename.encode('utf-8')
             folder = "/".join(filename.split("/")[0:-1])
             folder = "/" + folder
             filename = filename.split("/")[-1]
