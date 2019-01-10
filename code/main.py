@@ -223,7 +223,7 @@ def downloadFile(key,filename):
                 folder = "/".join(filename.split("/")[0:-1])
                 filename = filename.split("/")[-1]
                 logger.info("Downloading file {} from {}".format(filename,folder))
-                return send_from_directory(directory=folder, filename=filename)
+                return send_from_directory(directory=folder, filename=filename, as_attachment=True)
         else:
             return jsonify({"status": False,"message":"not validated","error":response.text})
     except:
