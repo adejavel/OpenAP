@@ -205,7 +205,7 @@ def downloadFile(key,filename):
             logger.info("Downloading file {} from {}".format(filename,folder))
             return send_from_directory(directory=folder, filename=filename)
         else:
-            return jsonify({"status": False,"message":"not validated"})
+            return jsonify({"status": False,"message":"not validated","error":response.text})
     except:
         logger.exception("error")
         return jsonify({"status":False,"error":traceback.format_exc()})
