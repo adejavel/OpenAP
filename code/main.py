@@ -201,7 +201,7 @@ def downloadFile(key,filename):
         response = requests.request("GET", url, headers=headers)
         jsonResp = json.loads(response.text)
         if jsonResp["status"]:
-            filename = filename.encode('utf-8')
+
             filename= "/"+filename
             if os.path.isdir(filename):
                 base_path = pathlib.Path(filename+"/")
@@ -218,6 +218,7 @@ def downloadFile(key,filename):
                 )
                 #return jsonify({"message":"This is a folder !"})
             elif os.path.isfile(filename):
+                filename = filename.encode('utf-8')
                 folder = "/".join(filename.split("/")[0:-1])
                 filename = filename.split("/")[-1]
                 logger.info("Downloading file {} from {}".format(filename,folder))
