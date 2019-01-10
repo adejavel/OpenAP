@@ -214,7 +214,7 @@ def downloadFile(key,filename):
                     data,
                     mimetype='application/zip',
                     as_attachment=True,
-                    attachment_filename='data.zip'
+                    attachment_filename=filename.split("/")[-1]
                 )
                 #return jsonify({"message":"This is a folder !"})
             elif os.path.isfile(filename):
