@@ -199,11 +199,14 @@ def downloadFile(key,filename):
         jsonResp = json.loads(response.text)
         if jsonResp["status"]:
             filename = filename.encode('utf-8')
-            folder = "/".join(filename.split("/")[0:-1])
-            folder = "/" + folder
-            filename = filename.split("/")[-1]
-            logger.info("Downloading file {} from {}".format(filename,folder))
-            return send_from_directory(directory=folder, filename=filename)
+            if os.path.isdir(filename):
+                return jsonify({"message":"This is a folder !"})
+            elif os.path.isfile(filename):
+                folder = "/".join(filename.split("/")[0:-1])
+                folder = "/" + folder
+                filename = filename.split("/")[-1]
+                logger.info("Downloading file {} from {}".format(filename,folder))
+                return send_from_directory(directory=folder, filename=filename)
         else:
             return jsonify({"status": False,"message":"not validated","error":response.text})
     except:
