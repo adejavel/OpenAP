@@ -19,6 +19,7 @@ import base64
 import zipfile
 import io
 import pathlib
+import urllib
 
 app = Flask(__name__)
 
@@ -196,10 +197,12 @@ def downloadFile(key,filename):
             'Content-Type': "application/json",
             'Mac-Adress': getMac(),
         }
+        #filename = urllib.unquote(filename)
         url = "{}devices/checkDownloadPermission/{}/{}".format(OPENAP_HOST,key,base64.b64encode(filename.encode('utf-8')))
 
         response = requests.request("GET", url, headers=headers)
         jsonResp = json.loads(response.text)
+        filename = urllib.unquote(filename)
         if jsonResp["status"]:
 
             filename= "/"+filename
