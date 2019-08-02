@@ -53,6 +53,13 @@ def getIP():
     except:
         logger.exception("Error while getting IP address")
 
+def getPublicIP():
+    try:
+        myip = requests.get('https://www.wikipedia.org').headers['X-Client-IP']
+        return myip
+    except:
+        return "Unknown IP"
+
 
 while True:
     try:
@@ -81,9 +88,11 @@ while True:
         logger.info("Registering to server")
         url = "{}devices/register".format(OPENAP_HOST)
         ip= getIP()
+        public_ip = getPublicIP()
         payload = {
             "http_tunnel":tunnel,
-            "ip_address":ip
+            "ip_address":ip,
+            "public_ip": public_ip
         }
         headers = {
             'Content-Type': "application/json",

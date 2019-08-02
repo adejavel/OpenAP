@@ -61,7 +61,7 @@ def getStructureUSB():
     try:
         logger.info("Trying to read usb devices")
         begin = time.time()
-        data = os.popen("tree -JfsD /media/pi")
+        data = os.popen("tree -JfsD /media")
         jsonData = json.loads(data.read())[0]["contents"]
         newData=[]
         for elem in jsonData:
