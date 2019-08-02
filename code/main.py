@@ -199,9 +199,9 @@ def downloadFile(key,filename):
             'Mac-Adress': getMac(),
         }
         #filename = urllib.unquote(filename)
-        url = "{}devices/checkDownloadPermission/{}/{}".format(OPENAP_HOST,key,base64.b64encode(filename.encode('utf-8')))
+        url = "{}devices/checkDownloadPermission/{}".format(OPENAP_HOST,key)
         payload = {
-            "path":filename
+            "path":base64.b64encode(filename.encode('utf-8'))
         }
         response = requests.request("POST", url, json=payload, headers=headers)
         #response = requests.request("POST", url, headers=headers)
