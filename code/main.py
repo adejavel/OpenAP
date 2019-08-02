@@ -191,9 +191,9 @@ def checkIWConfig():
 
 @app.route('/downloadFile/<key>/<path:filename>',methods=["GET"])
 def downloadFile(key,filename):
-
+    logger.info(filename)
     try:
-        logger.info(filename)
+
         headers = {
             'Content-Type': "application/json",
             'Mac-Adress': getMac(),
