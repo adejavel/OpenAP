@@ -193,14 +193,18 @@ def checkIWConfig():
 def downloadFile(key,filename):
 
     try:
+        logger.info(filename)
         headers = {
             'Content-Type': "application/json",
             'Mac-Adress': getMac(),
         }
         #filename = urllib.unquote(filename)
         url = "{}devices/checkDownloadPermission/{}/{}".format(OPENAP_HOST,key,base64.b64encode(filename.encode('utf-8')))
-
-        response = requests.request("GET", url, headers=headers)
+        payload = {
+            "path":filename
+        }
+        response = requests.request("POST", url, json=payload, headers=headers)
+        #response = requests.request("POST", url, headers=headers)
         jsonResp = json.loads(response.text)
         filename = urllib.unquote(filename)
         if jsonResp["status"]:
