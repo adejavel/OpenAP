@@ -189,9 +189,9 @@ def checkIWConfig():
     return globalResult
 
 
-@app.route('/downloadFile/<key>/<path:filename>',methods=["GET"])
-def downloadFile(key,filename):
-    logger.info(filename)
+@app.route('/downloadFile/<key>/<id>',methods=["GET"])
+def downloadFile(key,id):
+    logger.info(id)
     try:
 
         headers = {
@@ -201,12 +201,13 @@ def downloadFile(key,filename):
         #filename = urllib.unquote(filename)
         url = "{}devices/checkDownloadPermission/{}".format(OPENAP_HOST,key)
         payload = {
-            "path":base64.b64encode(filename.encode('utf-8'))
+            "id":id
         }
         response = requests.request("POST", url, json=payload, headers=headers)
         #response = requests.request("POST", url, headers=headers)
         jsonResp = json.loads(response.text)
-        filename = urllib.unquote(filename)
+        filename = urllib.unquote(jsonResp["path"])
+        print(filename)
         if jsonResp["status"]:
 
             filename= "/"+filename
