@@ -76,6 +76,7 @@ while True:
             try:
                 resp = requests.get("http://localhost:404{}/api/tunnels".format(i))
                 j = json.loads(resp.text)
+                logger.info(j)
                 tunnel = j["tunnels"][0]["public_url"]
                 break
             except:
