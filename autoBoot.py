@@ -56,7 +56,22 @@ while True:
         os.system("python OpenAP/OpenAP/code/main.py &")
         logger.info("Done, sleeping 2 sec")
         time.sleep(2)
+        logger.info("Authenticating")
         logger.info("Registering to server")
+        with open('/root/id_file.json') as json_file_id:
+            data = json.load(json_file_id)
+            id = data["id"]
+            authentication_payload={
+                "id":id,
+                "mac_address":getMac()
+            }
+            authentication_url="https://api.openap.io/devices/authenticate"
+            authentication_headers = {
+                'Content-Type': "application/json"
+            }
+
+            authentication_response = requests.request("POST", authentication_url, json=authentication_payload, headers=authentication_headers)
+
         url = "https://api.openap.io/devices/register"
         ip= getIP()
         payload = {
