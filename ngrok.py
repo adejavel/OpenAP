@@ -86,6 +86,23 @@ while True:
         logger.info("Running main code")
         logger.info("Done, sleeping 2 sec")
         time.sleep(2)
+        logger.info("Authenticating")
+
+        with open('/root/id_file.json') as json_file_id:
+            data = json.load(json_file_id)
+            id = data["id"]
+            authentication_payload = {
+                "id": id,
+                "mac_address": getMac()
+            }
+            authentication_url = "{}devices/authenticate".format(OPENAP_HOST)
+            authentication_headers = {
+                'Content-Type': "application/json"
+            }
+
+            authentication_response = requests.request("POST", authentication_url, json=authentication_payload,
+                                                       headers=authentication_headers)
+            logger.info(authentication_response.text)
         logger.info("Registering to server")
         url = "{}devices/register".format(OPENAP_HOST)
         ip= getIP()
