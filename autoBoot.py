@@ -42,7 +42,7 @@ while True:
         logger.info("Done, sleeping 2 sec")
         time.sleep(2)
         logger.info("Authenticating")
-        logger.info("Registering to server")
+
         with open('/root/id_file.json') as json_file_id:
             data = json.load(json_file_id)
             id = data["id"]
@@ -56,7 +56,8 @@ while True:
             }
 
             authentication_response = requests.request("POST", authentication_url, json=authentication_payload, headers=authentication_headers)
-
+            logger.info(authentication_response.text)
+        logger.info("Registering to server")
         url = "https://api.openap.io/devices/register"
         ip= getIP()
         payload = {
