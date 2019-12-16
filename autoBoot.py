@@ -77,4 +77,5 @@ while True:
         subprocess.Popen("python OpenAP/OpenAP/code/main.py", shell=True)
         break
     except:
+        logger.exception("Error")
         time.sleep(5)
