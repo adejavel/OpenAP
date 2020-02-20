@@ -61,6 +61,7 @@ try:
         finally:
             my_timer.cancel()
 except:
+    logger.exception("Error")
     pass
 
 
