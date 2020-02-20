@@ -53,7 +53,7 @@ try:
     logger.info(ip_addresses)
     for ip_addr in ip_addresses:
         print(ip_addr)
-        cmd = ['ping',str(ip_addr),"-w","1"]
+        cmd = ['ping',str(ip_addr),"-w","5"]
         ping = subprocess.Popen(cmd,shell=True,
              stdin=None, stdout=None, stderr=None, close_fds=True)
 except:
