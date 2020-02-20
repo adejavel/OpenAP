@@ -51,7 +51,7 @@ def getIP(mac_address):
 try:
     kill = lambda process: process.kill()
     ip_addresses = ipaddress.IPv4Network(ipaddress.ip_network(u'{}/{}'.format(netifaces.ifaddresses('br0')[netifaces.AF_INET][0].get("addr"),netifaces.ifaddresses('br0')[netifaces.AF_INET][0].get("netmask")), strict=False))
-    print(ip_addresses)
+    logger.info(ip_addresses)
     for ip_addr in ip_addresses:
         cmd = ['ping',str(ip_addr),"-w","1"]
         ping = subprocess.Popen(cmd,shell=True,
