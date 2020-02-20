@@ -56,12 +56,6 @@ try:
         cmd = ['ping',str(ip_addr),"-w","1"]
         ping = subprocess.Popen(cmd,shell=True,
              stdin=None, stdout=None, stderr=None, close_fds=True)
-        my_timer = Timer(1, kill, [ping])
-        try:
-            my_timer.start()
-            stdout, stderr = ping.communicate()
-        finally:
-            my_timer.cancel()
 except:
     logger.exception("Error")
     pass
