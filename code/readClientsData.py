@@ -7,6 +7,7 @@ import json
 import netifaces
 from threading import Timer
 import ipaddress
+import time
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 formatter = logging.Formatter('%(asctime)s :: %(levelname)s :: %(message)s')
@@ -61,7 +62,7 @@ except:
     pass
 
 
-
+time.sleep(5)
 
 interface = ""
 with open("/etc/hostapd/hostapd.conf") as config:
