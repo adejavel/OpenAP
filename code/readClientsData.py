@@ -55,8 +55,7 @@ try:
     for ip_addr in ip_addresses:
         print(ip_addr)
         cmd = "ping {} -w 3".format(ip_addr)
-        ping = subprocess.Popen(cmd,shell=True,
-             stdin=None, stdout=None, stderr=None, close_fds=True)
+        ping = subprocess.Popen(cmd,shell=False,stdin=None, stdout=None, stderr=None, close_fds=True)
 except:
     logger.exception("Error")
     pass
