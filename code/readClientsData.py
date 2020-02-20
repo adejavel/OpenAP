@@ -6,6 +6,7 @@ import requests
 import json
 import netifaces
 from threading import Timer
+import ipaddress
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 formatter = logging.Formatter('%(asctime)s :: %(levelname)s :: %(message)s')
@@ -48,17 +49,17 @@ def getIP(mac_address):
 
 ## PINGING Broadcaast to get get mac - ip correlation
 try:
-    broadcast = netifaces.ifaddresses('br0')[netifaces.AF_INET][0].get("broadcast")
-    p = subprocess.Popen(['ping', '-b',broadcast])
     kill = lambda process: process.kill()
-    cmd = ['ping', '-b',broadcast]
-    ping = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    my_timer = Timer(10, kill, [ping])
-    try:
-        my_timer.start()
-        stdout, stderr = ping.communicate()
-    finally:
-        my_timer.cancel()
+    ip_addresses = ipaddress.IPv4Network(u'{}/{}'.format(netifaces.ifaddresses('br0')[netifaces.AF_INET][0].get("addr"),netifaces.ifaddresses('br0')[netifaces.AF_INET][0].get("netmask")))
+    for ip_addr in ip_addresses:
+        cmd = ['ping',ip_addr]
+        ping = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        my_timer = Timer(2, kill, [ping])
+        try:
+            my_timer.start()
+            stdout, stderr = ping.communicate()
+        finally:
+            my_timer.cancel()
 except:
     pass
 
