@@ -54,8 +54,8 @@ ip_addresses = ipaddress.IPv4Network(ipaddress.ip_network(u'{}/{}'.format(netifa
 logger.info(ip_addresses)
 for ip_addr in ip_addresses:
     print(ip_addr)
-    cmd = "ping {} -w 3".format(ip_addr)
-    ping = subprocess.Popen(cmd,shell=True,stdin=None, stdout=None, stderr=None, close_fds=True)
+    cmd = "ping {} -w 2".format(ip_addr)
+    ping = subprocess.Popen(cmd,shell=True)
 
 
 
