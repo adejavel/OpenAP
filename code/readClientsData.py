@@ -45,6 +45,20 @@ def getIP(mac_address):
             return line.split("(")[1].split(")")[0]
     return None
 
+## PINGING Broadcaast to get get mac - ip correlation
+try:
+    broadcast = netifaces.ifaddresses('br0')[netifaces.AF_INET][0].get("broadcast")
+    p = subprocess.Popen(['ping', '-b',broadcast])
+    try:
+        p.wait(10)
+    except subprocess.TimeoutExpired:
+        p.kill()
+except:
+    pass
+
+
+
+
 interface = ""
 with open("/etc/hostapd/hostapd.conf") as config:
     for line in config:
