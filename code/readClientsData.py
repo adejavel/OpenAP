@@ -52,9 +52,9 @@ try:
     kill = lambda process: process.kill()
     ip_addresses = ipaddress.IPv4Network(ipaddress.ip_network(u'{}/{}'.format(netifaces.ifaddresses('br0')[netifaces.AF_INET][0].get("addr"),netifaces.ifaddresses('br0')[netifaces.AF_INET][0].get("netmask")), strict=False))
     for ip_addr in ip_addresses:
-        cmd = ['ping',str(ip_addr)]
+        cmd = ['ping',str(ip_addr),"-w","1"]
         ping = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        my_timer = Timer(2, kill, [ping])
+        my_timer = Timer(1, kill, [ping])
         try:
             my_timer.start()
             stdout, stderr = ping.communicate()
