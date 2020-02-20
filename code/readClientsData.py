@@ -49,16 +49,14 @@ def getIP(mac_address):
     return None
 
 ## PINGING Broadcaast to get get mac - ip correlation
-try:
-    ip_addresses = ipaddress.IPv4Network(ipaddress.ip_network(u'{}/{}'.format(netifaces.ifaddresses('br0')[netifaces.AF_INET][0].get("addr"),netifaces.ifaddresses('br0')[netifaces.AF_INET][0].get("netmask")), strict=False))
-    logger.info(ip_addresses)
-    for ip_addr in ip_addresses:
-        print(ip_addr)
-        cmd = "ping {} -w 3".format(ip_addr)
-        ping = subprocess.Popen(cmd,shell=False,stdin=None, stdout=None, stderr=None, close_fds=True)
-except:
-    logger.exception("Error")
-    pass
+
+ip_addresses = ipaddress.IPv4Network(ipaddress.ip_network(u'{}/{}'.format(netifaces.ifaddresses('br0')[netifaces.AF_INET][0].get("addr"),netifaces.ifaddresses('br0')[netifaces.AF_INET][0].get("netmask")), strict=False))
+logger.info(ip_addresses)
+for ip_addr in ip_addresses:
+    print(ip_addr)
+    cmd = "ping {} -w 3".format(ip_addr)
+    ping = subprocess.Popen(cmd,shell=False,stdin=None, stdout=None, stderr=None, close_fds=True)
+
 
 
 time.sleep(5)
