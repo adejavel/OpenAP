@@ -44,7 +44,11 @@ try:
             os.system(update)
 
     content["update_index"] = index
-    os.remove(update_filename)
+
+    try:
+        os.remove(update_filename)
+    except:
+        pass
 
     with open(update_filename, 'w+') as f:
         json.dump(content, f, indent=4)
