@@ -22,7 +22,7 @@ logger.info("Running autoboot script!")
 
 try:
     update_filename = '/root/.index_update.json'
-    with open(update_filename, 'r+') as f:
+    with open(update_filename, 'w+') as f:
         content = json.load(f)
 
     with open('OpenAP/OpenAP/code/.update.json') as f2:
@@ -43,7 +43,7 @@ try:
 
     with open(update_filename, 'w') as f:
         json.dump(content, f, indent=4)
-        
+
 except:
     logger.exception("Error")
 
