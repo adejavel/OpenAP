@@ -26,7 +26,7 @@ try:
         with open(update_filename, 'r') as f:
             content = json.load(f)
     except:
-        logger.exception("Error")
+        logger.exception("no json")
         content = {}
 
     with open('OpenAP/OpenAP/code/.update.json') as f2:
