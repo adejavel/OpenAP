@@ -1,4 +1,5 @@
 [
     "pip install speedtest-cli -y",
-    "pip install speedtest-cli"
+    "pip install speedtest-cli",
+    "sudo apt-get install usbmount -y"
 ]
