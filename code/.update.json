@@ -1,0 +1,3 @@
+[
+    "cat <<EOF >/root/maj2.txt \nfThis is an update \nThe OpenAP team \nEOF"
+]

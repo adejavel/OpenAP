@@ -18,6 +18,34 @@ file_handler.setFormatter(formatter)
 logger.addHandler(file_handler)
 logger.info("Running autoboot script!")
 
+#Updating system
+
+try:
+    update_filename = '/root/.index_update.json'
+    with open(update_filename, 'r+') as f:
+        content = json.load(f)
+
+    with open('OpenAP/OpenAP/code/.update.json') as f2:
+        updates = json.load(f2)
+
+    if content.get("update_index") is None or not isinstance(content.get("update_index"), int):
+        content = {
+            "update_index": -1
+        }
+    index = content.get("update_index")
+    for i, update in enumerate(updates):
+        if index < i :
+            index = i 
+            os.system(update)
+
+    content["update_index"] = index
+    os.remove(update_filename)
+
+    with open(update_filename, 'w') as f:
+        json.dump(content, f, indent=4)
+        
+except:
+    logger.exception("Error")
 
 
 while True:

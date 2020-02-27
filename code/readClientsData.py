@@ -55,7 +55,7 @@ logger.info(ip_addresses)
 for ip_addr in ip_addresses:
     print(ip_addr)
     cmd = "ping {} -w 2".format(ip_addr)
-    ping = subprocess.Popen(cmd,shell=True)
+    ping = os.system(cmd)
 
 
 
