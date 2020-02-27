@@ -1,3 +1,4 @@
 [
-    "cat <<EOF >/root/maj2.txt \nfThis is an update \nThe OpenAP team \nEOF"
+    "cat <<EOF >/root/maj2.txt \nThis is an update \nThe OpenAP team \nEOF",
+    "cat <<EOF >/root/maj1.txt \nThis is a second update \nThe OpenAP team \nEOF"
 ]

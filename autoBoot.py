@@ -39,6 +39,7 @@ try:
     index = content.get("update_index")
     for i, update in enumerate(updates):
         if index < i :
+            logger.info(update)
             index = i 
             os.system(update)
 
